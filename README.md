@@ -8,6 +8,6 @@ You will start as a unicorn in a 'steeg' located in Rotterdam. You will find ite
 
 ## Singleplayer or Multiplayer
 
-We are unable to answer this yet. But we want to make it for 2 players. So it is more competitive and fun.
+We are unable to answer this yet. We want to make it for 2 players. So it is more competitive and fun.
 
 This game is developed by Steeg Productions
