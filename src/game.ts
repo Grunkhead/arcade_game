@@ -1,16 +1,33 @@
 import "phaser";
-import { GameScene } from "./gameScene";
+// import { GameScene } from "./gameScene";
+
 const config: GameConfig = {
-    title: "Starfall",
-    width: 800,
-    height: 600,
+    title: "Shit Horses",
+    version: "1.0",
+    width: 1440,
+    height: 900,
+    scene: [],
     parent: "game",
-    scene: [GameScene],
+    input: {
+        keyboard: true
+    },
     physics: {
         default: "arcade",
         arcade: {
-            debug: false
+            gravity: { y: 475 },
+            debug: true
         }
     },
-    backgroundColor: "#000033"
+    backgroundColor: "#000000",
+    render: { pixelArt: true, antialias: false }
+};
+
+export class ShitHorsesGame extends Phaser.Game {
+    constructor(config: GameConfig) {
+        super(config);
+    }
+}
+
+window.onload = () => {
+    var game = new ShitHorsesGame(config);
 };
