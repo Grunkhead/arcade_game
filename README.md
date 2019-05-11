@@ -10,4 +10,26 @@ You will start as a unicorn in a 'steeg' located in Rotterdam. You will find ite
 
 We are unable to answer this yet. We want to make it for 2 players. So it is more competitive and fun.
 
-This game is developed by Steeg Productions
+## Installation
+
+*The installation guide might change over time!*
+
+I assume that you already have the following programs installed: NodeJS, NPM, Typescript and Phaser 3.
+
+1. Download or clone the repository.
+2. Install the packages by executing the following cmd 'npm install' while in the repository.
+3. Start the game by executing the following cmd 'npm start'.
+
+
+- **_This game is developed by_** -
+
+```
+   _____ _                    _____               _            _   _                 
+  / ____| |                  |  __ \             | |          | | (_)                
+ | (___ | |_ ___  ___  __ _  | |__) _ __ ___   __| |_   _  ___| |_ _  ___  _ __  ___ 
+  \___ \| __/ _ \/ _ \/ _` | |  ___| '__/ _ \ / _` | | | |/ __| __| |/ _ \| '_ \/ __|
+  ____) | ||  __|  __| (_| | | |   | | | (_) | (_| | |_| | (__| |_| | (_) | | | \__ \
+ |_____/ \__\___|\___|\__, | |_|   |_|  \___/ \__,_|\__,_|\___|\__|_|\___/|_| |_|___/
+                       __/ |                                                         
+                      |___/                                                          
+```
