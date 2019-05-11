@@ -2,11 +2,12 @@
 
 export class Unicorn {
 
-    health: number = 100;
-    width:  number = 100;
-    height: number = 100;
+    private acceleration: number;
+    private health: number = 100;
+    private width:  number = 100;
+    private height: number = 100;
 
-    constructor() {}
+    constructor(params) {}
 
     init(): void {
     }
