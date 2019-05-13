@@ -1,9 +1,9 @@
-export class Base {
+export class Castle {
 
-    width: number  = 200;
+    width: number = 200;
     height: number = 200;
 
-    constructor() {}
+    constructor() { }
 
     init(): void {
     }
