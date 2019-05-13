@@ -1,12 +1,13 @@
 import "phaser";
 import { GameScene } from "./gameScene";
+import { DimensionScene } from "./dimensionScene";
 
 const config: GameConfig = {
     title: "Shit Horses",
     version: "1.0",
     width: 1440,
     height: 900,
-    scene: [GameScene],
+    scene: [GameScene, DimensionScene],
     parent: "game",
     input: {
         keyboard: true
