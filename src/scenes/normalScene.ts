@@ -39,7 +39,6 @@ export class NormalScene extends Phaser.Scene {
 
         // Player
         new Unicorn(this, 340, 510);
-        
     }
 
     // Update the game based on logic or input.
@@ -66,5 +65,16 @@ export class NormalScene extends Phaser.Scene {
         // Colorize the ground
         graphic.fillRectShape(ground);
         graphicLine.fillRectShape(groundLine)
+
+        this.drawGrass();
+    }
+
+    drawGrass(): void {
+        for (let i = 0; i < 4; i++) {
+            let grass = this.add.sprite(1040 / i, 830, 'grass');
+
+            grass.setScale(3);
+            grass.depth = 1;
+        }
     }
 };
