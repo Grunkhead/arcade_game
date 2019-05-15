@@ -34,11 +34,11 @@ export class NormalScene extends Phaser.Scene {
         // Middle platform.
         this.platform = new Platform(this, 720, 410);
         // Bottom platforms.
-        new Platform(this, 240, 600);
-        new Platform(this, 1200, 600);
+        new Platform(this, 320, 580);
+        new Platform(this, 1120, 580);
 
         // Player
-        new Unicorn(this, 340, 530);
+        new Unicorn(this, 340, 510);
         
     }
 
