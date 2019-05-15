@@ -1,10 +1,12 @@
 import "phaser";
 
+import { Unicorn } from "../objects/unicorn";
 import { Blackhole } from "../objects/blackhole";
 import { Platform } from "../objects/platform";
 
 export class NormalScene extends Phaser.Scene {
 
+    unicorn: Unicorn;
     blackhole: Blackhole;
     platform: Platform;
 
@@ -34,6 +36,9 @@ export class NormalScene extends Phaser.Scene {
         // Bottom platforms.
         new Platform(this, 240, 600);
         new Platform(this, 1200, 600);
+
+        // Player
+        new Unicorn(this, 340, 530);
         
     }
 
