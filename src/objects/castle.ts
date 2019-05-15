@@ -3,14 +3,7 @@ export class Castle {
     width: number = 200;
     height: number = 200;
 
-    constructor() { }
-
-    init(): void {
-    }
-
-    // Load assets before it is used. To prevent delay.
-    preload(): void {
-    }
+    constructor() {}
 
     // Create the items for the game.
     create(): void {

@@ -7,18 +7,7 @@ export class Unicorn {
     private width:  number = 100;
     private height: number = 100;
 
-    constructor(params) {}
-
-    init(): void {
-    }
-
-    // Load assets before it is used. To prevent delay.
-    preload(): void {
-    }
-
-    // Create the items for the game.
-    create(): void {
-    }
+    constructor() {}
 
     // Update the game based on logic or input.
     update(): void {
