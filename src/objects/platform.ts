@@ -8,6 +8,10 @@ export class Platform extends Phaser.GameObjects.Sprite {
     width: number;
     height: number;
 
+    moveRight: boolean = true;
+    moveLeft: boolean;
+    speed: number = 3;
+
     currentSprite: string;
 
     constructor(scene: Phaser.Scene, x: number, y: number) {
@@ -24,5 +28,32 @@ export class Platform extends Phaser.GameObjects.Sprite {
 
     // Update the game based on logic or input.
     public update(): void {
+        this.checkLocation();
+        this.move();
+    }
+
+    private move(): void {
+
+        if (this.moveLeft) {
+            this.x -= this.speed;
+        }
+
+        if (this.moveRight) {
+            this.x += this.speed;
+        }
+    }
+
+    private checkLocation(): void {
+
+        if (this.x < 200) {
+            this.moveRight = true;
+            this.moveLeft  = false;
+        }
+
+        if (this.x > 1240) {
+            this.moveLeft  = true;
+            this.moveRight = false;
+
+        }
     }
 };

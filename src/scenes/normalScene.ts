@@ -26,25 +26,27 @@ export class NormalScene extends Phaser.Scene {
         this.drawGround();
         this.setBackground();
 
-        new Blackhole(this, 240, 90);
+        new Blackhole(this, 320, 180);
         
         // Top platforms.
-        new Platform(this, 240, 200);
-        new Platform(this, 1200, 200);
+        new Platform(this, 320, 280);
+        new Platform(this, 1120, 280);
         // Middle platform.
-        new Platform(this, 720, 400);
+        this.platform = new Platform(this, 720, 410);
         // Bottom platforms.
         new Platform(this, 240, 600);
         new Platform(this, 1200, 600);
 
         // Player
         new Unicorn(this, 340, 530);
+        new Platform(this, 320, 580);
+        new Platform(this, 1120, 580);
         
     }
 
     // Update the game based on logic or input.
     update(): void {
-
+        this.platform.update();
     }
 
     setBackground(): void {
