@@ -39,8 +39,6 @@ export class NormalScene extends Phaser.Scene {
 
         // Player
         new Unicorn(this, 340, 530);
-        new Platform(this, 320, 580);
-        new Platform(this, 1120, 580);
         
     }
 
