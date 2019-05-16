@@ -1,14 +1,9 @@
-// export class Platform extends Phaser.GameObjects.Sprite {
-
-    export class Platform extends Phaser.Physics.Arcade.Sprite {
+export class Platform extends Phaser.Physics.Arcade.Sprite {
 
     scene: Phaser.Scene;
 
     x: number;
     y: number;
-
-    width: number;
-    height: number;
 
     moveRight: boolean = true;
     moveLeft: boolean;
@@ -16,7 +11,7 @@
 
     currentSprite: string;
 
-    constructor(scene, x: number, y: number, texture:string, friction:number = 1) {
+    constructor(scene, x: number, y: number, texture: string, friction: number = 1) {
         super(scene, x, y, 'platform');
 
         this.scene = scene;
@@ -26,12 +21,19 @@
         this.y = y;
 
         this.scene.add.existing(this);
+        this.addPhysics();
     }
 
     // Update the game based on logic or input.
     public update(): void {
         this.checkLocation();
         this.move();
+    }
+
+    private addPhysics(): void {
+        this.scene.physics.add.existing(this);
+        this.body.setAllowGravity(false);
+        this.setSize(this.displayWidth, this.displayHeight);
     }
 
     private move(): void {
