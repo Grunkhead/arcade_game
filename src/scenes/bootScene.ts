@@ -29,10 +29,8 @@ export class BootScene extends Phaser.Scene {
         this.load.image('platform', 'assets/images/platform.png');
         this.load.image('bg-normal', 'assets/images/bg_normal.png');
         this.load.image('bg-hell', 'assets/images/bg_hell.jpg   ');
-        this.load.image('flagLeft', 'assets/images/flag.png');
-        this.load.image('flagRight', 'assets/images/flag.png');
-        this.load.image('castleLeft', 'assets/images/castle.png');
-        this.load.image('castleRight', 'assets/images/castle.png');
+        this.load.image('flag', 'assets/images/flag.png');
+        this.load.image('castle', 'assets/images/castle.png');
         this.load.image('unicornOne', 'assets/images/unicorn_smoking.png');
     }
 };

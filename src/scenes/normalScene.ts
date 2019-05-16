@@ -3,12 +3,14 @@ import "phaser";
 import { Unicorn } from "../objects/unicorn";
 import { Blackhole } from "../objects/blackhole";
 import { Platform } from "../objects/platform";
+import { Flag } from "../objects/flag";
 
 export class NormalScene extends Phaser.Scene {
 
     unicorn: Unicorn;
     blackhole: Blackhole;
     platform: Platform;
+    playerOne: Unicorn;
 
     constructor() {
         super({
@@ -26,16 +28,18 @@ export class NormalScene extends Phaser.Scene {
         this.drawGround();
         this.setBackground();
 
-        new Blackhole(this, 320, 180);
+        new Blackhole(this, 320, 150);
         
         // Top platforms.
-        new Platform(this, 320, 280);
-        new Platform(this, 1120, 280);
-        // Middle platform.
-        this.platform = new Platform(this, 720, 410);
+        new Platform(this, 320, 250);
+        new Platform(this, 1120, 250);
+
+        // Middle platform (this one moves).
+        this.platform = new Platform(this, 720, 450);
+
         // Bottom platforms.
-        new Platform(this, 240, 600);
-        new Platform(this, 1200, 600);
+        new Platform(this, 320, 600);
+        new Platform(this, 1120, 600);
 
         // Player
         this.unicorn = new Unicorn(this, 340, 530);
@@ -69,6 +73,7 @@ export class NormalScene extends Phaser.Scene {
         graphicLine.fillRectShape(groundLine)
 
         this.drawGrass();
+        this.drawCastles();
     }
 
     drawGrass(): void {
@@ -78,5 +83,10 @@ export class NormalScene extends Phaser.Scene {
             grass.setScale(3);
             grass.depth = 1;
         }
+    }
+
+    drawCastles(): void {
+        this.add.image(70, 820, 'castle').setScale(0.25);
+        this.add.image(1370, 820, 'castle').setScale(0.25);
     }
 };

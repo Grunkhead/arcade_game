@@ -1,36 +1,33 @@
 export class Platform extends Phaser.Physics.Arcade.Sprite {
-
     scene: Phaser.Scene;
+
+    speed:     number  = 3;
+    moveRight: boolean = true;
+    moveLeft:  boolean;
 
     x: number;
     y: number;
-
-    moveRight: boolean = true;
-    moveLeft: boolean;
-    speed: number = 3;
 
     currentSprite: string;
 
     constructor(scene, x: number, y: number, texture: string, friction: number = 1) {
         super(scene, x, y, 'platform');
-
         this.scene = scene;
-        this.setScale(5);
 
         this.x = x;
         this.y = y;
 
+        this.setScale(5);
+        this.setPhysics();
         this.scene.add.existing(this);
-        this.addPhysics();
     }
 
     // Update the game based on logic or input.
     public update(): void {
-        this.checkLocation();
         this.move();
     }
 
-    private addPhysics(): void {
+    private setPhysics(): void {
         this.scene.physics.add.existing(this);
         this.body.setAllowGravity(false);
         this.setSize(this.displayWidth, this.displayHeight);
@@ -38,26 +35,17 @@ export class Platform extends Phaser.Physics.Arcade.Sprite {
 
     private move(): void {
 
-        if (this.moveLeft) {
-            this.x -= this.speed;
-        }
-
-        if (this.moveRight) {
-            this.x += this.speed;
-        }
-    }
-
-    private checkLocation(): void {
-
-        if (this.x < 200) {
+        if (this.x < 320) {
             this.moveRight = true;
             this.moveLeft  = false;
         }
 
-        if (this.x > 1240) {
+        if (this.x > 1120) {
             this.moveLeft  = true;
             this.moveRight = false;
-
         }
+
+        if (this.moveLeft) { this.x -= this.speed; }
+        if (this.moveRight) { this.x += this.speed; }
     }
 };
