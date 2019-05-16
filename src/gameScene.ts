@@ -58,8 +58,8 @@ export class GameScene extends Phaser.Scene {
 
         var unicorn = this.add.image(200, 200, 'unicornOne');
         console.log("de code wordt uitgevoerd!")
-        unicorn.displayWidth = 100;
-        unicorn.displayHeight = 100;
+        unicorn.displayWidth = 50;
+        unicorn.displayHeight = 50;
 
         // If spacebar is pressed, show the dimension / hellish scene.
         this.spaceBar.on('down', () => {

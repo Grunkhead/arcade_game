@@ -1,4 +1,6 @@
-export class Platform extends Phaser.GameObjects.Sprite {
+// export class Platform extends Phaser.GameObjects.Sprite {
+
+    export class Platform extends Phaser.Physics.Arcade.Sprite {
 
     scene: Phaser.Scene;
 
@@ -14,7 +16,7 @@ export class Platform extends Phaser.GameObjects.Sprite {
 
     currentSprite: string;
 
-    constructor(scene: Phaser.Scene, x: number, y: number) {
+    constructor(scene, x: number, y: number, texture:string, friction:number = 1) {
         super(scene, x, y, 'platform');
 
         this.scene = scene;

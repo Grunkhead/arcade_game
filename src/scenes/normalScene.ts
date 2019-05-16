@@ -16,8 +16,10 @@ export class NormalScene extends Phaser.Scene {
         });
     }
 
-    init(): void {}
-
+    init(): void {
+        console.log("Dit is de normal-scene")
+    }
+    
     // Load assets before it is used. To prevent delay.
     preload(): void {}
 
@@ -38,15 +40,19 @@ export class NormalScene extends Phaser.Scene {
         new Platform(this, 1200, 600);
 
         // Player
-        new Unicorn(this, 340, 530);
-        new Platform(this, 320, 580);
-        new Platform(this, 1120, 580);
+        this.unicorn = new Unicorn(this, 340, 530);
+
+        //Random platform?
+        // new Platform(this, 320, 580);
+        // new Platform(this, 1120, 580);
         
     }
 
     // Update the game based on logic or input.
     update(): void {
         this.platform.update();
+        // this.unicorn.update();
+        this.unicorn.update()
     }
 
     setBackground(): void {
