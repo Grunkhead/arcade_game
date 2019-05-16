@@ -25,13 +25,14 @@ export class BootScene extends Phaser.Scene {
             this.load.image('blackhole_' + i, 'assets/animations/blackhole/blackhole_' + i + '.png');
         }
 
+        this.load.image('grass', 'assets/images/grass.png');
         this.load.image('platform', 'assets/images/platform.png');
-        this.load.image('bg-normal', 'assets/images/bg-normal.png');
-        this.load.image('bg-hell', 'assets/images/bg-hell.jpg   ');
+        this.load.image('bg-normal', 'assets/images/bg_normal.png');
+        this.load.image('bg-hell', 'assets/images/bg_hell.jpg   ');
         this.load.image('flagLeft', 'assets/images/flag.png');
         this.load.image('flagRight', 'assets/images/flag.png');
         this.load.image('castleLeft', 'assets/images/castle.png');
         this.load.image('castleRight', 'assets/images/castle.png');
-        this.load.image('unicornOne', 'assets/images/smokinUnicorn.png');
+        this.load.image('unicornOne', 'assets/images/unicorn_smoking.png');
     }
 };
