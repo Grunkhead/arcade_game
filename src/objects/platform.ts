@@ -32,7 +32,7 @@ export class Platform extends Phaser.Physics.Arcade.Sprite {
         this.scene.physics.add.existing(this);
         this.body.setAllowGravity(false);
         this.setCollideWorldBounds(true);
-        this.setSize(this.displayWidth, this.displayHeight);
+        this.setSize(this.displayWidth + 1, this.displayHeight + 1);
     }
 
     private move(): void {

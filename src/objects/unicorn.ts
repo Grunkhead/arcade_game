@@ -11,6 +11,7 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     private x: number; 
     private y: number;
 
+    private speed: number = 0;
     private speedLeft:  number = 0;
     private speedRight: number = 0;
     private speedUp:    number = 0;
@@ -18,19 +19,23 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
 
     private acceleration: number;
     private health:   number = 100;
+    private unicorn = Unicorn;
+
     // private width:    number = 100;
     // private height:   number = 100;
 
+    //Assign specific keys
     private keyLeft:  number = 65; // W
     private keyRight: number = 68; // A
     private keyUp:    number = 87; // S
     private keyDown:  number = 83; // D
+    private keyDash:  number = 67; // C
 
     constructor(scene: NormalScene, x: number, y: number) {
         super(scene, x, y, 'unicornOne')
 
         this.scene = scene;
-        this.setScale(0.5);
+        this.setScale(0.3);
 
         this.x = x;
         this.y = y;
@@ -43,7 +48,7 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
 
     private setPhysics(): void {
         this.scene.physics.add.existing(this);
-        this.body.setAllowGravity(false);
+        this.body.setAllowGravity(true);
         this.setCollideWorldBounds(true)
         
         // Add some extra width and height because of smaller hitbox.
@@ -69,6 +74,8 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         if (e.keyCode == this.keyRight && this.speedRight < 5) { this.speedRight += 5; }
         if (e.keyCode == this.keyUp && this.speedUp < 5)    { this.speedUp += 5; }
         if (e.keyCode == this.keyDown && this.speedDown < 5)  { this.speedDown += 5; }
+            //Add dash
+        if (e.keyCode == this.keyDash)  { this.speedLeft * 2; }
     }
 
     // Reset a specific speed when a key is released.

@@ -34,3 +34,5 @@ export class BootScene extends Phaser.Scene {
         this.load.image('unicornOne', 'assets/images/unicorn_smoking.png');
     }
 };
+
+
