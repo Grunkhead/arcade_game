@@ -1,4 +1,5 @@
 export class Platform extends Phaser.Physics.Arcade.Sprite {
+    
     scene: Phaser.Scene;
 
     speed:     number  = 3;
@@ -17,7 +18,7 @@ export class Platform extends Phaser.Physics.Arcade.Sprite {
         this.x = x;
         this.y = y;
 
-        this.setScale(5);
+        this.setScale(2);
         this.setPhysics();
         this.scene.add.existing(this);
     }
@@ -30,6 +31,7 @@ export class Platform extends Phaser.Physics.Arcade.Sprite {
     private setPhysics(): void {
         this.scene.physics.add.existing(this);
         this.body.setAllowGravity(false);
+        this.setCollideWorldBounds(true);
         this.setSize(this.displayWidth, this.displayHeight);
     }
 

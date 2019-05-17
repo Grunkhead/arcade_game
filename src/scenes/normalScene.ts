@@ -27,6 +27,9 @@ export class NormalScene extends Phaser.Scene {
     create(): void {
         this.drawGround();
         this.setBackground();
+       
+        // Test for camera
+        // this.camera();
 
         new Blackhole(this, 320, 150);
         
@@ -48,9 +51,23 @@ export class NormalScene extends Phaser.Scene {
     // Update the game based on logic or input.
     update(): void {
         this.platform.update();
-        // this.unicorn.update();
         this.unicorn.update();
     }
+
+    // camera(): void {
+    //     this.camera = this.cameras.main.setBounds(0, 0, 640, 340);
+
+    //     // make the camera follow the player  
+    //     this.camera.startFollow(this.player);
+
+    //     // set background color, so the sky is not black  
+    //     this.camera.setBackgroundColor('#000000');
+    //    // Zoom ?
+    //     this.camera.zoomTo(  
+    //         2, //zoom distance   
+    //         1000 // duration/speed of zoom
+    //         );
+    // }
 
     setBackground(): void {
         const background = this.add.image(720, 450, 'bg-normal');
