@@ -1,36 +1,42 @@
 export class Platform extends Phaser.Physics.Arcade.Sprite {
-    scene: Phaser.Scene;
+    private scene: Phaser.Scene;
 
-    speed:     number  = 3;
-    moveRight: boolean = true;
-    moveLeft:  boolean;
+    private speed:     number  = 3;
+    public moveRight: boolean = true;
+    public moveLeft:  boolean;
+
+    private dynamic: boolean = false;
 
     x: number;
     y: number;
 
-    currentSprite: string;
+    constructor(params) {
+        super(params.scene, params.x, params.y, 'platform');
+        this.scene = params.scene;
 
-    constructor(scene, x: number, y: number, texture: string, friction: number = 1) {
-        super(scene, x, y, 'platform');
-        this.scene = scene;
+        this.x = params.x;
+        this.y = params.y;
 
-        this.x = x;
-        this.y = y;
+        this.width  = 160;
+        this.height = 30;
+
+        this.dynamic = params.dynamic;
 
         this.setScale(5);
         this.setPhysics();
+        
         this.scene.add.existing(this);
     }
 
     // Update the game based on logic or input.
     public update(): void {
-        this.move();
+        if (this.dynamic) { this.move(); }
     }
 
     private setPhysics(): void {
         this.scene.physics.add.existing(this);
         this.body.setAllowGravity(false);
-        this.setSize(this.displayWidth, this.displayHeight);
+        this.body.setImmovable(true);
     }
 
     private move(): void {

@@ -6,10 +6,9 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     private normalScene : NormalScene
 
     private scene: Phaser.Scene;
-    private currentSprite: string;
 
-    private x: number; 
-    private y: number;
+    public x: number; 
+    public y: number;
 
     private speedLeft:  number = 0;
     private speedRight: number = 0;
@@ -17,7 +16,7 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     private speedDown:  number = 0;
 
     private acceleration: number;
-    private health:   number = 100;
+    private health:       number = 100;
     // private width:    number = 100;
     // private height:   number = 100;
 
@@ -65,10 +64,10 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
 
     // Increase speed when a specific key is pressed.
     private onKeyDown(e: KeyboardEvent): void {
-        if (e.keyCode == this.keyLeft && this.speedLeft < 5)  { this.speedLeft += 5; }
-        if (e.keyCode == this.keyRight && this.speedRight < 5) { this.speedRight += 5; }
-        if (e.keyCode == this.keyUp && this.speedUp < 5)    { this.speedUp += 5; }
-        if (e.keyCode == this.keyDown && this.speedDown < 5)  { this.speedDown += 5; }
+        if (e.keyCode == this.keyLeft)  { this.speedLeft  += 5; }
+        if (e.keyCode == this.keyRight) { this.speedRight += 5; }
+        if (e.keyCode == this.keyUp)    { this.speedUp    += 5; }
+        if (e.keyCode == this.keyDown)  { this.speedDown  += 5; }
     }
 
     // Reset a specific speed when a key is released.
