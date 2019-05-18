@@ -10,6 +10,7 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     public x: number; 
     public y: number;
 
+    // private speed: number = 5;
     private speedLeft:  number = 0;
     private speedRight: number = 0;
     private speedUp:    number = 0;
@@ -24,12 +25,13 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     private keyRight: number = 68; // A
     private keyUp:    number = 87; // S
     private keyDown:  number = 83; // D
+    private keyDash:  number = 9;  // TAB
 
     constructor(scene: NormalScene, x: number, y: number) {
-        super(scene, x, y, 'unicornOne')
+        super(scene, x, y, 'morty')
 
         this.scene = scene;
-        this.setScale(0.5);
+        this.setScale(0.3);
 
         this.x = x;
         this.y = y;
@@ -42,7 +44,7 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
 
     private setPhysics(): void {
         this.scene.physics.add.existing(this);
-        this.body.setAllowGravity(false);
+        this.body.setAllowGravity(true);
         this.setCollideWorldBounds(true)
         
         // Add some extra width and height because of smaller hitbox.
@@ -54,7 +56,6 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         this.move();
     }
 
-    // Bind the 
     private move(): void {
         this.x -= this.speedLeft;
         this.x += this.speedRight;

@@ -39,7 +39,6 @@ export class NormalScene extends Phaser.Scene {
             x: 320,
             y: 250
         }),  true);
-        
         this.platforms.add(new Platform({
             scene: this,
             x: 1120, 
@@ -60,7 +59,6 @@ export class NormalScene extends Phaser.Scene {
             x: 320,
             y: 600
         }), true);
-        
         this.platforms.add(new Platform({
             scene: this,
             x: 1120,
@@ -75,8 +73,11 @@ export class NormalScene extends Phaser.Scene {
     }
 
     followPlatform(unicorn: Unicorn, platform: Platform): void {
-        if (platform.moveLeft) { unicorn.x -= 3; }
-        if (platform.moveRight) { unicorn.x += 3; }
+
+        if (platform.dynamic) {
+            if (platform.moveLeft) { unicorn.x -= 3; }
+            if (platform.moveRight) { unicorn.x += 3; }
+        }
     }
 
     // Update the game based on logic or input.
@@ -92,7 +93,6 @@ export class NormalScene extends Phaser.Scene {
     }
 
     drawGround(): void {
-        // Create rectangles
         const ground = new Phaser.Geom.Rectangle(0, 850, 1440, 50);
         const groundLine = new Phaser.Geom.Rectangle(0, 849, 1440, 1);
 
@@ -100,7 +100,7 @@ export class NormalScene extends Phaser.Scene {
         const graphic = this.add.graphics({ fillStyle: { color: 0x7ec850 } });
         const graphicLine = this.add.graphics({ fillStyle: { color: 0x6b9c58 } });
 
-        // Colorize the ground
+        // Colorize the ground.
         graphic.fillRectShape(ground);
         graphicLine.fillRectShape(groundLine)
 

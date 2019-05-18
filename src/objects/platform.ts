@@ -1,11 +1,14 @@
 export class Platform extends Phaser.Physics.Arcade.Sprite {
     private scene: Phaser.Scene;
 
-    private speed:     number  = 3;
+    private speed:    number  = 3;
     public moveRight: boolean = true;
     public moveLeft:  boolean;
 
-    private dynamic: boolean = false;
+    public dynamic: boolean = false;
+
+    private width: number = 160;
+    private height: number = 30;
 
     x: number;
     y: number;
@@ -16,9 +19,6 @@ export class Platform extends Phaser.Physics.Arcade.Sprite {
 
         this.x = params.x;
         this.y = params.y;
-
-        this.width  = 160;
-        this.height = 30;
 
         this.dynamic = params.dynamic;
 
