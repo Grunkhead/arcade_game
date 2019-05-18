@@ -46,12 +46,6 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         this.x = x;
         this.y = y;
 
-        //spriteSheet constructor values
-
-        // this.frame = 0
-        // this.unicorn = document.getElementsByTagName("player")[0]!
-        // this.update()
-
         this.setEventListeners();
         this.setPhysics();
         
@@ -63,16 +57,15 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         this.body.setAllowGravity(true);
         this.setCollideWorldBounds(true)
         
-            // Add some extra width and height because of smaller hitbox.
+        // Add some extra width and height because of smaller hitbox.
         this.setSize(this.displayWidth + 60, this.displayHeight + 60);
     }
 
-            // Update the game based on logic or input.
+    // Update the game based on logic or input.
     public update(): void {
         this.move();
     }
 
-            // Bind the 
     private move(): void {
         this.x -= this.speedLeft;
         this.x += this.speedRight;
@@ -80,15 +73,12 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         this.y += this.speedDown;
     }
 
-            // Increase speed when a specific key is pressed.
+    // Increase speed when a specific key is pressed.
     private onKeyDown(e: KeyboardEvent): void {
-        if (e.keyCode == this.keyLeft && this.speedLeft < 5)  { this.speedLeft += 5; }
-        if (e.keyCode == this.keyRight && this.speedRight < 5) { this.speedRight += 5; }
-        if (e.keyCode == this.keyUp && this.speedUp < 5)    { this.speedUp += 5; }
-        if (e.keyCode == this.keyDown && this.speedDown < 5)  { this.speedDown += 5; }
-          
-            //Add dash
-        // if (e.keyCode == this.keyLeft && e.keyCode == this.keyDash)  { this.speedLeft * 5; }
+        if (e.keyCode == this.keyLeft)  { this.speedLeft  += 5; }
+        if (e.keyCode == this.keyRight) { this.speedRight += 5; }
+        if (e.keyCode == this.keyUp)    { this.speedUp    += 5; }
+        if (e.keyCode == this.keyDown)  { this.speedDown  += 5; }
     }
 
     // Reset a specific speed when a key is released.

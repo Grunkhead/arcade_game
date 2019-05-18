@@ -4,13 +4,14 @@ import { Unicorn } from "../objects/unicorn";
 import { Blackhole } from "../objects/blackhole";
 import { Platform } from "../objects/platform";
 import { Flag } from "../objects/flag";
+import { log } from "util";
 
 export class NormalScene extends Phaser.Scene {
 
-    unicorn: Unicorn;
-    blackhole: Blackhole;
-    platform: Platform;
-    playerOne: Unicorn;
+    private unicorn: Unicorn;
+    private blackhole: Blackhole;
+    private platforms: Phaser.GameObjects.Group;
+    private playerOne: Unicorn;
 
     constructor() {
         super({
@@ -27,47 +28,58 @@ export class NormalScene extends Phaser.Scene {
     create(): void {
         this.drawGround();
         this.setBackground();
-       
-        // Test for camera
-        // this.camera();
 
         new Blackhole(this, 320, 150);
-        
+
+        this.platforms = this.add.group({ runChildUpdate: true })
+
         // Top platforms.
-        new Platform(this, 320, 250);
-        new Platform(this, 1120, 250);
+        this.platforms.add(new Platform({
+            scene: this,
+            x: 320,
+            y: 250
+        }),  true);
+        this.platforms.add(new Platform({
+            scene: this,
+            x: 1120, 
+            y: 250
+        }), true);
 
         // Middle platform (this one moves).
-        this.platform = new Platform(this, 720, 450);
+        this.platforms.add(new Platform({
+            scene: this,
+            x: 720,
+            y: 450,
+            dynamic: true
+        }), true);
 
         // Bottom platforms.
-        new Platform(this, 320, 600);
-        new Platform(this, 1120, 600);
+        this.platforms.add(new Platform({
+            scene: this,
+            x: 320,
+            y: 600
+        }), true);
+        this.platforms.add(new Platform({
+            scene: this,
+            x: 1120,
+            y: 600
+        }), true);
 
-        // Player
-        this.unicorn = new Unicorn(this, 340, 530);
+        // Define player.
+        this.playerOne = new Unicorn(this, 340, 450);
+
+        // Add collision detection between objects.
+        this.physics.add.collider(this.playerOne, this.platforms, this.followPlatform);
+    }
+
+    followPlatform(unicorn: Unicorn, platform: Platform): void {
+        platform.addFollower(unicorn);
     }
 
     // Update the game based on logic or input.
     update(): void {
-        this.platform.update();
-        this.unicorn.update();
+        this.playerOne.update();
     }
-
-    // camera(): void {
-    //     this.camera = this.cameras.main.setBounds(0, 0, 640, 340);
-
-    //     // make the camera follow the player  
-    //     this.camera.startFollow(this.player);
-
-    //     // set background color, so the sky is not black  
-    //     this.camera.setBackgroundColor('#000000');
-    //    // Zoom ?
-    //     this.camera.zoomTo(  
-    //         2, //zoom distance   
-    //         1000 // duration/speed of zoom
-    //         );
-    // }
 
     setBackground(): void {
         const background = this.add.image(720, 450, 'bg-normal');
@@ -77,7 +89,6 @@ export class NormalScene extends Phaser.Scene {
     }
 
     drawGround(): void {
-        // Create rectangles
         const ground = new Phaser.Geom.Rectangle(0, 850, 1440, 50);
         const groundLine = new Phaser.Geom.Rectangle(0, 849, 1440, 1);
 
@@ -85,7 +96,7 @@ export class NormalScene extends Phaser.Scene {
         const graphic = this.add.graphics({ fillStyle: { color: 0x7ec850 } });
         const graphicLine = this.add.graphics({ fillStyle: { color: 0x6b9c58 } });
 
-        // Colorize the ground
+        // Colorize the ground.
         graphic.fillRectShape(ground);
         graphicLine.fillRectShape(groundLine)
 
