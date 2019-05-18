@@ -1,28 +1,25 @@
 export class Platform extends Phaser.Physics.Arcade.Sprite {
-    private scene: Phaser.Scene;
+    scene: Phaser.Scene;
 
-    public speed:     number  = 3;
-    public moveRight: boolean = true;
-    public moveLeft:  boolean;
+    speed:     number  = 3;
+    moveRight: boolean = true;
+    moveLeft:  boolean;
 
-    public dynamic: boolean = false;
+    dynamic: boolean = false;
 
-    private width: number;
-    private height: number;
+    width: number;
+    height: number;
 
-    private spriteName: string = 'platform';
+    spriteName: string;
 
     x: number;
     y: number;
 
     constructor(params) {
-        // Check if any sprite name is passed on creation.
-        if (params.spriteName) { this.spriteName = params.spriteName }
-
         super(params.scene, 
-              params.x, 
+              params.x,
               params.y, 
-              this.spriteName
+              params.spriteName
         );
 
         // Set width and height here, because of bug?

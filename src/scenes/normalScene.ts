@@ -12,6 +12,7 @@ export class NormalScene extends Phaser.Scene {
     private blackhole: Blackhole;
     private platforms: Phaser.GameObjects.Group;
     private playerOne: Unicorn;
+    private playerTwo: Unicorn;
 
     constructor() {
         super({
@@ -19,17 +20,12 @@ export class NormalScene extends Phaser.Scene {
         });
     }
 
-    init(): void {}
-    
-    // Load assets before it is used. To prevent delay.
-    preload(): void {}
-
     // Create the items for the game.
     create(): void {
         this.drawGround();
         this.setBackground();
 
-        new Blackhole(this, 320, 150);
+        this.blackhole = new Blackhole(this, 320, 150);
 
         this.platforms = this.add.group({ runChildUpdate: true })
 
@@ -37,12 +33,14 @@ export class NormalScene extends Phaser.Scene {
         this.platforms.add(new Platform({
             scene: this,
             x: 320,
-            y: 250
+            y: 250,
+            spriteName: 'platform'
         }),  true);
         this.platforms.add(new Platform({
             scene: this,
             x: 1120, 
-            y: 250
+            y: 250,
+            spriteName: 'platform'
         }), true);
 
         // Create middle platform (this one moves).
@@ -50,6 +48,7 @@ export class NormalScene extends Phaser.Scene {
             scene: this,
             x: 720,
             y: 450,
+            spriteName: 'platform_snow',
             dynamic: true
         }), true);
 
@@ -57,12 +56,14 @@ export class NormalScene extends Phaser.Scene {
         this.platforms.add(new Platform({
             scene: this,
             x: 320,
-            y: 600
+            y: 600,
+            spriteName: 'platform'
         }), true);
         this.platforms.add(new Platform({
             scene: this,
             x: 1120,
-            y: 600
+            y: 600,
+            spriteName: 'platform'
         }), true);
 
         // Create players.
@@ -70,22 +71,50 @@ export class NormalScene extends Phaser.Scene {
             scene: this,
             x: 340,
             y: 450,
-            spriteName: 'morty'
+            spriteName: 'morty',
+            keys: {
+                left: 65,  // W
+                right: 68, // A
+                up: 87,    // S
+                down: 83,  // D
+                dash: 9    // TAB
+            }
         });
 
         this.playerTwo = new Unicorn({
             scene: this,
             x: 640,
             y: 450,
-            spriteName: 'rick'
+            spriteName: 'rick',
+            keys: {
+                left: 65,  // W
+                right: 68, // A
+                up: 87,    // S
+                down: 83,  // D
+                dash: 9    // TAB
+            }
         });
 
-        // Add collision detection between objects.
-        this.physics.add.collider(this.playerOne, this.platforms, this.followPlatform);
-    }
+        // Grab the middle platform which moves.
+        const platform = this.platforms.children.entries[2];
+        const callback = () => { platform.addFollower(this.playerOne) } 
 
-    followPlatform(unicorn: Unicorn, platform: Platform): void {
-        platform.addFollower(unicorn);
+        this.physics.add.collider(
+            this.playerOne,
+            this.platforms.children.entries[2],
+            callback
+        );
+
+        this.physics.add.collider(
+            this.playerOne,
+            this.platforms
+        );
+        
+        // this.physics.add.collider(
+        //     this.playerTwo, 
+        //     this.blackhole, 
+        //     this.blackhole.suckObject
+        // );
     }
 
     // Update the game based on logic or input.

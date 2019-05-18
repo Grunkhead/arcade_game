@@ -2,49 +2,44 @@ import { NormalScene } from "../scenes/normalScene"
 
 export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     
-    protected cursors: Phaser.Input.Keyboard.CursorKeys
-    protected normalScene : NormalScene
+    cursors: Phaser.Input.Keyboard.CursorKeys
+    normalScene : NormalScene
 
-    private scene: Phaser.Scene;
-    protected currentSprite: string;
+    static playerCount: number;
 
-    protected x: number; 
-    protected y: number;
+    scene: Phaser.Scene;
+
+    x: number; 
+    y: number;
 
     // private speed: number = 5;
-    private speedLeft:  number = 0;
-    private speedRight: number = 0;
-    private speedUp:    number = 0;
-    private speedDown:  number = 0;
+    speedLeft:  number = 0;
+    speedRight: number = 0;
+    speedUp:    number = 0;
+    speedDown:  number = 0;
 
-    protected acceleration: number;
-    protected health:   number = 100;
+    acceleration: number;
+    health:   number = 100;
 
-    private width:    number = 100;
-    private height:   number = 100;
+    width:    number = 100;
+    height:   number = 100;
 
-    // Spritesheet global values.
-    // protected frames: number = 12;
-    // private frame: number = 0;
-    // protected framewidth: number = 102;
-    // protected speedcounter: number = 0;
-
-    //Assign specific keys
-    private keyLeft:  number = 65; // W
-    private keyRight: number = 68; // A
-    private keyUp:    number = 87; // S
-    private keyDown:  number = 83; // D
-    private keyDash:  number = 9;  // TAB
+    // Assign key controls.
+    keys: any = {};
 
     constructor(params) {
         super(params.scene,
-              params.x, 
+              params.x,
               params.y, 
               params.spriteName
         );
 
+        this.keys = params.keys;
+
+        this.playerCount++;
+
         this.scene = params.scene;
-        this.setScale(0.3);
+        this.setScale(0.7);
 
         this.x = params.x;
         this.y = params.y;
@@ -61,7 +56,7 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         this.setCollideWorldBounds(true)
         
         // Add some extra width and height because of smaller hitbox.
-        this.setSize(this.displayWidth + 60, this.displayHeight + 60);
+        this.setSize(this.displayWidth + 20, this.displayHeight + 20);
     }
 
     // Update the game based on logic or input.
@@ -78,23 +73,33 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
 
     // Increase speed when a specific key is pressed.
     private onKeyDown(e: KeyboardEvent): void {
-        if (e.keyCode == this.keyLeft)  { this.speedLeft  += 5; }
-        if (e.keyCode == this.keyRight) { this.speedRight += 5; }
-        if (e.keyCode == this.keyUp)    { this.speedUp    += 5; }
-        if (e.keyCode == this.keyDown)  { this.speedDown  += 5; }
+        if (e.keyCode == this.keys.left)  { this.speedLeft  += 5; }
+        if (e.keyCode == this.keys.right) { this.speedRight += 5; }
+        if (e.keyCode == this.keys.up)    { this.speedUp    += 5; }
+        if (e.keyCode == this.keys.down)  { this.speedDown  += 5; }
     }
 
     // Reset a specific speed when a key is released.
     private onKeyUp(e: KeyboardEvent): void {
-        if (e.keyCode == this.keyLeft)  { this.speedLeft = 0; }
-        if (e.keyCode == this.keyRight) { this.speedRight = 0; }
-        if (e.keyCode == this.keyUp)    { this.speedUp = 0; }
-        if (e.keyCode == this.keyDown)  { this.speedDown = 0; }
+        if (e.keyCode == this.keys.left)  { this.speedLeft  = 0; }
+        if (e.keyCode == this.keys.right) { this.speedRight = 0; }
+        if (e.keyCode == this.keys.up)    { this.speedUp    = 0; }
+        if (e.keyCode == this.keys.down)  { this.speedDown  = 0; }
     }
 
     setEventListeners(): void {
         // Listen to the key up and down events.
         document.addEventListener("keydown", (e: KeyboardEvent) => this.onKeyDown(e));
         document.addEventListener("keyup", (e: KeyboardEvent) => this.onKeyUp(e));
+    }
+
+    setPlayerControls(): void {
+        if (this.playerCount == 1) {
+
+        }
+
+        if (this.playerCount == 2) {
+            
+        }
     }
 };

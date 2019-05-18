@@ -21,4 +21,10 @@ export class Blackhole extends Phaser.GameObjects.Sprite {
 
     // Update the game based on logic or input.
     public update(): void {}
+
+    // public suckObject(object: any): void {
+    //     object.x = this.x;
+    //     // object.anchor.setTo(0.5, 0.5);
+    //     // object.angle += 1;
+    // }
 };
