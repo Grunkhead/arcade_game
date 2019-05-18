@@ -33,7 +33,7 @@ export class NormalScene extends Phaser.Scene {
 
         this.platforms = this.add.group({ runChildUpdate: true })
 
-        // Top platforms.
+        // Create top platforms.
         this.platforms.add(new Platform({
             scene: this,
             x: 320,
@@ -45,7 +45,7 @@ export class NormalScene extends Phaser.Scene {
             y: 250
         }), true);
 
-        // Middle platform (this one moves).
+        // Create middle platform (this one moves).
         this.platforms.add(new Platform({
             scene: this,
             x: 720,
@@ -53,7 +53,7 @@ export class NormalScene extends Phaser.Scene {
             dynamic: true
         }), true);
 
-        // Bottom platforms.
+        // Create bottom platforms.
         this.platforms.add(new Platform({
             scene: this,
             x: 320,
@@ -65,8 +65,20 @@ export class NormalScene extends Phaser.Scene {
             y: 600
         }), true);
 
-        // Define player.
-        this.playerOne = new Unicorn(this, 340, 450);
+        // Create players.
+        this.playerOne = new Unicorn({
+            scene: this,
+            x: 340,
+            y: 450,
+            spriteName: 'morty'
+        });
+
+        this.playerTwo = new Unicorn({
+            scene: this,
+            x: 640,
+            y: 450,
+            spriteName: 'rick'
+        });
 
         // Add collision detection between objects.
         this.physics.add.collider(this.playerOne, this.platforms, this.followPlatform);

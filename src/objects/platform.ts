@@ -1,20 +1,34 @@
 export class Platform extends Phaser.Physics.Arcade.Sprite {
     private scene: Phaser.Scene;
 
-    public speed:    number  = 3;
+    public speed:     number  = 3;
     public moveRight: boolean = true;
     public moveLeft:  boolean;
 
     public dynamic: boolean = false;
 
-    private width: number = 160;
-    private height: number = 30;
+    private width: number;
+    private height: number;
+
+    private spriteName: string = 'platform';
 
     x: number;
     y: number;
 
     constructor(params) {
-        super(params.scene, params.x, params.y, 'platform');
+        // Check if any sprite name is passed on creation.
+        if (params.spriteName) { this.spriteName = params.spriteName }
+
+        super(params.scene, 
+              params.x, 
+              params.y, 
+              this.spriteName
+        );
+
+        // Set width and height here, because of bug?
+        this.width = 160;
+        this.height = 30;
+
         this.scene = params.scene;
 
         this.x = params.x;
@@ -33,6 +47,7 @@ export class Platform extends Phaser.Physics.Arcade.Sprite {
         if (this.dynamic) { this.move(); }
     }
 
+    // Following object requires a speed property!
     addFollower(object: any): void {
         if (this.dynamic) {
             if (this.moveLeft) { object.x -= this.speed; }

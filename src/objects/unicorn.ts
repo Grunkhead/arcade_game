@@ -19,16 +19,15 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
 
     protected acceleration: number;
     protected health:   number = 100;
-    protected unicorn = Unicorn;
 
-    // private width:    number = 100;
-    // private height:   number = 100;
+    private width:    number = 100;
+    private height:   number = 100;
 
-    // Spritesheet global values
-    protected frames: number = 12;
-    private frame: number = 0;
-    protected framewidth: number = 102;
-    protected speedcounter: number = 0;
+    // Spritesheet global values.
+    // protected frames: number = 12;
+    // private frame: number = 0;
+    // protected framewidth: number = 102;
+    // protected speedcounter: number = 0;
 
     //Assign specific keys
     private keyLeft:  number = 65; // W
@@ -37,14 +36,18 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     private keyDown:  number = 83; // D
     private keyDash:  number = 9;  // TAB
 
-    constructor(scene: NormalScene, x: number, y: number) {
-        super(scene, x, y, 'morty')
+    constructor(params) {
+        super(params.scene,
+              params.x, 
+              params.y, 
+              params.spriteName
+        );
 
-        this.scene = scene;
+        this.scene = params.scene;
         this.setScale(0.3);
 
-        this.x = x;
-        this.y = y;
+        this.x = params.x;
+        this.y = params.y;
 
         this.setEventListeners();
         this.setPhysics();
