@@ -73,11 +73,7 @@ export class NormalScene extends Phaser.Scene {
     }
 
     followPlatform(unicorn: Unicorn, platform: Platform): void {
-
-        if (platform.dynamic) {
-            if (platform.moveLeft) { unicorn.x -= 3; }
-            if (platform.moveRight) { unicorn.x += 3; }
-        }
+        platform.addFollower(unicorn);
     }
 
     // Update the game based on logic or input.

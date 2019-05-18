@@ -1,7 +1,7 @@
 export class Platform extends Phaser.Physics.Arcade.Sprite {
     private scene: Phaser.Scene;
 
-    private speed:    number  = 3;
+    public speed:    number  = 3;
     public moveRight: boolean = true;
     public moveLeft:  boolean;
 
@@ -31,6 +31,13 @@ export class Platform extends Phaser.Physics.Arcade.Sprite {
     // Update the game based on logic or input.
     public update(): void {
         if (this.dynamic) { this.move(); }
+    }
+
+    addFollower(object: any): void {
+        if (this.dynamic) {
+            if (this.moveLeft) { object.x -= this.speed; }
+            if (this.moveRight) { object.x += this.speed; }
+        }
     }
 
     private setPhysics(): void {
