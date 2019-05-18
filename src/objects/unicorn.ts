@@ -2,14 +2,14 @@ import { NormalScene } from "../scenes/normalScene"
 
 export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     
-    private cursors: Phaser.Input.Keyboard.CursorKeys
-    private normalScene : NormalScene
+    protected cursors: Phaser.Input.Keyboard.CursorKeys
+    protected normalScene : NormalScene
 
     private scene: Phaser.Scene;
-    private currentSprite: string;
+    protected currentSprite: string;
 
-    private x: number; 
-    private y: number;
+    protected x: number; 
+    protected y: number;
 
     // private speed: number = 5;
     private speedLeft:  number = 0;
@@ -17,18 +17,18 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     private speedUp:    number = 0;
     private speedDown:  number = 0;
 
-    private acceleration: number;
-    private health:   number = 100;
-    private unicorn = Unicorn;
+    protected acceleration: number;
+    protected health:   number = 100;
+    protected unicorn = Unicorn;
 
     // private width:    number = 100;
     // private height:   number = 100;
 
     // Spritesheet global values
-    // private frames: number = 12;
-    // private frame: number = 0;
-    // private framewidth: number = 102;
-    // private speedcounter: number = 0;
+    protected frames: number = 12;
+    private frame: number = 0;
+    protected framewidth: number = 102;
+    protected speedcounter: number = 0;
 
     //Assign specific keys
     private keyLeft:  number = 65; // W

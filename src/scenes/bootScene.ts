@@ -32,7 +32,7 @@ export class BootScene extends Phaser.Scene {
         this.load.image('flag', 'assets/images/flag.png');
         this.load.image('castle', 'assets/images/castle.png');
         this.load.image('unicorn-one', 'assets/images/unicorn_smoking.png');
-        this.load.spritesheet('morty', 'assets/animations/player1-morty');
+        this.load.image('morty', 'assets/animations/player1-morty');
     }
 };
 
