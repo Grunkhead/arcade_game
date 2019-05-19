@@ -1,30 +1,41 @@
-export class Blackhole extends Phaser.GameObjects.Sprite {
-
+export class Blackhole extends Phaser.Physics.Arcade.Sprite {
     scene: Phaser.Scene;
+
+    width: number;
+    height: number;
 
     x: number; 
     y: number;
 
     currentSprite: string;
 
-    constructor(scene: Phaser.Scene, x: number, y: number) {
-        super(scene, x, y, 'blackhole_5');
+    constructor(params) {
+        super(params.scene, params.x, params.y, 'blackhole_5');
 
-        this.scene = scene;
+        this.scene = params.scene;
+
+        this.x = params.x;
+        this.y = params.y;
+
         this.setScale(4);
-
-        this.x = x;
-        this.y = y;
+        this.setPhysics();
 
         this.scene.add.existing(this);
     }
 
-    // Update the game based on logic or input.
-    public update(): void {}
+    setPhysics(): void {
+        this.scene.physics.add.existing(this);
+        this.body.setAllowGravity(false);
+        this.body.setImmovable(true);
+        this.setSize(this.width, this.height);
+    }
 
-    // public suckObject(object: any): void {
-    //     object.x = this.x;
-    //     // object.anchor.setTo(0.5, 0.5);
-    //     // object.angle += 1;
-    // }
+    // Update the game based on logic or input.
+    update(): void {}
+
+    suckObject(object: any): void {
+        object.x = this.x; 
+        // object.anchor.setTo(0.5, 0.5);
+        // object.angle += 1;
+    }
 };
