@@ -24,6 +24,9 @@ export class Platform extends Phaser.Physics.Arcade.Sprite {
 
         // Set width and height here, because of bug?
         this.width = 160;
+        
+        if (params.spriteName == 'ground_snow') { this.width = 1440; }
+
         this.height = 30;
 
         this.scene = params.scene;
