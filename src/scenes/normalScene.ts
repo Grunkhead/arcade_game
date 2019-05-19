@@ -11,6 +11,7 @@ export class NormalScene extends Phaser.Scene {
     private unicorn: Unicorn;
     private blackhole: Blackhole;
     private platforms: Phaser.GameObjects.Group;
+    private groundPlatform: Platform;
     private playerOne: Unicorn;
     private playerTwo: Unicorn;
 
@@ -22,10 +23,14 @@ export class NormalScene extends Phaser.Scene {
 
     // Create the items for the game.
     create(): void {
-        this.drawGround();
+        this.setGround();
         this.setBackground();
 
-        this.blackhole = new Blackhole(this, 320, 150);
+        this.blackhole = new Blackhole({
+            scene: this,
+            x: 320,
+            y: 150
+        });
 
         this.platforms = this.add.group({ runChildUpdate: true })
 
@@ -36,6 +41,7 @@ export class NormalScene extends Phaser.Scene {
             y: 250,
             spriteName: 'platform'
         }),  true);
+
         this.platforms.add(new Platform({
             scene: this,
             x: 1120, 
@@ -59,6 +65,7 @@ export class NormalScene extends Phaser.Scene {
             y: 600,
             spriteName: 'platform'
         }), true);
+
         this.platforms.add(new Platform({
             scene: this,
             x: 1120,
@@ -73,11 +80,11 @@ export class NormalScene extends Phaser.Scene {
             y: 450,
             spriteName: 'morty',
             keys: {
-                left: 65,  // W
+                left:  65, // W
                 right: 68, // A
-                up: 87,    // S
-                down: 83,  // D
-                dash: 9    // TAB
+                up:    87, // S
+                down:  83, // D
+                dash:  9   // TAB
             }
         });
 
@@ -87,27 +94,39 @@ export class NormalScene extends Phaser.Scene {
             y: 450,
             spriteName: 'rick',
             keys: {
-                left: 65,  // W
-                right: 68, // A
-                up: 87,    // S
-                down: 83,  // D
-                dash: 9    // TAB
+                left:  37, // W
+                right: 39, // A
+                up:    38, // S
+                down:  40, // D
+                dash:  9   // TAB
             }
         });
 
         // Grab the middle platform which moves.
         const platform = this.platforms.children.entries[2];
-        const callback = () => { platform.addFollower(this.playerOne) } 
 
         this.physics.add.collider(
             this.playerOne,
-            this.platforms.children.entries[2],
-            callback
+            platform,
+            () => { platform.addFollower(this.playerOne); }
         );
 
         this.physics.add.collider(
+            this.playerTwo,
+            platform,
+            () => { platform.addFollower(this.playerTwo); }
+        );
+
+        this.physics.add.collider( this.playerOne, this.groundPlatform );
+        this.physics.add.collider( this.playerTwo, this.groundPlatform );
+        this.physics.add.collider( this.playerOne, this.platforms );
+
+        this.physics.add.collider(
             this.playerOne,
-            this.platforms
+            this.playerTwo,
+            function() {
+                console.log('Players touched eachother!')
+            }
         );
         
         // this.physics.add.collider(
@@ -115,11 +134,13 @@ export class NormalScene extends Phaser.Scene {
         //     this.blackhole, 
         //     this.blackhole.suckObject
         // );
+        this.blackhole.suckObject(this.playerOne);
     }
 
     // Update the game based on logic or input.
     update(): void {
         this.playerOne.update();
+        this.playerTwo.update();
     }
 
     setBackground(): void {
@@ -129,17 +150,13 @@ export class NormalScene extends Phaser.Scene {
         background.depth = -1;
     }
 
-    drawGround(): void {
-        const ground = new Phaser.Geom.Rectangle(0, 850, 1440, 50);
-        const groundLine = new Phaser.Geom.Rectangle(0, 849, 1440, 1);
-
-        // Create graphic dataset for the ground and draw.
-        const graphic = this.add.graphics({ fillStyle: { color: 0x7ec850 } });
-        const graphicLine = this.add.graphics({ fillStyle: { color: 0x6b9c58 } });
-
-        // Colorize the ground.
-        graphic.fillRectShape(ground);
-        graphicLine.fillRectShape(groundLine)
+    setGround(): void {
+        this.groundPlatform = new Platform({
+            scene: this,
+            x: 720,
+            y: 890,
+            spriteName: 'ground_snow'
+        });
 
         this.drawGrass();
         this.drawCastles();
