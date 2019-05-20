@@ -15,6 +15,8 @@ export class NormalScene extends Phaser.Scene {
     private playerOne: Unicorn;
     private playerTwo: Unicorn;
 
+    private flagOne: Flag;
+
     constructor() {
         super({
             key: "normalScene"
@@ -33,6 +35,8 @@ export class NormalScene extends Phaser.Scene {
         });
 
         this.platforms = this.add.group({ runChildUpdate: true })
+
+        this.flagOne = new Flag(this, 90, 760);
 
         // Create top platforms.
         this.platforms.add(new Platform({
@@ -128,6 +132,8 @@ export class NormalScene extends Phaser.Scene {
                 console.log('Players touched eachother!')
             }
         );
+
+        this.physics.add.collider( this.playerOne, this.flagOne, this.doSomething );
         
         // this.physics.add.collider(
         //     this.playerTwo, 
@@ -135,6 +141,11 @@ export class NormalScene extends Phaser.Scene {
         //     this.blackhole.suckObject
         // );
         this.blackhole.suckObject(this.playerOne);
+    }
+
+    doSomething(playerOne, flagOne): void {
+        flagOne.x = playerOne.x;
+        flagOne.y = playerOne.y;
     }
 
     // Update the game based on logic or input.
