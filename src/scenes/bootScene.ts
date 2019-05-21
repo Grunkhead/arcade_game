@@ -33,8 +33,14 @@ export class BootScene extends Phaser.Scene {
         this.load.image('bg-hell', 'assets/images/bg_hell.jpg   ');
         this.load.image('flag', 'assets/images/flag.png');
         this.load.image('castle', 'assets/images/castle.png');
-        this.load.image('morty', 'assets/animations/morty/morty_3.png');
-        this.load.image('rick', 'assets/animations/rick/rick_3.png');
+
+        this.load.image('morty', 'assets/animations/morty/morty.png');
+        this.load.image('morty_left', 'assets/animations/morty/morty_left.png');
+        this.load.image('morty_right', 'assets/animations/morty/morty_right.png');
+        
+        this.load.image('rick', 'assets/animations/rick/rick.png');
+        this.load.image('rick_left', 'assets/animations/rick/rick_left.png');
+        this.load.image('rick_right', 'assets/animations/rick/rick_right.png');
     }
 };
 

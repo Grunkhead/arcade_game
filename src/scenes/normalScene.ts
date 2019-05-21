@@ -4,18 +4,16 @@ import { Unicorn } from "../objects/unicorn";
 import { Blackhole } from "../objects/blackhole";
 import { Platform } from "../objects/platform";
 import { Flag } from "../objects/flag";
-import { log } from "util";
 
 export class NormalScene extends Phaser.Scene {
 
-    private unicorn: Unicorn;
-    private blackhole: Blackhole;
     private platforms: Phaser.GameObjects.Group;
     private groundPlatform: Platform;
+
     private playerOne: Unicorn;
     private playerTwo: Unicorn;
-
     private flagOne: Flag;
+    private flagTwo: Flag;
 
     constructor() {
         super({
@@ -28,28 +26,24 @@ export class NormalScene extends Phaser.Scene {
         this.setGround();
         this.setBackground();
 
-        this.blackhole = new Blackhole({
-            scene: this,
-            x: 320,
-            y: 150
-        });
-
         this.platforms = this.add.group({ runChildUpdate: true })
 
+        // Create flags.
         this.flagOne = new Flag(this, 90, 760);
+        this.flagTwo = new Flag(this, 1390, 760);
 
         // Create top platforms.
         this.platforms.add(new Platform({
             scene: this,
             x: 320,
-            y: 250,
+            y: 270,
             spriteName: 'platform'
         }),  true);
 
         this.platforms.add(new Platform({
             scene: this,
             x: 1120, 
-            y: 250,
+            y: 270,
             spriteName: 'platform'
         }), true);
 
@@ -57,7 +51,7 @@ export class NormalScene extends Phaser.Scene {
         this.platforms.add(new Platform({
             scene: this,
             x: 720,
-            y: 450,
+            y: 470,
             spriteName: 'platform_snow',
             dynamic: true
         }), true);
@@ -66,22 +60,22 @@ export class NormalScene extends Phaser.Scene {
         this.platforms.add(new Platform({
             scene: this,
             x: 320,
-            y: 600,
+            y: 670,
             spriteName: 'platform'
         }), true);
 
         this.platforms.add(new Platform({
             scene: this,
             x: 1120,
-            y: 600,
+            y: 670,
             spriteName: 'platform'
         }), true);
 
-        // Create players.
+        // Create players one.
         this.playerOne = new Unicorn({
             scene: this,
-            x: 340,
-            y: 450,
+            x: 200,
+            y: 820,
             spriteName: 'morty',
             keys: {
                 left:  65, // W
@@ -92,10 +86,11 @@ export class NormalScene extends Phaser.Scene {
             }
         });
 
+        // Create player two.
         this.playerTwo = new Unicorn({
             scene: this,
-            x: 640,
-            y: 450,
+            x: 1240,
+            y: 820,
             spriteName: 'rick',
             keys: {
                 left:  37, // W
@@ -121,31 +116,34 @@ export class NormalScene extends Phaser.Scene {
             () => { platform.addFollower(this.playerTwo); }
         );
 
+        // Listen to platform & player collisions.
         this.physics.add.collider( this.playerOne, this.groundPlatform );
         this.physics.add.collider( this.playerTwo, this.groundPlatform );
         this.physics.add.collider( this.playerOne, this.platforms );
 
         this.physics.add.collider(
-            this.playerOne,
-            this.playerTwo,
-            function() {
-                console.log('Players touched eachother!')
-            }
+            this.playerOne, 
+            this.flagTwo, 
+            () => { this.playerOne.grabFlag(this.flagTwo) }
         );
 
-        this.physics.add.collider( this.playerOne, this.flagOne, this.doSomething );
+        this.physics.add.collider(
+            this.playerTwo,
+            this.flagOne,
+            () => { this.playerTwo.grabFlag(this.flagOne) }
+        );
         
-        // this.physics.add.collider(
-        //     this.playerTwo, 
-        //     this.blackhole, 
-        //     this.blackhole.suckObject
-        // );
-        this.blackhole.suckObject(this.playerOne);
-    }
+        this.physics.add.collider(
+            this.playerOne, 
+            this.blackhole, 
+            () => { this.blackhole.suckObject(this.playerOne) }
+        );
 
-    doSomething(playerOne, flagOne): void {
-        flagOne.x = playerOne.x;
-        flagOne.y = playerOne.y;
+        this.physics.add.collider(
+            this.playerTwo,
+            this.blackhole,
+            () => { this.blackhole.suckObject(this.playerTwo) }
+        );
     }
 
     // Update the game based on logic or input.
