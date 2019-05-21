@@ -1,26 +1,23 @@
 import { NormalScene } from "../scenes/normalScene"
+import { Flag } from "./flag";
 
 export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     scene: Phaser.Scene;
 
-    static playerCount: number;
-
     x: number; 
     y: number;
 
-    // private speed: number = 5;
+    spriteName: string;
+
     speedLeft:  number = 0;
     speedRight: number = 0;
     speedUp:    number = 0;
     speedDown:  number = 0;
 
-    acceleration: number;
-    health:   number = 100;
-
     width:    number = 100;
     height:   number = 100;
 
-    // Assign key controls.
+    // Keys get assigned by the constructor.
     keys: any = {};
 
     constructor(params) {
@@ -30,9 +27,8 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
               params.spriteName
         );
 
+        this.spriteName = params.spriteName;
         this.keys = params.keys;
-
-        this.playerCount++;
 
         this.scene = params.scene;
         this.setScale(0.7);
@@ -49,10 +45,15 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     private setPhysics(): void {
         this.scene.physics.add.existing(this);
         this.body.setAllowGravity(true);
-        this.setCollideWorldBounds(true)
+        this.body.setCollideWorldBounds(true); 
         
         // Add some extra width and height because of smaller hitbox.
         this.setSize(this.displayWidth + 20, this.displayHeight + 20);
+    }
+
+    public grabFlag(flag: Flag): void {
+        flag.x = this.x - 5;
+        flag.y = this.y - 40;
     }
 
     // Update the game based on logic or input.
@@ -69,10 +70,23 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
 
     // Increase speed when a specific key is pressed.
     private onKeyDown(e: KeyboardEvent): void {
-        if (e.keyCode == this.keys.left &&  this.speedLeft < 1)  { this.speedLeft  += 5; }
-        if (e.keyCode == this.keys.right && this.speedRight < 1) { this.speedRight += 5; }
-        if (e.keyCode == this.keys.up &&    this.speedUp < 1)    { this.speedUp    += 5; }
-        if (e.keyCode == this.keys.down &&  this.speedDown < 1)  { this.speedDown  += 5; }
+        if (e.keyCode == this.keys.left && this.speedLeft < 1) { 
+            this.setTexture(this.spriteName + '_left');
+            this.speedLeft += 5;
+        }
+        if (e.keyCode == this.keys.right && this.speedRight < 1) { 
+            this.setTexture(this.spriteName + '_right');
+            this.speedRight += 5;
+        }
+        
+        if (this.body.touching.down) {
+            if (e.keyCode == this.keys.up && this.speedUp < 1) { 
+                this.speedUp += 8;
+            }
+            if (e.keyCode == this.keys.down && this.speedDown < 1) { 
+                this.speedDown += 5;
+            }
+        }
     }
 
     // Reset a specific speed when a key is released.
@@ -87,15 +101,5 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         // Listen to the key up and down events.
         document.addEventListener("keydown", (e: KeyboardEvent) => this.onKeyDown(e));
         document.addEventListener("keyup", (e: KeyboardEvent) => this.onKeyUp(e));
-    }
-
-    setPlayerControls(): void {
-        if (this.playerCount == 1) {
-
-        }
-
-        if (this.playerCount == 2) {
-            
-        }
     }
 };

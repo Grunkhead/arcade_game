@@ -17,7 +17,6 @@ export class Flag extends Phaser.GameObjects.Sprite {
         this.y = y;
 
         this.setPhysics();
-        this.depth = 20;
 
         this.scene.add.existing(this);
     }

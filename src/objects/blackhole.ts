@@ -7,8 +7,6 @@ export class Blackhole extends Phaser.Physics.Arcade.Sprite {
     x: number; 
     y: number;
 
-    currentSprite: string;
-
     constructor(params) {
         super(params.scene, params.x, params.y, 'blackhole_5');
 
@@ -33,9 +31,10 @@ export class Blackhole extends Phaser.Physics.Arcade.Sprite {
     // Update the game based on logic or input.
     update(): void {}
 
-    suckObject(object: any): void {
-        object.x = this.x; 
-        // object.anchor.setTo(0.5, 0.5);
-        // object.angle += 1;
-    }
+    // suckObject(object: any): void {
+    //     object.body.setAllowGravity(false);
+
+    //     object.x = this.x; 
+    //     object.y = this.y;
+    // }
 };
