@@ -1,6 +1,7 @@
 import "phaser";
 
-import { Weapon } from "../objects/weapon";
+import { Mace } from "../objects/mace";
+import { Axe } from "../objects/axe";
 import { Unicorn } from "../objects/unicorn";
 import { Blackhole } from "../objects/blackhole";
 import { Platform } from "../objects/platform";
@@ -19,8 +20,10 @@ export class NormalScene extends Phaser.Scene {
 
     private blackhole: Blackhole;
 
-    // private weapon1: Weapon;
-    // private weapon2: Weapon;
+    private mace: Mace;
+    private axe: Axe;
+
+    // private container: any;
 
     constructor() {
         super({
@@ -35,17 +38,29 @@ export class NormalScene extends Phaser.Scene {
 
         this.platforms = this.add.group({ runChildUpdate: true })
 
-        // Create weapon
-        // this.weapon1 = new Weapon({
-        //     scene: this,
-        //     x: 200,
-        //     y: 200,
-        //     spriteName: 'weapon1'
+        // Create container?
+        // let container = this.add.container(400, 200);
+        // let sprite0 = this.add.sprite(0, 0, 'rick')
+        // let sprite1 = this.add.sprite(55, 0, 'weapon1')
+
+        // container.add(sprite0);
+        // container.add(sprite1);
+
+        // this.tweens.add({
+        //     targets: sprite1,
+        //     angle: 360,
+        //     duration: 6000,
+        //     yoyo: true,
+        //     repeat: -1
         // });
 
         // Create flags.
         this.flagOne = new Flag(this, 90, 760);
         this.flagTwo = new Flag(this, 1390, 760);
+
+        // Create weapons
+        this.mace = new Mace(this, 300, 300);
+        this.axe = new Axe(this, 250, 250);
 
         // Create top platforms.
         this.platforms.add(new Platform(this, 320, 270, 'platform'),  true);
@@ -101,6 +116,14 @@ export class NormalScene extends Phaser.Scene {
         this.physics.add.collider(this.playerOne, this.platforms);
         this.physics.add.collider(this.playerTwo, this.platforms);
 
+        // Listen to weapon and player collisions
+        this.physics.add.collider( this.playerOne, this.mace );
+        this.physics.add.collider( this.playerOne, this.axe );
+        this.physics.add.collider( this.playerTwo, this.mace );
+        this.physics.add.collider( this.playerTwo, this.axe );
+
+
+
         this.physics.add.collider(
             this.playerOne, 
             this.flagTwo, 
@@ -132,7 +155,6 @@ export class NormalScene extends Phaser.Scene {
 
         this.drawGrass();
         this.drawCastles();
-        this.drawWeapons();
     }
 
     drawGrass(): void {
@@ -147,10 +169,5 @@ export class NormalScene extends Phaser.Scene {
     drawCastles(): void {
         this.add.image(70, 830, 'castle').setScale(0.25);
         this.add.image(1370, 830, 'castle').setScale(0.25);
-    }
-
-    drawWeapons(): void{
-        this.add.image(200, 200, 'weapon1').setScale(0.25);
-        this.add.image(300, 300, 'weapon2').setScale(0.25);
     }
 };
