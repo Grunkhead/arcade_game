@@ -1,5 +1,6 @@
 import "phaser";
 
+import { Weapon } from "../objects/weapon";
 import { Unicorn } from "../objects/unicorn";
 import { Blackhole } from "../objects/blackhole";
 import { Platform } from "../objects/platform";
@@ -17,6 +18,9 @@ export class NormalScene extends Phaser.Scene {
 
     private blackhole: Blackhole;
 
+    // private weapon1: Weapon;
+    // private weapon2: Weapon;
+
     constructor() {
         super({
             key: "normalScene"
@@ -29,6 +33,14 @@ export class NormalScene extends Phaser.Scene {
         this.setBackground();
 
         this.platforms = this.add.group({ runChildUpdate: true })
+
+        // Create weapon
+        // this.weapon1 = new Weapon({
+        //     scene: this,
+        //     x: 200,
+        //     y: 200,
+        //     spriteName: 'weapon1'
+        // });
 
         // Create flags.
         this.flagOne = new Flag(this, 90, 760);
@@ -172,6 +184,7 @@ export class NormalScene extends Phaser.Scene {
 
         this.drawGrass();
         this.drawCastles();
+        this.drawWeapons();
     }
 
     drawGrass(): void {
@@ -186,5 +199,10 @@ export class NormalScene extends Phaser.Scene {
     drawCastles(): void {
         this.add.image(70, 820, 'castle').setScale(0.25);
         this.add.image(1370, 820, 'castle').setScale(0.25);
+    }
+
+    drawWeapons(): void{
+        this.add.image(200, 200, 'weapon1').setScale(0.25);
+        this.add.image(300, 300, 'weapon2').setScale(0.25);
     }
 };
