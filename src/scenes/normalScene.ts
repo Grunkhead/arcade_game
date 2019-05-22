@@ -48,47 +48,15 @@ export class NormalScene extends Phaser.Scene {
         this.flagTwo = new Flag(this, 1390, 760);
 
         // Create top platforms.
-<<<<<<< HEAD
         this.platforms.add(new Platform(this, 320, 270, 'platform'),  true);
         this.platforms.add(new Platform(this, 1120, 270, 'platform'), true);
-=======
-        this.platforms.add(new Platform({
-            scene: this,
-            x: 450,
-            y: 300,
-            spriteName: 'platform'
-        }),  true);
-
-        this.platforms.add(new Platform({
-            scene: this,
-            x: 1000, 
-            y: 300,
-            spriteName: 'platform'
-        }), true);
->>>>>>> 9aad5362853be3dbaa59eb1b1237fc17bb77bc50
 
         // Create middle platform (this one moves).
         this.platforms.add(new Platform(this, 720, 470, 'platform_snow', true), true);
         
         // Create bottom platforms.
-<<<<<<< HEAD
         this.platforms.add(new Platform(this, 320, 670, 'platform'), true);
         this.platforms.add(new Platform(this, 1120, 670, 'platform'), true);
-=======
-        this.platforms.add(new Platform({
-            scene: this,
-            x: 450,
-            y: 670,
-            spriteName: 'platform'
-        }), true);
-
-        this.platforms.add(new Platform({
-            scene: this,
-            x: 1000,
-            y: 670,
-            spriteName: 'platform'
-        }), true);
->>>>>>> 9aad5362853be3dbaa59eb1b1237fc17bb77bc50
 
         // Create players one.
         this.playerOne = new Unicorn( this, 200, 820, 'morty',
@@ -128,16 +96,10 @@ export class NormalScene extends Phaser.Scene {
         );
 
         // Listen to platform & player collisions.
-<<<<<<< HEAD
         this.physics.add.collider(this.playerOne, this.ground);
         this.physics.add.collider(this.playerTwo, this.ground);
         this.physics.add.collider(this.playerOne, this.platforms);
-=======
-        this.physics.add.collider( this.playerOne, this.groundPlatform );
-        this.physics.add.collider( this.playerTwo, this.groundPlatform );
-        this.physics.add.collider( this.playerOne, this.platforms );
-        this.physics.add.collider( this.playerTwo, this.platforms );
->>>>>>> 9aad5362853be3dbaa59eb1b1237fc17bb77bc50
+        this.physics.add.collider(this.playerTwo, this.platforms);
 
         this.physics.add.collider(
             this.playerOne, 
