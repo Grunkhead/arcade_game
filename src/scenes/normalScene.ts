@@ -4,11 +4,12 @@ import { Unicorn } from "../objects/unicorn";
 import { Blackhole } from "../objects/blackhole";
 import { Platform } from "../objects/platform";
 import { Flag } from "../objects/flag";
+import { Ground } from "../objects/ground";
 
 export class NormalScene extends Phaser.Scene {
 
     private platforms: Phaser.GameObjects.Group;
-    private groundPlatform: Platform;
+    private ground: Ground;
 
     private playerOne: Unicorn;
     private playerTwo: Unicorn;
@@ -33,73 +34,37 @@ export class NormalScene extends Phaser.Scene {
         this.flagTwo = new Flag(this, 1390, 760);
 
         // Create top platforms.
-        this.platforms.add(new Platform({
-            scene: this,
-            x: 320,
-            y: 270,
-            spriteName: 'platform'
-        }),  true);
-
-        this.platforms.add(new Platform({
-            scene: this,
-            x: 1120, 
-            y: 270,
-            spriteName: 'platform'
-        }), true);
+        this.platforms.add(new Platform(this, 320, 270, 'platform'),  true);
+        this.platforms.add(new Platform(this, 1120, 270, 'platform'), true);
 
         // Create middle platform (this one moves).
-        this.platforms.add(new Platform({
-            scene: this,
-            x: 720,
-            y: 470,
-            spriteName: 'platform_snow',
-            dynamic: true
-        }), true);
-
+        this.platforms.add(new Platform(this, 720, 470, 'platform_snow', true), true);
+        
         // Create bottom platforms.
-        this.platforms.add(new Platform({
-            scene: this,
-            x: 320,
-            y: 670,
-            spriteName: 'platform'
-        }), true);
-
-        this.platforms.add(new Platform({
-            scene: this,
-            x: 1120,
-            y: 670,
-            spriteName: 'platform'
-        }), true);
+        this.platforms.add(new Platform(this, 320, 670, 'platform'), true);
+        this.platforms.add(new Platform(this, 1120, 670, 'platform'), true);
 
         // Create players one.
-        this.playerOne = new Unicorn({
-            scene: this,
-            x: 200,
-            y: 820,
-            spriteName: 'morty',
-            keys: {
+        this.playerOne = new Unicorn( this, 200, 820, 'morty',
+            {
                 left:  65, // W
                 right: 68, // A
                 up:    87, // S
                 down:  83, // D
                 dash:  9   // TAB
             }
-        });
+        );
 
         // Create player two.
-        this.playerTwo = new Unicorn({
-            scene: this,
-            x: 1240,
-            y: 820,
-            spriteName: 'rick',
-            keys: {
+        this.playerTwo = new Unicorn(this, 1240, 820, 'rick',
+            {
                 left:  37, // W
                 right: 39, // A
                 up:    38, // S
                 down:  40, // D
                 dash:  9   // TAB
             }
-        });
+        );
 
         // Grab the middle platform which moves.
         const platform = this.platforms.children.entries[2];
@@ -117,9 +82,9 @@ export class NormalScene extends Phaser.Scene {
         );
 
         // Listen to platform & player collisions.
-        this.physics.add.collider( this.playerOne, this.groundPlatform );
-        this.physics.add.collider( this.playerTwo, this.groundPlatform );
-        this.physics.add.collider( this.playerOne, this.platforms );
+        this.physics.add.collider(this.playerOne, this.ground);
+        this.physics.add.collider(this.playerTwo, this.ground);
+        this.physics.add.collider(this.playerOne, this.platforms);
 
         this.physics.add.collider(
             this.playerOne, 
@@ -131,18 +96,6 @@ export class NormalScene extends Phaser.Scene {
             this.playerTwo,
             this.flagOne,
             () => { this.playerTwo.grabFlag(this.flagOne) }
-        );
-        
-        this.physics.add.collider(
-            this.playerOne, 
-            this.blackhole, 
-            () => { this.blackhole.suckObject(this.playerOne) }
-        );
-
-        this.physics.add.collider(
-            this.playerTwo,
-            this.blackhole,
-            () => { this.blackhole.suckObject(this.playerTwo) }
         );
     }
 
@@ -160,12 +113,7 @@ export class NormalScene extends Phaser.Scene {
     }
 
     setGround(): void {
-        this.groundPlatform = new Platform({
-            scene: this,
-            x: 720,
-            y: 890,
-            spriteName: 'ground_snow'
-        });
+        this.ground = new Ground(this, 720, 890, 'ground_snow');
 
         this.drawGrass();
         this.drawCastles();
@@ -181,7 +129,7 @@ export class NormalScene extends Phaser.Scene {
     }
 
     drawCastles(): void {
-        this.add.image(70, 820, 'castle').setScale(0.25);
-        this.add.image(1370, 820, 'castle').setScale(0.25);
+        this.add.image(70, 830, 'castle').setScale(0.25);
+        this.add.image(1370, 830, 'castle').setScale(0.25);
     }
 };

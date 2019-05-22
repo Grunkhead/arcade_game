@@ -1,44 +1,33 @@
 export class Platform extends Phaser.Physics.Arcade.Sprite {
-    scene: Phaser.Scene;
+    private scene: Phaser.Scene;
 
-    speed:     number  = 3;
-    moveRight: boolean = true;
-    moveLeft:  boolean;
+    public  speed:     number  = 3;
+    private moveRight: boolean = true;
+    private moveLeft:  boolean;
 
-    dynamic: boolean = false;
+    private width: number;
+    private height: number;
 
-    width: number;
-    height: number;
+    private spriteName: string;
+    private dynamic: boolean;
 
-    spriteName: string;
+    public x: number;
+    public y: number;
 
-    x: number;
-    y: number;
-
-    constructor(params) {
-        super(params.scene, 
-              params.x,
-              params.y, 
-              params.spriteName
-        );
-
-        // Set width and height here, because of bug?
-        this.width = 160;
-        
-        if (params.spriteName == 'ground_snow') { this.width = 1440; }
+    constructor(scene: Phaser.Scene, x: number, y: number, spriteName: string, dynamic: boolean = false) {
+        super(scene, x, y, spriteName);
+        this.scene = scene;
 
         this.height = 30;
+        this.width = 160;
 
-        this.scene = params.scene;
+        this.x = x;
+        this.y = y;
 
-        this.x = params.x;
-        this.y = params.y;
-
-        this.dynamic = params.dynamic;
+        this.dynamic = dynamic;
 
         this.setScale(5);
         this.setPhysics();
-        
         this.scene.add.existing(this);
     }
 
@@ -48,7 +37,7 @@ export class Platform extends Phaser.Physics.Arcade.Sprite {
     }
 
     // Following object requires a speed property!
-    addFollower(object: any): void {
+    public addFollower(object: any): void {
         if (this.dynamic) {
             if (this.moveLeft) { object.x -= this.speed; }
             if (this.moveRight) { object.x += this.speed; }

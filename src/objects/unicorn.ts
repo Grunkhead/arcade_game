@@ -1,45 +1,42 @@
-import { NormalScene } from "../scenes/normalScene"
 import { Flag } from "./flag";
 
 export class Unicorn extends Phaser.Physics.Arcade.Sprite {
-    scene: Phaser.Scene;
+    private scene: Phaser.Scene;
 
-    x: number; 
-    y: number;
+    public x: number; 
+    public y: number;
 
-    spriteName: string;
+    private spriteName: string;
 
-    speedLeft:  number = 0;
-    speedRight: number = 0;
-    speedUp:    number = 0;
-    speedDown:  number = 0;
+    public speedLeft:  number = 0;
+    public speedRight: number = 0;
+    public speedUp:    number = 0;
+    public speedDown:  number = 0;
 
-    width:    number = 100;
-    height:   number = 100;
+    private width:    number = 100;
+    private height:   number = 100;
 
     // Keys get assigned by the constructor.
-    keys: any = {};
+    private keys: any = {};
 
-    constructor(params) {
-        super(params.scene,
-              params.x,
-              params.y, 
-              params.spriteName
-        );
+    constructor(scene: Phaser.Scene, x: number, y: number, spriteName: string, keys: object) {
+        super(scene, x, y, spriteName);
+        this.scene = scene;
 
-        this.spriteName = params.spriteName;
-        this.keys = params.keys;
+        this.spriteName = spriteName;
+        this.keys = keys;
 
-        this.scene = params.scene;
-        this.setScale(0.7);
+        this.x = x;
+        this.y = y;
 
-        this.x = params.x;
-        this.y = params.y;
-
-        this.setEventListeners();
         this.setPhysics();
-        
+        this.setVisuals();
+        this.setEventListeners();
         this.scene.add.existing(this);
+    }
+
+    private setVisuals(): void {
+        this.setScale(0.7);
     }
 
     private setPhysics(): void {
@@ -48,7 +45,7 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         this.body.setCollideWorldBounds(true); 
         
         // Add some extra width and height because of smaller hitbox.
-        this.setSize(this.displayWidth + 20, this.displayHeight + 20);
+        this.setSize(this.displayWidth, this.displayHeight - 20);
     }
 
     public grabFlag(flag: Flag): void {
@@ -97,7 +94,7 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         if (e.keyCode == this.keys.down)  { this.speedDown  = 0; }
     }
 
-    setEventListeners(): void {
+    private setEventListeners(): void {
         // Listen to the key up and down events.
         document.addEventListener("keydown", (e: KeyboardEvent) => this.onKeyDown(e));
         document.addEventListener("keyup", (e: KeyboardEvent) => this.onKeyUp(e));
