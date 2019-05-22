@@ -15,6 +15,8 @@ export class NormalScene extends Phaser.Scene {
     private flagOne: Flag;
     private flagTwo: Flag;
 
+    private blackhole: Blackhole;
+
     constructor() {
         super({
             key: "normalScene"
@@ -35,15 +37,15 @@ export class NormalScene extends Phaser.Scene {
         // Create top platforms.
         this.platforms.add(new Platform({
             scene: this,
-            x: 320,
-            y: 270,
+            x: 450,
+            y: 300,
             spriteName: 'platform'
         }),  true);
 
         this.platforms.add(new Platform({
             scene: this,
-            x: 1120, 
-            y: 270,
+            x: 1000, 
+            y: 300,
             spriteName: 'platform'
         }), true);
 
@@ -59,14 +61,14 @@ export class NormalScene extends Phaser.Scene {
         // Create bottom platforms.
         this.platforms.add(new Platform({
             scene: this,
-            x: 320,
+            x: 450,
             y: 670,
             spriteName: 'platform'
         }), true);
 
         this.platforms.add(new Platform({
             scene: this,
-            x: 1120,
+            x: 1000,
             y: 670,
             spriteName: 'platform'
         }), true);
@@ -120,6 +122,7 @@ export class NormalScene extends Phaser.Scene {
         this.physics.add.collider( this.playerOne, this.groundPlatform );
         this.physics.add.collider( this.playerTwo, this.groundPlatform );
         this.physics.add.collider( this.playerOne, this.platforms );
+        this.physics.add.collider( this.playerTwo, this.platforms );
 
         this.physics.add.collider(
             this.playerOne, 
