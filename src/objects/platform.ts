@@ -1,5 +1,5 @@
 export class Platform extends Phaser.Physics.Arcade.Sprite {
-    private scene: Phaser.Scene;
+    protected scene: Phaser.Scene;
 
     public  speed:     number  = 3;
     private moveRight: boolean = true;

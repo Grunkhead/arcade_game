@@ -1,7 +1,10 @@
 import { Flag } from "./flag";
+import { Mace } from "./mace";
+import { Axe } from "./axe";
+
 
 export class Unicorn extends Phaser.Physics.Arcade.Sprite {
-    private scene: Phaser.Scene;
+    protected scene: Phaser.Scene;
 
     public x: number; 
     public y: number;
@@ -48,9 +51,21 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         this.setSize(this.displayWidth, this.displayHeight - 20);
     }
 
+    // Enabeling grabbing the flag
     public grabFlag(flag: Flag): void {
         flag.x = this.x - 5;
         flag.y = this.y - 40;
+    }
+
+    // Enabeling grabbing the weapons
+    public grabMace(mace: Mace): void {
+        mace.x = this.x - 5;
+        mace.y = this.y - 40;
+    }
+
+    public grabAxe(axe: Axe): void {
+        axe.x = this.x - 5;
+        axe.y = this.y - 40;
     }
 
     // Update the game based on logic or input.

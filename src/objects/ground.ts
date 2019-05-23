@@ -1,5 +1,5 @@
 export class Ground extends Phaser.Physics.Arcade.Sprite {
-    private scene: Phaser.Scene;
+    protected scene: Phaser.Scene;
 
     private x: number;
     private y: number;

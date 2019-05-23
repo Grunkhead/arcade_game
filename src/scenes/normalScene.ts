@@ -121,9 +121,34 @@ export class NormalScene extends Phaser.Scene {
         this.physics.add.collider( this.playerOne, this.axe );
         this.physics.add.collider( this.playerTwo, this.mace );
         this.physics.add.collider( this.playerTwo, this.axe );
+        this.physics.add.collider(
 
+            // Make players pick up weapons
+        this.physics.add.collider(
+            this.playerOne, 
+            this.mace, 
+            () => { this.playerOne.grabFlag(this.mace) }
+        );
 
+        this.physics.add.collider(
+            this.playerOne, 
+            this.axe, 
+            () => { this.playerOne.grabFlag(this.axe) }
+        );
 
+        this.physics.add.collider(
+            this.playerTwo, 
+            this.mace, 
+            () => { this.playerTwo.grabFlag(this.mace) }
+        );
+        
+        this.physics.add.collider(
+            this.playerTwo, 
+            this.axe, 
+            () => { this.playerTwo.grabFlag(this.axe) }
+        );
+
+            // Make players pick up flags
         this.physics.add.collider(
             this.playerOne, 
             this.flagTwo, 
