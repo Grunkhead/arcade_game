@@ -60,8 +60,8 @@ export class NormalScene extends Phaser.Scene {
         this.flagTwo = new Flag(this, 1332, 648, 'flag_two');
 
         // Create weapons
-        this.mace = new Mace(this, 300, 300);
-        this.axe = new Axe(this, 250, 250);
+        this.mace = new Mace(this, 300, 200);
+        this.axe = new Axe(this, 1150, 200);
 
         // Create top platforms.
         this.platforms.add(new Platform(this, 320, 270, 'platform'),  true);
@@ -97,7 +97,7 @@ export class NormalScene extends Phaser.Scene {
                 down:  40, // D
                 dash:  9,  // TAB
 
-                // Create Attack?
+                // Attack?
                 slash: 32  // Space 
             }
         );
@@ -183,7 +183,7 @@ export class NormalScene extends Phaser.Scene {
     }
 
     setBackground(): void {
-        const background = this.add.image(720, 450, 'bg-normal');
+        const background = this.add.image(720, 450, 'fantasy-bg');
         background.displayWidth = 1440;
         background.displayHeight = 900;
         background.depth = -1;

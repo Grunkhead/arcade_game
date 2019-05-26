@@ -2,14 +2,21 @@ import { Flag } from "./flag";
 import { Mace } from "./mace";
 import { Axe } from "./axe";
 
+import { NormalScene } from "../scenes/normalScene";
+
 
 export class Unicorn extends Phaser.Physics.Arcade.Sprite {
+    
     protected scene: Phaser.Scene;
 
+    private cursors: Phaser.Input.Keyboard.CursorKeys
+    
     public x: number; 
     public y: number;
 
     public spriteName: string;
+
+    public normalScene: NormalScene;
 
     public speedLeft:  number = 0;
     public speedRight: number = 0;
@@ -56,18 +63,19 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     }
 
     // Code for weapon animation  ---- Not working properly yet
-    // public slashWeapon(weapon: Mace): void {
-    //     this.tweens.add({        
-    //         target: this.mace,
-    //         angle: 360,
-    //         scene: this.scene
-    //         duration: 10,
-    //         yoyo: true,
-    //         repeat: -1
-
+    public slashWeapon(weapon: Mace): void {
+        this.tweens.add({        
+            target: this.mace,
+            angle: 360,
+            scene: this.scene,
+            duration: 6000,
+            yoyo: true,
+            repeat: -1
             // To creat "Charging" time for weapons
             // timeScale : number
-    // });
+    })
+    console.log("Je hebt aangevallen!")
+};
 
     // Enabeling grabbing the flag
     public grabFlag(flag: Flag): void {
