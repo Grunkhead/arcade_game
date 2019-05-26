@@ -8,6 +8,7 @@ import { Platform } from "../objects/platform";
 import { Flag } from "../objects/flag";
 import { Ground } from "../objects/ground";
 import { Castle } from "../objects/castle";
+import { CastleTwo } from "../objects/castle_two";
 
 export class NormalScene extends Phaser.Scene {
 
@@ -22,14 +23,15 @@ export class NormalScene extends Phaser.Scene {
     private blackhole: Blackhole;
 
     private castleOne: Castle;
-    private castleTwo: Castle;
+    private castleTwo: CastleTwo;
 
     private mace: Mace;
     private axe: Axe;
 
     // points and scorefield
     private collectedFlags = 0;
-    private scorefield
+    private scorefieldOne
+    private scorefieldTwo
 
 
     constructor() {
@@ -46,15 +48,16 @@ export class NormalScene extends Phaser.Scene {
         this.platforms = this.add.group({ runChildUpdate: true })
 
         // Add score to the screen
-        this.scorefield = this.add.text(200, 20,  + this.collectedFlags+ ' Flags captured', { fontFamily: 'Sofia', fontSize: 20, color: '#000000' }).setOrigin(0.5).setStroke('#2ac9be', 2)
+        this.scorefieldOne = this.add.text(200, 20,  + this.collectedFlags+ ' Flags captured', { fontFamily: 'Sofia', fontSize: 20, color: '#000000' }).setOrigin(0.5).setStroke('#2ac9be', 2);
+        this.scorefieldTwo = this.add.text(1200, 20,  + this.collectedFlags+ ' Flags captured', { fontFamily: 'Sofia', fontSize: 20, color: '#000000' }).setOrigin(0.5).setStroke('#2ac9be', 2);
         
         // Create castles.
-        this.castleOne = new Castle(this, 70, 830);
-        this.castleTwo = new Castle(this, 1370, 830);
+        this.castleOne = new Castle(this, 130, 830, 'castleOne');
+        this.castleTwo = new CastleTwo(this, 1370, 835, 'castleTwo');
 
         // Create flags.
-        this.flagOne = new Flag(this, 90, 760);
-        this.flagTwo = new Flag(this, 1390, 760);
+        this.flagOne = new Flag(this, 153, 638, 'flag_one');
+        this.flagTwo = new Flag(this, 1332, 648, 'flag_two');
 
         // Create weapons
         this.mace = new Mace(this, 300, 300);
@@ -131,8 +134,8 @@ export class NormalScene extends Phaser.Scene {
         this.physics.add.collider( this.castleTwo, this.flagOne );
 
         // Create event when flag and castle overlap
-        this.physics.add.overlap(this.playerOne, this.castleTwo, this.captureFlag, null, this)
-        this.physics.add.overlap(this.playerTwo, this.castleOne, this.captureFlag, null, this)
+        this.physics.add.overlap(this.flagOne, this.castleTwo, this.captureFlagOne, null, this)
+        this.physics.add.overlap(this.flagTwo, this.castleOne, this.captureFlagTwo, null, this)
 
             // Make players pick up weapons
         this.physics.add.collider(
@@ -203,10 +206,17 @@ export class NormalScene extends Phaser.Scene {
     }
     
     // Make sure you score a point for capturing the flag
-    private captureFlag(playerOne:Unicorn, playerTwo:Unicorn, 
-        flagOne:Flag, flagTwo:Flag): void {
+    // PLayer one
+    private captureFlagOne(playerTwo:Unicorn, flagOne:Flag): void {
             this.collectedFlags++
-            this.scorefield.text = this.collectedFlags + " captured the flag!"
+            this.scorefieldTwo.text = this.collectedFlags + " flag captured!"
+            console.log("hebbes!")
+    }
+
+        // Player two
+    private captureFlagTwo(playerOne:Unicorn, flagTwo:Flag): void {
+            this.collectedFlags++
+            this.scorefieldOne.text = this.collectedFlags + " flag captured!"
             console.log("hebbes!")
     }
 

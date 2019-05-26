@@ -1,21 +1,22 @@
-export class Flag extends Phaser.GameObjects.Sprite {
-
+export class CastleTwo extends Phaser.Physics.Arcade.Sprite {
+  
     public spriteName: string;
 
-    x: number;
-    y: number;
+    public x: number;
+    public y: number;
 
-    width: number;
-    height: number;
+    public width: number;
+    public height: number;
 
     constructor(scene: Phaser.Scene, x: number, y: number, spriteName: string) {
+        
         super(scene, x, y, spriteName);
 
         this.scene = scene;
-        this.setScale(0.15);
-        this.depth = -1;
-
         this.spriteName = spriteName;
+
+        this.setScale(0.4);
+        this.depth = -1;
 
         this.x = x;
         this.y = y;
@@ -29,6 +30,7 @@ export class Flag extends Phaser.GameObjects.Sprite {
         this.scene.physics.add.existing(this);
         this.body.setAllowGravity(false);
         this.body.setImmovable(true);
+        this.setCollideWorldBounds(true);
         this.body.setSize(this.width, this.height);
     }
 

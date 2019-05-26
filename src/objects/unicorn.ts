@@ -16,29 +16,31 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     public speedUp:    number = 0;
     public speedDown:  number = 0;
 
-    private width:    number = 100;
-    private height:   number = 100;
+    public width:    number = 100;
+    public height:   number = 100;
 
     protected mace: Mace;
 
     // Keys get assigned by the constructor.
     private keys: any = {};
 
-    constructor(scene: Phaser.Scene, x: number, y: number, spriteName: string, keys: object) {
-        super(scene, x, y, spriteName);
-        this.scene = scene;
+    constructor(scene: Phaser.Scene, x: number, y: number, 
+        spriteName: string, keys: object) {
 
-        this.spriteName = spriteName;
-        this.keys = keys;
+            super(scene, x, y, spriteName);
+            this.scene = scene;
 
-        this.x = x;
-        this.y = y;
+            this.spriteName = spriteName;
+            this.keys = keys;
 
-        this.setPhysics();
-        this.setVisuals();
-        this.setEventListeners();
-        this.scene.add.existing(this);
-    }
+            this.x = x;
+            this.y = y;
+
+            this.setPhysics();
+            this.setVisuals();
+            this.setEventListeners();
+            this.scene.add.existing(this);
+        }
 
     private setVisuals(): void {
         this.setScale(0.7);
@@ -53,19 +55,19 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         this.setSize(this.displayWidth, this.displayHeight - 20);
     }
 
-    // Code for weapon animation
-    public slashWeapon(weapon: Mace): void {
-        this.tweens.add({        
-            target: this.mace,
-            angle: 360,
-            scene: this.scene
-            duration: 10,
-            yoyo: true,
-            repeat: -1
+    // Code for weapon animation  ---- Not working properly yet
+    // public slashWeapon(weapon: Mace): void {
+    //     this.tweens.add({        
+    //         target: this.mace,
+    //         angle: 360,
+    //         scene: this.scene
+    //         duration: 10,
+    //         yoyo: true,
+    //         repeat: -1
 
             // To creat "Charging" time for weapons
             // timeScale : number
-    });
+    // });
 
     // Enabeling grabbing the flag
     public grabFlag(flag: Flag): void {

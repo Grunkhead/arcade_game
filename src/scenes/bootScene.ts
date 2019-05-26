@@ -41,6 +41,14 @@ export class BootScene extends Phaser.Scene {
         this.load.image('rick_left', 'assets/animations/rick/rick_left.png');
         this.load.image('rick_right', 'assets/animations/rick/rick_right.png');
 
+        // Castles
+        this.load.image('castleOne', 'assets/images/castle-playerOne.png');
+        this.load.image('castleTwo', 'assets/images/castle-playerTwo.png');
+
+        //Flags
+        this.load.image('flag_one', 'assets/images/flag_one.png')
+        this.load.image('flag_two', 'assets/images/flag_two.png')
+
 
         // Load the blackhole animation frames.
         for (let i = 0; i < 6; i++) {
@@ -49,7 +57,7 @@ export class BootScene extends Phaser.Scene {
         
         this.load.image('grass', 'assets/images/grass.png');
         this.load.image('flag', 'assets/images/flag.png');
-        this.load.image('castle', 'assets/images/castle.png');
+        // this.load.image('castle', 'assets/images/castle.png');
         
         // Weapons
         this.load.image('mace', 'assets/images/weapon1.png');

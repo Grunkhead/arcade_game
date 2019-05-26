@@ -1,16 +1,21 @@
-export class Castle extends Phaser.GameObjects.Sprite {
+export class Castle extends Phaser.Physics.Arcade.Sprite {
   
-    x: number;
-    y: number;
+    public spriteName: string;
 
-    width: number;
-    height: number;
+    public x: number;
+    public y: number;
 
-    constructor(scene: Phaser.Scene, x: number, y: number) {
-        super(scene, x, y, 'castle');
+    public width: number;
+    public height: number;
+
+    constructor(scene: Phaser.Scene, x: number, y: number, spriteName: string) {
+        
+        super(scene, x, y, spriteName);
 
         this.scene = scene;
-        this.setScale(0.25);
+        this.spriteName = spriteName;
+
+        this.setScale(0.33);
         this.depth = -1;
 
         this.x = x;
@@ -25,7 +30,7 @@ export class Castle extends Phaser.GameObjects.Sprite {
         this.scene.physics.add.existing(this);
         this.body.setAllowGravity(false);
         this.body.setImmovable(true);
-        this.setCollideWorldBounds(true)
+        this.setCollideWorldBounds(true);
         this.body.setSize(this.width, this.height);
     }
 
