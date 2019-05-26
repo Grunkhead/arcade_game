@@ -7,6 +7,7 @@ import { Blackhole } from "../objects/blackhole";
 import { Platform } from "../objects/platform";
 import { Flag } from "../objects/flag";
 import { Ground } from "../objects/ground";
+import { Castle } from "../objects/castle";
 
 export class NormalScene extends Phaser.Scene {
 
@@ -20,10 +21,16 @@ export class NormalScene extends Phaser.Scene {
 
     private blackhole: Blackhole;
 
+    private castleOne: Castle;
+    private castleTwo: Castle;
+
     private mace: Mace;
     private axe: Axe;
 
-    // private container: any;
+    // points and scorefield
+    private collectedFlags = 0;
+    private scorefield
+
 
     constructor() {
         super({
@@ -38,21 +45,12 @@ export class NormalScene extends Phaser.Scene {
 
         this.platforms = this.add.group({ runChildUpdate: true })
 
-        // Create container?
-        // let container = this.add.container(400, 200);
-        // let sprite0 = this.add.sprite(0, 0, 'rick')
-        // let sprite1 = this.add.sprite(55, 0, 'weapon1')
-
-        // container.add(sprite0);
-        // container.add(sprite1);
-
-        // this.tweens.add({
-        //     targets: sprite1,
-        //     angle: 360,
-        //     duration: 6000,
-        //     yoyo: true,
-        //     repeat: -1
-        // });
+        // Add score to the screen
+        this.scorefield = this.add.text(200, 20,  + this.collectedFlags+ ' Flags captured', { fontFamily: 'Sofia', fontSize: 20, color: '#000000' }).setOrigin(0.5).setStroke('#2ac9be', 2)
+        
+        // Create castles.
+        this.castleOne = new Castle(this, 70, 830);
+        this.castleTwo = new Castle(this, 1370, 830);
 
         // Create flags.
         this.flagOne = new Flag(this, 90, 760);
@@ -80,7 +78,10 @@ export class NormalScene extends Phaser.Scene {
                 right: 68, // A
                 up:    87, // S
                 down:  83, // D
-                dash:  9   // TAB
+                dash:  9,  // TAB
+
+                // Create Attack?
+                slash: 32  // Space 
             }
         );
 
@@ -91,7 +92,10 @@ export class NormalScene extends Phaser.Scene {
                 right: 39, // A
                 up:    38, // S
                 down:  40, // D
-                dash:  9   // TAB
+                dash:  9,  // TAB
+
+                // Create Attack?
+                slash: 32  // Space 
             }
         );
 
@@ -121,31 +125,38 @@ export class NormalScene extends Phaser.Scene {
         this.physics.add.collider( this.playerOne, this.axe );
         this.physics.add.collider( this.playerTwo, this.mace );
         this.physics.add.collider( this.playerTwo, this.axe );
-        this.physics.add.collider(
+        
+        // Listen to weapon and player collisions
+        this.physics.add.collider( this.castleOne, this.flagTwo );
+        this.physics.add.collider( this.castleTwo, this.flagOne );
+
+        // Create event when flag and castle overlap
+        this.physics.add.overlap(this.playerOne, this.castleTwo, this.captureFlag, null, this)
+        this.physics.add.overlap(this.playerTwo, this.castleOne, this.captureFlag, null, this)
 
             // Make players pick up weapons
         this.physics.add.collider(
             this.playerOne, 
             this.mace, 
-            () => { this.playerOne.grabFlag(this.mace) }
+            () => { this.playerOne.grabMace(this.mace) }
         );
 
         this.physics.add.collider(
             this.playerOne, 
             this.axe, 
-            () => { this.playerOne.grabFlag(this.axe) }
+            () => { this.playerOne.grabAxe(this.axe) }
         );
 
         this.physics.add.collider(
             this.playerTwo, 
             this.mace, 
-            () => { this.playerTwo.grabFlag(this.mace) }
+            () => { this.playerTwo.grabMace(this.mace) }
         );
         
         this.physics.add.collider(
             this.playerTwo, 
             this.axe, 
-            () => { this.playerTwo.grabFlag(this.axe) }
+            () => { this.playerTwo.grabAxe(this.axe) }
         );
 
             // Make players pick up flags
@@ -179,7 +190,7 @@ export class NormalScene extends Phaser.Scene {
         this.ground = new Ground(this, 720, 890, 'ground_snow');
 
         this.drawGrass();
-        this.drawCastles();
+        // this.drawCastles();
     }
 
     drawGrass(): void {
@@ -190,9 +201,18 @@ export class NormalScene extends Phaser.Scene {
             grass.depth = 1;
         }
     }
-
-    drawCastles(): void {
-        this.add.image(70, 830, 'castle').setScale(0.25);
-        this.add.image(1370, 830, 'castle').setScale(0.25);
+    
+    // Make sure you score a point for capturing the flag
+    private captureFlag(playerOne:Unicorn, playerTwo:Unicorn, 
+        flagOne:Flag, flagTwo:Flag): void {
+            this.collectedFlags++
+            this.scorefield.text = this.collectedFlags + " captured the flag!"
+            console.log("hebbes!")
     }
+
+
+    // drawCastles(): void {
+    //     this.add.image(70, 830, 'castle').setScale(0.25);
+    //     this.add.image(1370, 830, 'castle').setScale(0.25);
+    // }
 };
