@@ -56,7 +56,7 @@ export class NormalScene extends Phaser.Scene {
         this.castleTwo = new CastleTwo(this, 1370, 835, 'castleTwo');
 
         // Create flags.
-        this.flagOne = new Flag(this, 153, 638, 'flag_one');
+        this.flagOne = new Flag(this, 151, 638, 'flag_one');
         this.flagTwo = new Flag(this, 1332, 648, 'flag_two');
 
         // Create weapons
@@ -210,16 +210,33 @@ export class NormalScene extends Phaser.Scene {
     private captureFlagOne(playerTwo:Unicorn, flagOne:Flag): void {
             this.collectedFlags++
             this.scorefieldTwo.text = this.collectedFlags + " flag captured!"
+            this.resetFlagOne(this.flagOne);
             console.log("hebbes!")
     }
 
         // Player two
     private captureFlagTwo(playerOne:Unicorn, flagTwo:Flag): void {
+            // this.flagTwo.remove(flagTwo, true, true)
             this.collectedFlags++
             this.scorefieldOne.text = this.collectedFlags + " flag captured!"
+            this.resetFlagTwo(this.flagTwo);
             console.log("hebbes!")
     }
 
+
+        // Resets position of flags
+    public resetFlagOne(flagOne:Flag){
+        this.flagOne.remove();
+        // delete this.flagOne
+        // this.flagOne.destroy(true);
+        this.flagOne.x = 151;
+        this.flagOne.y = 638;
+    }
+
+    public resetFlagTwo(flagTwo:Flag) {
+        this.flagTwo = new Flag(this, 1332, 648, 'flag_two');
+    }
+    
 
     // drawCastles(): void {
     //     this.add.image(70, 830, 'castle').setScale(0.25);
