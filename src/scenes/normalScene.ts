@@ -215,10 +215,12 @@ export class NormalScene extends Phaser.Scene {
     }
 
         // Player two
-    private captureFlagTwo(playerOne:Unicorn, flagTwo:Flag): void {
+    private captureFlagTwo(flagTwo:Flag, playerTwo:Unicorn): void {
             // this.flagTwo.remove(flagTwo, true, true)
             this.collectedFlags++
             this.scorefieldOne.text = this.collectedFlags + " flag captured!"
+            this.flagTwo.destroy();
+            this.flagTwo = new Flag(this, 1332, 648, 'flag_two');
             this.resetFlagTwo(this.flagTwo);
             console.log("hebbes!")
     }
@@ -234,7 +236,7 @@ export class NormalScene extends Phaser.Scene {
     }
 
     public resetFlagTwo(flagTwo:Flag) {
-        this.flagTwo = new Flag(this, 1332, 648, 'flag_two');
+
     }
     
 

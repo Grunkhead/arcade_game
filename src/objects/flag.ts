@@ -34,10 +34,6 @@ export class Flag extends Phaser.GameObjects.Sprite {
         this.body.setSize(this.width, this.height);
     }
 
-    remove(): void {
-        this.flag.remove();
-    }
-
     // Update the game based on logic or input.
     update(): void {}
 };
