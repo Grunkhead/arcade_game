@@ -22,7 +22,7 @@ export class HellScene extends Phaser.Scene {
 
     // Update the game based on logic or input.
     update(): void {}
-
+ 
     setBackground(): void {
         const background = this.add.image(720, 450, 'bg-hell');
         background.displayWidth = 1440;

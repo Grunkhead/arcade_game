@@ -23,9 +23,10 @@ export class Blackhole extends Phaser.Physics.Arcade.Sprite {
 
     setPhysics(): void {
         this.scene.physics.add.existing(this);
-        this.body.setAllowGravity(false);
-        this.body.setImmovable(true);
-        this.setSize(this.width, this.height);
+        let body = this.body as Phaser.Physics.Arcade.Body
+        body.setAllowGravity(false);
+        body.setImmovable(true);
+        body.setSize(this.width, this.height);
     }
 
     // Update the game based on logic or input.

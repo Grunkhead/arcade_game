@@ -1,11 +1,5 @@
 export class Ground extends Phaser.Physics.Arcade.Sprite {
-    protected scene: Phaser.Scene;
-
-    private x: number;
-    private y: number;
-
-    private width: number;
-    private height: number;
+    // protected scene: Phaser.Scene;
 
     constructor(scene: Phaser.Scene, x: number, y: number, spriteName: string) {
         super(scene, x, y, spriteName);
@@ -28,7 +22,8 @@ export class Ground extends Phaser.Physics.Arcade.Sprite {
     
     private setPhysics(): void {
         this.scene.physics.add.existing(this);
-        this.body.setAllowGravity(false);
-        this.body.setImmovable(true);
+        let body = this.body as Phaser.Physics.Arcade.Body
+        body.setAllowGravity(false);
+        body.setImmovable(true);
     }
 };

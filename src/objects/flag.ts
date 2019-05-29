@@ -29,9 +29,16 @@ export class Flag extends Phaser.GameObjects.Sprite {
 
     setPhysics(): void {
         this.scene.physics.add.existing(this);
-        this.body.setAllowGravity(false);
-        this.body.setImmovable(true);
-        this.body.setSize(this.width, this.height);
+        let body = this.body as Phaser.Physics.Arcade.Body
+        body.setAllowGravity(false);
+        body.setImmovable(true);
+        body.setSize(this.width, this.height);
+    }
+
+    public resetFlag(){
+        console.log("reset the flag")
+        this.x = 151;
+        this.y = 638;
     }
 
     // Update the game based on logic or input.

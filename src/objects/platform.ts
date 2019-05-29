@@ -5,10 +5,7 @@ export class Platform extends Phaser.Physics.Arcade.Sprite {
     private moveRight: boolean = true;
     private moveLeft:  boolean;
 
-    private width: number;
-    private height: number;
-
-    private spriteName: string;
+    // private spriteName: string;
     private dynamic: boolean;
 
     public x: number;
@@ -46,8 +43,9 @@ export class Platform extends Phaser.Physics.Arcade.Sprite {
 
     private setPhysics(): void {
         this.scene.physics.add.existing(this);
-        this.body.setAllowGravity(false);
-        this.body.setImmovable(true);
+        let body = this.body as Phaser.Physics.Arcade.Body
+        body.setAllowGravity(false);
+        body.setImmovable(true);
     }
 
     private move(): void {

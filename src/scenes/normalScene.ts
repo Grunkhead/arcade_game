@@ -103,18 +103,26 @@ export class NormalScene extends Phaser.Scene {
         );
 
         // Grab the middle platform which moves.
-        const platform = this.platforms.children.entries[2];
+        const platform : Platform = (this.platforms.children.entries[2]) as Platform;
 
         this.physics.add.collider(
             this.playerOne,
             platform,
-            () => { platform.addFollower(this.playerOne); }
+            platform.addFollower,
+            null,
+            platform
+            // TODO ARGUMENT MEEGEVEN AAN ADDFOLLOWER
+            //() => { platform.addFollower(this.playerOne); }
         );
 
         this.physics.add.collider(
             this.playerTwo,
             platform,
-            () => { platform.addFollower(this.playerTwo); }
+            platform.addFollower,
+            null,
+            platform
+            // TODO ARGUMENT MEEGEVEN AAN ADDFOLLOWER
+            //() => { platform.addFollower(this.playerTwo); }
         );
 
         // Listen to platform & player collisions.
@@ -228,11 +236,11 @@ export class NormalScene extends Phaser.Scene {
 
         // Resets position of flags
     public resetFlagOne(flagOne:Flag){
-        this.flagOne.remove();
+
+        this.flagOne.removeFlag();
         // delete this.flagOne
         // this.flagOne.destroy(true);
-        this.flagOne.x = 151;
-        this.flagOne.y = 638;
+        
     }
 
     public resetFlagTwo(flagTwo:Flag) {

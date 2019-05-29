@@ -55,8 +55,9 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
 
     private setPhysics(): void {
         this.scene.physics.add.existing(this);
-        this.body.setAllowGravity(true);
-        this.body.setCollideWorldBounds(true); 
+        let body = this.body as Phaser.Physics.Arcade.Body
+        body.setAllowGravity(true);
+        body.setCollideWorldBounds(true); 
         
         // Add some extra width and height because of smaller hitbox.
         this.setSize(this.displayWidth, this.displayHeight - 20);
@@ -64,7 +65,7 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
 
     // Code for weapon animation  ---- Not working properly yet
     public slashWeapon(weapon: Mace): void {
-        this.tweens.add({        
+        this.scene.tweens.add({        
             target: this.mace,
             angle: 360,
             scene: this.scene,
@@ -88,7 +89,8 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         mace.x = this.x - 45;
         mace.y = this.y - 40;
         // Rotate the mace
-        mace.body.rotation = - 45;
+        // TODO ROTATION WEER AAN ZETTEN
+        // mace.body.rotation = - 45;
         // Flip the mace when you turn
         mace.flipX = true;
     }
@@ -97,7 +99,8 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         axe.x = this.x - 45;
         axe.y = this.y - 40;
 
-        axe.body.rotation = - 45;
+        // TODO ROTATION WEER AAN ZETTEN
+        // axe.body.rotation = - 45;
 
         axe.flipX = true;
     }

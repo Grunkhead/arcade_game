@@ -10,7 +10,13 @@ export class BootScene extends Phaser.Scene {
 
     init(): void {
         this.load.on('complete', () => {
-            this.scene.start('normalScene');
+            // this.scene.start('introScene');
+            let btn1 = this.add.text(730, 700, 'Finished loading, press start', {fontFamily: 'Sofia', fontSize: 50, color: '#FFA500'}).setOrigin(0.5).setStroke('#7df2ea', 16)
+            btn1.setInteractive()
+            btn1.on('pointerdown', (pointer) => {
+                  this.scene.start('introScene')
+            })
+
         })
     }
 
@@ -50,14 +56,16 @@ export class BootScene extends Phaser.Scene {
         this.load.image('flag_one', 'assets/images/flag_one.png')
         this.load.image('flag_two', 'assets/images/flag_two.png')
 
+        // Sound
+        this.load.audio('mysound', 'assets/sounds/GameOfThrones.mp3');
+
 
         // Load the blackhole animation frames.
-        for (let i = 0; i < 6; i++) {
-            this.load.image('blackhole_' + i, 'assets/animations/blackhole/blackhole_' + i + '.png');
-        }
+        // for (let i = 0; i < 6; i++) {
+        //     this.load.image('blackhole_' + i, 'assets/animations/blackhole/blackhole_' + i + '.png');
+        // }
         
         this.load.image('grass', 'assets/images/grass.png');
-        this.load.image('flag', 'assets/images/flag.png');
         // this.load.image('castle', 'assets/images/castle.png');
         
         // Weapons
