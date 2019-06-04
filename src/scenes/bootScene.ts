@@ -10,12 +10,12 @@ export class BootScene extends Phaser.Scene {
 
     init(): void {
         this.load.on('complete', () => {
-            // this.scene.start('introScene');
-            let btn1 = this.add.text(730, 700, 'Finished loading, press start', {fontFamily: 'Sofia', fontSize: 50, color: '#FFA500'}).setOrigin(0.5).setStroke('#7df2ea', 16)
-            btn1.setInteractive()
-            btn1.on('pointerdown', (pointer) => {
-                  this.scene.start('introScene')
-            })
+            this.scene.start('introScene');
+            // let btn1 = this.add.text(730, 700, 'Finished loading, press start', {fontFamily: 'Sofia', fontSize: 50, color: '#FFA500'}).setOrigin(0.5).setStroke('#7df2ea', 16)
+            // btn1.setInteractive()
+            // btn1.on('pointerdown', (pointer) => {
+            //       this.scene.start('introScene')
+            // })
 
         })
     }
@@ -29,6 +29,10 @@ export class BootScene extends Phaser.Scene {
         // Platforms
         this.load.image('platform', 'assets/images/platform.png');
         this.load.image('platform_snow', 'assets/images/platform_snow.png');
+
+        // introScene
+        this.load.image('big_morty', 'assets/animations/morty/big_morty.png')
+        this.load.image('big_rick', 'assets/animations/rick/big_rick.png')
 
         // Grounds
         this.load.image('ground_snow', 'assets/images/ground_snow.png');
