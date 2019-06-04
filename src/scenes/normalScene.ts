@@ -57,12 +57,12 @@ export class NormalScene extends Phaser.Scene {
         this.scorefieldTwo = this.add.text(1200, 20,  + this.collectedFlagsTwo+ ' Flags captured', { fontFamily: 'Sofia', fontSize: 20, color: '#000000' }).setOrigin(0.5).setStroke('#2ac9be', 2);
         
         // Create castles.
-        this.castleOne = new Castle(this, 130, 830, 'castleOne');
-        this.castleTwo = new CastleTwo(this, 1370, 835, 'castleTwo');
+        this.castleOne = new Castle(this, 131, 755, 'castleOne');
+        this.castleTwo = new CastleTwo(this, 1370, 766, 'castleTwo');
 
         // Create flags.
-        this.flagOne = new Flag(this, 151, 638, 'flag_one');
-        this.flagTwo = new Flag(this, 1332, 648, 'flag_two');
+        this.flagOne = new Flag(this, 151, 619, 'flag_one');
+        this.flagTwo = new Flag(this, 1332, 638, 'flag_two');
 
         // Create weapons
         this.mace = new Mace(this, 300, 200);

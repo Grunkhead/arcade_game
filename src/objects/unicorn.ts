@@ -24,6 +24,9 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     public speedUp:    number = 0;
     public speedDown:  number = 0;
 
+    public healthBarOne: number = 0;
+    public healthBarTwo: number = 0;
+
     public width:    number = 100;
     public height:   number = 100;
 
