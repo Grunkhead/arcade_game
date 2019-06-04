@@ -21,10 +21,12 @@ export class NormalScene extends Phaser.Scene {
     private castleOne: Castle;
     private castleTwo: CastleTwo;
 
+    
+
     private mace: Mace;
     private axe: Axe;
 
-    private mySound : Phaser.Sound.BaseSound
+    protected mySound : Phaser.Sound.BaseSound
 
     // points and scorefield
     private collectedFlagsOne = 0;
@@ -76,6 +78,11 @@ export class NormalScene extends Phaser.Scene {
         // Create bottom platforms.
         this.platforms.add(new Platform(this, 320, 670, 'platform'), true);
         this.platforms.add(new Platform(this, 1120, 670, 'platform'), true);
+
+        // Create player health bars.
+        this.add.image(340, 50, 'bar_one')
+        this.add.image(1100, 50, 'bar_two')
+
 
         // Create players one.
         this.playerOne = new Unicorn( this, 200, 820, 'morty',

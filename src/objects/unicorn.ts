@@ -15,6 +15,7 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     public y: number;
 
     public spriteName: string;
+    protected mySound : Phaser.Sound.BaseSound
 
     public normalScene: NormalScene;
 
@@ -30,6 +31,7 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
 
     // Keys get assigned by the constructor.
     private keys: any = {};
+    sound: any;
 
     constructor(scene: Phaser.Scene, x: number, y: number, 
         spriteName: string, keys: object) {
@@ -131,6 +133,9 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         if (this.body.touching.down) {
             if (e.keyCode == this.keys.up && this.speedUp < 1) { 
                 this.speedUp += 50;
+                
+                this.mySound = this.sound.add('jump_sound', { loop: true });
+                this.mySound.play();
             }
             if (e.keyCode == this.keys.down && this.speedDown < 1) { 
                 this.speedDown += 5;

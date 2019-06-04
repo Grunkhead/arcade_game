@@ -55,6 +55,10 @@ export class BootScene extends Phaser.Scene {
         this.load.image('rick_left', 'assets/animations/rick/rick_left.png');
         this.load.image('rick_right', 'assets/animations/rick/rick_right.png');
 
+        // Health bars
+        this.load.image('bar_one', 'assets/images/morty_bar.png')
+        this.load.image('bar_two', 'assets/images/rick_bar.png')
+
         // Castles
         this.load.image('castleOne', 'assets/images/castle-playerOne.png');
         this.load.image('castleTwo', 'assets/images/castle-playerTwo.png');
@@ -66,6 +70,7 @@ export class BootScene extends Phaser.Scene {
         // Sounds
         this.load.audio('normal_sound', 'assets/sounds/sneaky_snitch.mp3');
         this.load.audio('hit_sound', 'assets/sounds/oef.mp3');
+        this.load.audio('jump_sound', 'assets/sounds/jump.mp3');
         
        
         this.load.image('grass', 'assets/images/grass.png');
