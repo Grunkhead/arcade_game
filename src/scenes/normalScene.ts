@@ -24,6 +24,8 @@ export class NormalScene extends Phaser.Scene {
     private mace: Mace;
     private axe: Axe;
 
+    private mySound : Phaser.Sound.BaseSound
+
     // points and scorefield
     private collectedFlagsOne = 0;
     private collectedFlagsTwo = 0;
@@ -41,6 +43,10 @@ export class NormalScene extends Phaser.Scene {
     create(): void {
         this.setGround();
         this.setBackground();
+
+        // Set sounds
+        this.mySound = this.sound.add('normal_sound', { loop: true });
+        this.mySound.play();
 
         this.platforms = this.add.group({ runChildUpdate: true })
 
@@ -188,7 +194,7 @@ export class NormalScene extends Phaser.Scene {
     }
 
     setBackground(): void {
-        const background = this.add.image(720, 450, 'fantasy-bg');
+        const background = this.add.image(720, 450, 'normal-bg');
         background.displayWidth = 1440;
         background.displayHeight = 900;
         background.depth = -1;

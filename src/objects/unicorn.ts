@@ -130,7 +130,7 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         
         if (this.body.touching.down) {
             if (e.keyCode == this.keys.up && this.speedUp < 1) { 
-                this.speedUp += 8;
+                this.speedUp += 50;
             }
             if (e.keyCode == this.keys.down && this.speedDown < 1) { 
                 this.speedDown += 5;

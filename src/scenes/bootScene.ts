@@ -42,6 +42,8 @@ export class BootScene extends Phaser.Scene {
         this.load.image('bg-hell', 'assets/images/bg_hell.jpg');
         this.load.image('intro-bg', 'assets/images/intro_bg.jpg');
         this.load.image('fantasy-bg', 'assets/images/fantasy_background.jpg');
+        this.load.image('normal-bg', 'assets/images/normal_bg.jpg');
+
 
         // Player one
         this.load.image('morty', 'assets/animations/morty/morty.png');
@@ -61,15 +63,11 @@ export class BootScene extends Phaser.Scene {
         this.load.image('flag_one', 'assets/images/flag_one.png')
         this.load.image('flag_two', 'assets/images/flag_two.png')
 
-        // Sound
-        this.load.audio('mysound', 'assets/sounds/GameOfThrones.mp3');
-
-
-        // Load the blackhole animation frames.
-        // for (let i = 0; i < 6; i++) {
-        //     this.load.image('blackhole_' + i, 'assets/animations/blackhole/blackhole_' + i + '.png');
-        // }
+        // Sounds
+        this.load.audio('normal_sound', 'assets/sounds/sneaky_snitch.mp3');
+        this.load.audio('hit_sound', 'assets/sounds/oef.mp3');
         
+       
         this.load.image('grass', 'assets/images/grass.png');
         // this.load.image('castle', 'assets/images/castle.png');
         
