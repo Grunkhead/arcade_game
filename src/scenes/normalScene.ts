@@ -1,9 +1,7 @@
 import "phaser";
-
 import { Mace } from "../objects/mace";
 import { Axe } from "../objects/axe";
 import { Unicorn } from "../objects/unicorn";
-import { Blackhole } from "../objects/blackhole";
 import { Platform } from "../objects/platform";
 import { Flag } from "../objects/flag";
 import { Ground } from "../objects/ground";
@@ -20,8 +18,6 @@ export class NormalScene extends Phaser.Scene {
     private flagOne: Flag;
     private flagTwo: Flag;
 
-    private blackhole: Blackhole;
-
     private castleOne: Castle;
     private castleTwo: CastleTwo;
 
@@ -29,7 +25,8 @@ export class NormalScene extends Phaser.Scene {
     private axe: Axe;
 
     // points and scorefield
-    private collectedFlags = 0;
+    private collectedFlagsOne = 0;
+    private collectedFlagsTwo = 0;
     private scorefieldOne
     private scorefieldTwo
 
@@ -48,8 +45,8 @@ export class NormalScene extends Phaser.Scene {
         this.platforms = this.add.group({ runChildUpdate: true })
 
         // Add score to the screen
-        this.scorefieldOne = this.add.text(200, 20,  + this.collectedFlags+ ' Flags captured', { fontFamily: 'Sofia', fontSize: 20, color: '#000000' }).setOrigin(0.5).setStroke('#2ac9be', 2);
-        this.scorefieldTwo = this.add.text(1200, 20,  + this.collectedFlags+ ' Flags captured', { fontFamily: 'Sofia', fontSize: 20, color: '#000000' }).setOrigin(0.5).setStroke('#2ac9be', 2);
+        this.scorefieldOne = this.add.text(200, 20,  + this.collectedFlagsOne+ ' Flags captured', { fontFamily: 'Sofia', fontSize: 20, color: '#000000' }).setOrigin(0.5).setStroke('#2ac9be', 2);
+        this.scorefieldTwo = this.add.text(1200, 20,  + this.collectedFlagsTwo+ ' Flags captured', { fontFamily: 'Sofia', fontSize: 20, color: '#000000' }).setOrigin(0.5).setStroke('#2ac9be', 2);
         
         // Create castles.
         this.castleOne = new Castle(this, 130, 830, 'castleOne');
@@ -137,7 +134,7 @@ export class NormalScene extends Phaser.Scene {
         this.physics.add.collider( this.playerTwo, this.mace );
         this.physics.add.collider( this.playerTwo, this.axe );
         
-        // Listen to weapon and player collisions
+        // Listen to castle and flag collision
         this.physics.add.collider( this.castleOne, this.flagTwo );
         this.physics.add.collider( this.castleTwo, this.flagOne );
 
@@ -201,7 +198,6 @@ export class NormalScene extends Phaser.Scene {
         this.ground = new Ground(this, 720, 890, 'ground_snow');
 
         this.drawGrass();
-        // this.drawCastles();
     }
 
     drawGrass(): void {
@@ -214,42 +210,39 @@ export class NormalScene extends Phaser.Scene {
     }
     
     // Make sure you score a point for capturing the flag
-    // PLayer one
+        // PLayer one
     private captureFlagOne(playerTwo:Unicorn, flagOne:Flag): void {
-            this.collectedFlags++
-            this.scorefieldTwo.text = this.collectedFlags + " flag captured!"
-            this.resetFlagOne(this.flagOne);
+            this.collectedFlagsTwo++
+            this.scorefieldTwo.text = this.collectedFlagsTwo + " flag captured!"
+            this.flagOne.destroy();
+            this.flagOne = new Flag(this, 151, 638, 'flag_one');
+
+            this.physics.add.collider(
+                this.playerTwo,
+                this.flagOne,
+                () => { this.playerTwo.grabFlag(this.flagOne) }
+            );
+
+            this.physics.add.overlap(this.flagOne, this.castleTwo, this.captureFlagOne, null, this)
+
             console.log("hebbes!")
     }
 
         // Player two
-    private captureFlagTwo(flagTwo:Flag, playerTwo:Unicorn): void {
-            // this.flagTwo.remove(flagTwo, true, true)
-            this.collectedFlags++
-            this.scorefieldOne.text = this.collectedFlags + " flag captured!"
+    private captureFlagTwo(flagTwo:Flag, playerOne:Unicorn): void {
+            this.collectedFlagsOne++
+            this.scorefieldOne.text = this.collectedFlagsOne + " flag captured!"
             this.flagTwo.destroy();
             this.flagTwo = new Flag(this, 1332, 648, 'flag_two');
-            this.resetFlagTwo(this.flagTwo);
+
+            this.physics.add.collider(
+                this.playerOne, 
+                this.flagTwo, 
+                () => { this.playerOne.grabFlag(this.flagTwo) }
+            );
+
+            this.physics.add.overlap(this.flagTwo, this.castleOne, this.captureFlagTwo, null, this)
+
             console.log("hebbes!")
     }
-
-
-        // Resets position of flags
-    public resetFlagOne(flagOne:Flag){
-
-        this.flagOne.removeFlag();
-        // delete this.flagOne
-        // this.flagOne.destroy(true);
-        
-    }
-
-    public resetFlagTwo(flagTwo:Flag) {
-
-    }
-    
-
-    // drawCastles(): void {
-    //     this.add.image(70, 830, 'castle').setScale(0.25);
-    //     this.add.image(1370, 830, 'castle').setScale(0.25);
-    // }
 };
