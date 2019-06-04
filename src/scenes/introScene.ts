@@ -52,7 +52,7 @@ export class IntroScene extends Phaser.Scene {
     
     private loadSprites(){
         // Background
-        const background = this.add.image(720, 450, 'bg-normal');
+        const background = this.add.image(720, 450, 'intro-bg');
         background.displayWidth = 1440;
         background.displayHeight = 900;
 
