@@ -15,7 +15,6 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     public y: number;
 
     public spriteName: string;
-    protected mySound : Phaser.Sound.BaseSound
 
     public normalScene: NormalScene;
 
@@ -34,7 +33,7 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
 
     // Keys get assigned by the constructor.
     private keys: any = {};
-    sound: any;
+    private sound: Phaser.Sound.BaseSound;
 
     constructor(scene: Phaser.Scene, x: number, y: number, 
         spriteName: string, keys: object) {
@@ -128,6 +127,7 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
             this.setTexture(this.spriteName + '_left');
             this.speedLeft += 5;
         }
+
         if (e.keyCode == this.keys.right && this.speedRight < 1) { 
             this.setTexture(this.spriteName + '_right');
             this.speedRight += 5;
@@ -135,11 +135,9 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         
         if (this.body.touching.down) {
             if (e.keyCode == this.keys.up && this.speedUp < 1) { 
-                this.speedUp += 50;
-                
-                this.mySound = this.sound.add('jump_sound', { loop: true });
-                this.mySound.play();
+                this.jump();
             }
+
             if (e.keyCode == this.keys.down && this.speedDown < 1) { 
                 this.speedDown += 5;
             }
@@ -160,5 +158,15 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         // Listen to the key up and down events.
         document.addEventListener("keydown", (e: KeyboardEvent) => this.onKeyDown(e));
         document.addEventListener("keyup", (e: KeyboardEvent) => this.onKeyUp(e));
+    }
+
+    private jump(){
+        this.speedUp += 20;
+        let jumpSound = this.scene.sound.add('jump_sound', { loop: false });
+        jumpSound.play();
+
+        // Add if statement that allows double jump.
+        // Check if there is collision
+        // If false allow a second jump.
     }
 };

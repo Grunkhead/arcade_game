@@ -26,7 +26,7 @@ export class NormalScene extends Phaser.Scene {
     private mace: Mace;
     private axe: Axe;
 
-    protected mySound : Phaser.Sound.BaseSound
+    public mySound : Phaser.Sound.BaseSound
 
     // points and scorefield
     private collectedFlagsOne = 0;
@@ -53,8 +53,8 @@ export class NormalScene extends Phaser.Scene {
         this.platforms = this.add.group({ runChildUpdate: true })
 
         // Add score to the screen
-        this.scorefieldOne = this.add.text(200, 20,  + this.collectedFlagsOne+ ' Flags captured', { fontFamily: 'Sofia', fontSize: 20, color: '#000000' }).setOrigin(0.5).setStroke('#2ac9be', 2);
-        this.scorefieldTwo = this.add.text(1200, 20,  + this.collectedFlagsTwo+ ' Flags captured', { fontFamily: 'Sofia', fontSize: 20, color: '#000000' }).setOrigin(0.5).setStroke('#2ac9be', 2);
+        this.scorefieldOne = this.add.text(170, 40,  + this.collectedFlagsOne+ ' Flags captured', { fontFamily: 'Sofia', fontSize: 25, color: '#9999cc' }).setOrigin(0.5).setStroke('#ffcc99', 2);
+        this.scorefieldTwo = this.add.text(1270, 40,  + this.collectedFlagsTwo+ ' Flags captured', { fontFamily: 'Sofia', fontSize: 25, color: '#9999cc' }).setOrigin(0.5).setStroke('#ffcc99', 2);
         
         // Create castles.
         this.castleOne = new Castle(this, 131, 755, 'castleOne');
@@ -62,22 +62,22 @@ export class NormalScene extends Phaser.Scene {
 
         // Create flags.
         this.flagOne = new Flag(this, 151, 619, 'flag_one');
-        this.flagTwo = new Flag(this, 1332, 638, 'flag_two');
+        this.flagTwo = new Flag(this, 1332, 635, 'flag_two');
 
         // Create weapons
-        this.mace = new Mace(this, 300, 200);
-        this.axe = new Axe(this, 1150, 200);
+        this.mace = new Mace(this, 375, 200);
+        this.axe = new Axe(this, 1075, 200);
 
         // Create top platforms.
-        this.platforms.add(new Platform(this, 320, 270, 'platform'),  true);
-        this.platforms.add(new Platform(this, 1120, 270, 'platform'), true);
+        this.platforms.add(new Platform(this, 400, 270, 'platform'),  true);
+        this.platforms.add(new Platform(this, 1040, 270, 'platform'), true);
 
         // Create middle platform (this one moves).
         this.platforms.add(new Platform(this, 720, 470, 'platform_snow', true), true);
         
         // Create bottom platforms.
-        this.platforms.add(new Platform(this, 320, 670, 'platform'), true);
-        this.platforms.add(new Platform(this, 1120, 670, 'platform'), true);
+        this.platforms.add(new Platform(this, 400, 670, 'platform'), true);
+        this.platforms.add(new Platform(this, 1040, 670, 'platform'), true);
 
         // Create player health bars.
         this.add.image(340, 50, 'bar_one')
@@ -89,7 +89,7 @@ export class NormalScene extends Phaser.Scene {
             {
                 left:  65, // W
                 right: 68, // A
-                up:    87, // S
+                up:    87,  // S
                 down:  83, // D
                 dash:  9,  // TAB
 
@@ -111,6 +111,7 @@ export class NormalScene extends Phaser.Scene {
                 slash: 32  // Space 
             }
         );
+
 
         // Grab the middle platform which moves.
         const platform : Platform = (this.platforms.children.entries[2]) as Platform;
@@ -209,18 +210,17 @@ export class NormalScene extends Phaser.Scene {
 
     setGround(): void {
         this.ground = new Ground(this, 720, 890, 'ground_snow');
-
-        this.drawGrass();
+        // this.drawGrass();
     }
 
-    drawGrass(): void {
-        for (let i = 0; i < 4; i++) {
-            let grass = this.add.sprite(1040 / i, 830, 'grass');
+    // drawGrass(): void {
+    //     for (let i = 0; i < 4; i++) {
+    //         let grass = this.add.sprite(1040 / i, 830, 'grass');
 
-            grass.setScale(3);
-            grass.depth = 1;
-        }
-    }
+    //         grass.setScale(3);
+    //         grass.depth = 1;
+    //     }
+    // }
     
     // Make sure you score a point for capturing the flag
         // PLayer one
