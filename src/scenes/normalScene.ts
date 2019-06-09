@@ -47,8 +47,8 @@ export class NormalScene extends Phaser.Scene {
         this.setBackground();
 
         // Set sounds
-        this.mySound = this.sound.add('normal_sound', { loop: true });
-        this.mySound.play();
+        // this.mySound = this.sound.add('normal_sound', { loop: true });
+        // this.mySound.play();
 
         this.platforms = this.add.group({ runChildUpdate: true })
 
