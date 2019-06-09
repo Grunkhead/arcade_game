@@ -44,7 +44,6 @@ export class BootScene extends Phaser.Scene {
         this.load.image('fantasy-bg', 'assets/images/fantasy_background.jpg');
         this.load.image('normal-bg', 'assets/images/normal_bg.jpg');
 
-
         // Player one
         this.load.image('morty', 'assets/animations/morty/morty.png');
         this.load.image('morty_left', 'assets/animations/morty/morty_left.png');
@@ -60,25 +59,20 @@ export class BootScene extends Phaser.Scene {
         this.load.image('bar_two', 'assets/images/rick_bar.png')
 
         // Castles
-        this.load.image('castleOne', 'assets/images/castle-playerOne.png');
-        this.load.image('castleTwo', 'assets/images/castle-playerTwo.png');
+        this.load.image('castle', 'assets/images/castle.png');
 
-        //Flags
-        this.load.image('flag_one', 'assets/images/flag_one.png')
-        this.load.image('flag_two', 'assets/images/flag_two.png')
+        // Flags
+        this.load.image('flag_one', 'assets/images/flag_one.png');
+        this.load.image('flag_two', 'assets/images/flag_two.png');
+
+        // Weapons
+        this.load.image('mace', 'assets/images/weapon1.png');
+        this.load.image('axe', 'assets/images/weapon2.png');
 
         // Sounds
         this.load.audio('normal_sound', 'assets/sounds/sneaky_snitch.mp3');
         this.load.audio('hit_sound', 'assets/sounds/oef.mp3');
         this.load.audio('jump_sound', 'assets/sounds/jump.mp3');
-        
-       
-        this.load.image('grass', 'assets/images/grass.png');
-        // this.load.image('castle', 'assets/images/castle.png');
-        
-        // Weapons
-        this.load.image('mace', 'assets/images/weapon1.png');
-        this.load.image('axe', 'assets/images/weapon2.png');
     }
 };
 

@@ -57,8 +57,8 @@ export class NormalScene extends Phaser.Scene {
         this.scorefieldTwo = this.add.text(1270, 40,  + this.collectedFlagsTwo+ ' Flags captured', { fontFamily: 'Sofia', fontSize: 25, color: '#9999cc' }).setOrigin(0.5).setStroke('#ffcc99', 2);
         
         // Create castles.
-        this.castleOne = new Castle(this, 131, 755, 'castleOne');
-        this.castleTwo = new CastleTwo(this, 1370, 766, 'castleTwo');
+        this.castleOne = new Castle(this, 80, 770, 'castle');
+        this.castleTwo = new Castle(this, 1360, 770, 'castle');
 
         // Create flags.
         this.flagOne = new Flag(this, 151, 619, 'flag_one');
@@ -135,6 +135,8 @@ export class NormalScene extends Phaser.Scene {
             // TODO ARGUMENT MEEGEVEN AAN ADDFOLLOWER
             //() => { platform.addFollower(this.playerTwo); }
         );
+
+        this.physics.add.collider(this.playerOne, this.playerTwo);
 
         // Listen to platform & player collisions.
         this.physics.add.collider(this.playerOne, this.ground);
