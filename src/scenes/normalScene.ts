@@ -85,7 +85,7 @@ export class NormalScene extends Phaser.Scene {
 
 
         // Create players one.
-        this.playerOne = new Unicorn( this, 200, 820, 'morty',
+        this.playerOne = new Unicorn( this, 200, 800, 'morty',
             {
                 left:  65, // W
                 right: 68, // A
@@ -99,7 +99,7 @@ export class NormalScene extends Phaser.Scene {
         );
 
         // Create player two.
-        this.playerTwo = new Unicorn(this, 1240, 820, 'rick',
+        this.playerTwo = new Unicorn(this, 1240, 800, 'rick',
             {
                 left:  37, // W
                 right: 39, // A
@@ -210,20 +210,9 @@ export class NormalScene extends Phaser.Scene {
 
     setGround(): void {
         this.ground = new Ground(this, 720, 890, 'ground_snow');
-        // this.drawGrass();
     }
-
-    // drawGrass(): void {
-    //     for (let i = 0; i < 4; i++) {
-    //         let grass = this.add.sprite(1040 / i, 830, 'grass');
-
-    //         grass.setScale(3);
-    //         grass.depth = 1;
-    //     }
-    // }
     
-    // Make sure you score a point for capturing the flag
-        // PLayer one
+    // Player one.
     private captureFlagOne(playerTwo:Unicorn, flagOne:Flag): void {
             this.collectedFlagsTwo++
             this.scorefieldTwo.text = this.collectedFlagsTwo + " flag captured!"
@@ -241,8 +230,8 @@ export class NormalScene extends Phaser.Scene {
             console.log("hebbes!")
     }
 
-        // Player two
-    private captureFlagTwo(flagTwo:Flag, playerOne:Unicorn): void {
+    // Player two.
+    private captureFlagTwo(flag:Flag, player:Unicorn): void {
             this.collectedFlagsOne++
             this.scorefieldOne.text = this.collectedFlagsOne + " flag captured!"
             this.flagTwo.destroy();

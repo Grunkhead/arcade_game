@@ -61,7 +61,8 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         this.scene.physics.add.existing(this);
         let body = this.body as Phaser.Physics.Arcade.Body
         body.setAllowGravity(true);
-        body.setCollideWorldBounds(true); 
+        body.setCollideWorldBounds(true);
+        body.setGravity(0, 0);
         
         // Add some extra width and height because of smaller hitbox.
         this.setSize(this.displayWidth, this.displayHeight - 20);
@@ -118,7 +119,6 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         this.x -= this.speedLeft;
         this.x += this.speedRight;
         this.y -= this.speedUp;
-        this.y += this.speedDown;
     }
 
     // Increase speed when a specific key is pressed.
@@ -137,10 +137,6 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
             if (e.keyCode == this.keys.up && this.speedUp < 1) { 
                 this.jump();
             }
-
-            if (e.keyCode == this.keys.down && this.speedDown < 1) { 
-                this.speedDown += 5;
-            }
         }
     }
 
@@ -149,7 +145,6 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         if (e.keyCode == this.keys.left)  { this.speedLeft  = 0; }
         if (e.keyCode == this.keys.right) { this.speedRight = 0; }
         if (e.keyCode == this.keys.up)    { this.speedUp    = 0; }
-        if (e.keyCode == this.keys.down)  { this.speedDown  = 0; }
         if (e.keyCode == this.keys.dash)  { this.speedDown  = this.x -1; }
         if (e.keyCode == this.keys.slash) { this.slashWeapon }
     }
