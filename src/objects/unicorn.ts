@@ -8,7 +8,6 @@ import { NormalScene } from "../scenes/normalScene";
 export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     
     protected scene: Phaser.Scene;
-
     private cursors: Phaser.Input.Keyboard.CursorKeys
     
     public x: number; 
@@ -33,7 +32,6 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
 
     // Keys get assigned by the constructor.
     private keys: any = {};
-    private sound: Phaser.Sound.BaseSound;
 
     constructor(scene: Phaser.Scene, x: number, y: number, 
         spriteName: string, keys: object) {
@@ -49,6 +47,7 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
 
             this.setPhysics();
             this.setVisuals();
+            this.createAnimations()
             this.setEventListeners();
             this.scene.add.existing(this);
         }
@@ -62,7 +61,7 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         let body = this.body as Phaser.Physics.Arcade.Body
         body.setAllowGravity(true);
         body.setCollideWorldBounds(true);
-        body.setGravity(0, 0);
+        body.setGravity(0, 1000);
         
         // Add some extra width and height because of smaller hitbox.
         this.setSize(this.displayWidth, this.displayHeight - 20);
@@ -124,13 +123,21 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     // Increase speed when a specific key is pressed.
     private onKeyDown(e: KeyboardEvent): void {
         if (e.keyCode == this.keys.left && this.speedLeft < 1) { 
-            this.setTexture(this.spriteName + '_left');
+            // this.setTexture(this.spriteName + '_left');
+            this.flipX = false
+            this.play('walk', true)
             this.speedLeft += 5;
         }
 
         if (e.keyCode == this.keys.right && this.speedRight < 1) { 
-            this.setTexture(this.spriteName + '_right');
+            // this.setTexture(this.spriteName + '_right');
+            this.flipX = true
+            this.play('walk', true)
             this.speedRight += 5;
+        }
+
+        if (e.keyCode == this.keys.slash){
+            this.play('attack', true)
         }
         
         if (this.body.touching.down) {
@@ -142,9 +149,9 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
 
     // Reset a specific speed when a key is released.
     private onKeyUp(e: KeyboardEvent): void {
-        if (e.keyCode == this.keys.left)  { this.speedLeft  = 0; }
-        if (e.keyCode == this.keys.right) { this.speedRight = 0; }
-        if (e.keyCode == this.keys.up)    { this.speedUp    = 0; }
+        if (e.keyCode == this.keys.left)  { this.speedLeft  = 0, this.play('idle', true); }
+        if (e.keyCode == this.keys.right) { this.speedRight = 0, this.play('idle', true); }
+        if (e.keyCode == this.keys.up)    { this.speedUp    = 0, this.play('idle', true); }
         if (e.keyCode == this.keys.dash)  { this.speedDown  = this.x -1; }
         if (e.keyCode == this.keys.slash) { this.slashWeapon }
     }
@@ -156,12 +163,53 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     }
 
     private jump(){
-        this.speedUp += 20;
+        this.speedUp += 15;
         let jumpSound = this.scene.sound.add('jump_sound', { loop: false });
         jumpSound.play();
 
         // Add if statement that allows double jump.
         // Check if there is collision
         // If false allow a second jump.
+    }
+
+    private createAnimations() {
+        // Morty lopen
+        this.scene.anims.create({
+            key: 'walk',
+            frames: [
+                { key: 'morty_walk_1', frame :""},
+                { key: 'morty_walk_2', frame :""},
+                { key: 'morty_walk_3', frame :""}
+            ],
+            frameRate: 8,
+            repeat: -1
+        });
+
+        // Morty slaan
+        this.scene.anims.create({
+            key: 'attack',
+            frames: [
+                { key: 'morty_attack_1', frame :""},
+                { key: 'morty_attack_2', frame :""},
+                { key: 'morty_attack_3', frame :""},
+                { key: 'morty_attack_4', frame :""}
+            ],
+            frameRate: 20,
+            repeat: -1
+        });
+
+        this.scene.anims.create({
+            key: 'idle',
+            frames: [
+                { key: 'morty_idle', frame :""}
+            ],
+            frameRate: 8,
+            repeat: -1
+        });
+        
+        // if (!this.body.touching.down) {
+        //     this.play("JUMP", true)
+        // }
+
     }
 };

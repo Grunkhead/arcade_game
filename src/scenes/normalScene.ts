@@ -212,6 +212,7 @@ export class NormalScene extends Phaser.Scene {
 
     setGround(): void {
         this.ground = new Ground(this, 720, 890, 'ground_snow');
+
     }
     
     // Player one.

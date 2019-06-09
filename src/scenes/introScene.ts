@@ -15,6 +15,7 @@ export class IntroScene extends Phaser.Scene {
         // Uncomment if you want to unlock sound.
         // this.mySound = this.sound.add('mysound', { loop: true });
         // this.mySound.play();
+
         this.loadSprites()
         this.showText()
 

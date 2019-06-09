@@ -46,9 +46,19 @@ export class BootScene extends Phaser.Scene {
 
         // Player one
         this.load.image('morty', 'assets/animations/morty/morty.png');
+        this.load.image('morty_idle', 'assets/animations/morty/morty_3.png');
         this.load.image('morty_left', 'assets/animations/morty/morty_left.png');
         this.load.image('morty_right', 'assets/animations/morty/morty_right.png');
-        
+            // Movement
+        this.load.image('morty_walk_1', 'assets/animations/morty/walk/morty_walk_1.png');
+        this.load.image('morty_walk_2', 'assets/animations/morty/walk/morty_walk_2.png');
+        this.load.image('morty_walk_3', 'assets/animations/morty/walk/morty_walk_3.png');
+            // Attack
+        this.load.image('morty_attack_1', 'assets/animations/morty/attack/morty_attack_1.png');
+        this.load.image('morty_attack_2', 'assets/animations/morty/attack/morty_attack_2.png');
+        this.load.image('morty_attack_3', 'assets/animations/morty/attack/morty_attack_3.png');
+        this.load.image('morty_attack_4', 'assets/animations/morty/attack/morty_attack_4.png');
+
         // Player two
         this.load.image('rick', 'assets/animations/rick/rick.png');
         this.load.image('rick_left', 'assets/animations/rick/rick_left.png');
