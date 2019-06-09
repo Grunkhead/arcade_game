@@ -61,8 +61,8 @@ export class NormalScene extends Phaser.Scene {
         this.castleTwo = new Castle(this, 1360, 770, 'castle');
 
         // Create flags.
-        this.flagOne = new Flag(this, 151, 619, 'flag_one');
-        this.flagTwo = new Flag(this, 1332, 635, 'flag_two');
+        this.flagOne = new Flag(this, 70, 650, 'flag_one');
+        this.flagTwo = new Flag(this, 1350, 650, 'flag_two');
 
         // Create weapons
         this.mace = new Mace(this, 375, 200);
