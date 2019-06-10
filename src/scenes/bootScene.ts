@@ -53,6 +53,9 @@ export class BootScene extends Phaser.Scene {
         this.load.image('morty_walk_1', 'assets/animations/morty/walk/morty_walk_1.png');
         this.load.image('morty_walk_2', 'assets/animations/morty/walk/morty_walk_2.png');
         this.load.image('morty_walk_3', 'assets/animations/morty/walk/morty_walk_3.png');
+        this.load.image('morty_jump_1', 'assets/animations/morty/morty_12.png');
+        this.load.image('morty_jump_2', 'assets/animations/morty/morty_13.png');
+        this.load.image('morty_jump_3', 'assets/animations/morty/morty_14.png');
             // Attack
         this.load.image('morty_attack_1', 'assets/animations/morty/attack/morty_attack_1.png');
         this.load.image('morty_attack_2', 'assets/animations/morty/attack/morty_attack_2.png');

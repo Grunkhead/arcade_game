@@ -56,7 +56,7 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         this.setScale(0.7);
     }
 
-    private setPhysics(): void {
+    protected setPhysics(): void {
         this.scene.physics.add.existing(this);
         let body = this.body as Phaser.Physics.Arcade.Body
         body.setAllowGravity(true);
@@ -125,6 +125,7 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         if (e.keyCode == this.keys.left && this.speedLeft < 1) { 
             // this.setTexture(this.spriteName + '_left');
             this.flipX = false
+            // this.play(this.spriteName + 'walk', true)
             this.play('walk', true)
             this.speedLeft += 5;
         }
@@ -132,6 +133,7 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         if (e.keyCode == this.keys.right && this.speedRight < 1) { 
             // this.setTexture(this.spriteName + '_right');
             this.flipX = true
+            // this.play(this.spriteName + 'walk', true)
             this.play('walk', true)
             this.speedRight += 5;
         }
@@ -142,6 +144,11 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         
         if (this.body.touching.down) {
             if (e.keyCode == this.keys.up && this.speedUp < 1) { 
+                this.jump();
+            }
+        } else if(!this.body.touching.down && this.speedUp < 1){
+            if (e.keyCode == this.keys.up) {
+                this.speedUp += 7
                 this.jump();
             }
         }
@@ -164,12 +171,9 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
 
     private jump(){
         this.speedUp += 15;
+        this.play('jump', true)
         let jumpSound = this.scene.sound.add('jump_sound', { loop: false });
         jumpSound.play();
-
-        // Add if statement that allows double jump.
-        // Check if there is collision
-        // If false allow a second jump.
     }
 
     private createAnimations() {
@@ -185,6 +189,18 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
             repeat: -1
         });
 
+        // Morty springen
+        this.scene.anims.create({
+            key: 'jump',
+            frames: [
+                { key: 'morty_jump_1', frame :""},
+                { key: 'morty_jump_2', frame :""},
+                { key: 'morty_jump_3', frame :""}
+            ],
+            frameRate: 8,
+            repeat: -1
+        });
+
         // Morty slaan
         this.scene.anims.create({
             key: 'attack',
@@ -194,10 +210,11 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
                 { key: 'morty_attack_3', frame :""},
                 { key: 'morty_attack_4', frame :""}
             ],
-            frameRate: 20,
-            repeat: -1
+            frameRate: 30,
+            repeat: 0
         });
 
+        // Morty stilstaan
         this.scene.anims.create({
             key: 'idle',
             frames: [
@@ -206,10 +223,5 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
             frameRate: 8,
             repeat: -1
         });
-        
-        // if (!this.body.touching.down) {
-        //     this.play("JUMP", true)
-        // }
-
     }
 };
