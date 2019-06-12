@@ -11,12 +11,6 @@ export class BootScene extends Phaser.Scene {
     init(): void {
         this.load.on('complete', () => {
             this.scene.start('introScene');
-            // let btn1 = this.add.text(730, 700, 'Finished loading, press start', {fontFamily: 'Sofia', fontSize: 50, color: '#FFA500'}).setOrigin(0.5).setStroke('#7df2ea', 16)
-            // btn1.setInteractive()
-            // btn1.on('pointerdown', (pointer) => {
-            //       this.scene.start('introScene')
-            // })
-
         })
     }
 
@@ -44,9 +38,8 @@ export class BootScene extends Phaser.Scene {
         this.load.image('fantasy-bg', 'assets/images/fantasy_background.jpg');
         this.load.image('normal-bg', 'assets/images/normal_bg.jpg');
 
-        // Player one
+        // Player one morty
         this.load.image('morty', 'assets/animations/morty/morty.png');
-        this.load.image('morty_idle', 'assets/animations/morty/morty_3.png');
         this.load.image('morty_left', 'assets/animations/morty/morty_left.png');
         this.load.image('morty_right', 'assets/animations/morty/morty_right.png');
             // Movement
@@ -62,11 +55,23 @@ export class BootScene extends Phaser.Scene {
         this.load.image('morty_attack_3', 'assets/animations/morty/attack/morty_attack_3.png');
         this.load.image('morty_attack_4', 'assets/animations/morty/attack/morty_attack_4.png');
 
-        // Player two
+        // Player two rick 
         this.load.image('rick', 'assets/animations/rick/rick.png');
         this.load.image('rick_left', 'assets/animations/rick/rick_left.png');
         this.load.image('rick_right', 'assets/animations/rick/rick_right.png');
-
+            // Movement
+        this.load.image('rick_walk_1', 'assets/animations/rick/walk/rick_walk_1.png');
+        this.load.image('rick_walk_2', 'assets/animations/rick/walk/rick_walk_2.png');
+        this.load.image('rick_walk_3', 'assets/animations/rick/walk/rick_walk_3.png');
+        this.load.image('rick_jump_1', 'assets/animations/rick/rick_1.png');
+        this.load.image('rick_jump_2', 'assets/animations/rick/rick_2.png');
+        this.load.image('rick_jump_3', 'assets/animations/rick/rick_3.png');
+            // Attack
+        this.load.image('rick_attack_1', 'assets/animations/rick/attack/rick_attack_1.png');
+        this.load.image('rick_attack_2', 'assets/animations/rick/attack/rick_attack_2.png');
+        this.load.image('rick_attack_3', 'assets/animations/rick/attack/rick_attack_3.png');
+        this.load.image('rick_attack_4', 'assets/animations/rick/attack/rick_attack_4.png');
+        
         // Health bars
         this.load.image('bar_one', 'assets/images/morty_bar.png')
         this.load.image('bar_two', 'assets/images/rick_bar.png')

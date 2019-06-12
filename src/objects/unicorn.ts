@@ -123,23 +123,19 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     // Increase speed when a specific key is pressed.
     private onKeyDown(e: KeyboardEvent): void {
         if (e.keyCode == this.keys.left && this.speedLeft < 1) { 
-            // this.setTexture(this.spriteName + '_left');
             this.flipX = false
-            // this.play(this.spriteName + 'walk', true)
-            this.play('walk', true)
+            this.play( this.spriteName + "_walk", true)
             this.speedLeft += 5;
         }
 
         if (e.keyCode == this.keys.right && this.speedRight < 1) { 
-            // this.setTexture(this.spriteName + '_right');
             this.flipX = true
-            // this.play(this.spriteName + 'walk', true)
-            this.play('walk', true)
+            this.play( this.spriteName + "_walk", true)
             this.speedRight += 5;
         }
 
         if (e.keyCode == this.keys.slash){
-            this.play('attack', true)
+            this.play( this.spriteName + "_attack", true)
         }
         
         if (this.body.touching.down) {
@@ -156,9 +152,9 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
 
     // Reset a specific speed when a key is released.
     private onKeyUp(e: KeyboardEvent): void {
-        if (e.keyCode == this.keys.left)  { this.speedLeft  = 0, this.play('idle', true); }
-        if (e.keyCode == this.keys.right) { this.speedRight = 0, this.play('idle', true); }
-        if (e.keyCode == this.keys.up)    { this.speedUp    = 0, this.play('idle', true); }
+        if (e.keyCode == this.keys.left)  { this.speedLeft  = 0, this.play(this.spriteName + '_idle', true); }
+        if (e.keyCode == this.keys.right) { this.speedRight = 0, this.play(this.spriteName + '_idle', true); }
+        if (e.keyCode == this.keys.up)    { this.speedUp    = 0, this.play(this.spriteName + '_idle', true); }
         if (e.keyCode == this.keys.dash)  { this.speedDown  = this.x -1; }
         if (e.keyCode == this.keys.slash) { this.slashWeapon }
     }
@@ -171,7 +167,8 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
 
     private jump(){
         this.speedUp += 15;
-        this.play('jump', true)
+    
+        this.play( this.spriteName + "_jump", true)
         let jumpSound = this.scene.sound.add('jump_sound', { loop: false });
         jumpSound.play();
     }
@@ -179,7 +176,7 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     private createAnimations() {
         // Morty lopen
         this.scene.anims.create({
-            key: 'walk',
+            key: 'morty_walk',
             frames: [
                 { key: 'morty_walk_1', frame :""},
                 { key: 'morty_walk_2', frame :""},
@@ -191,7 +188,7 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
 
         // Morty springen
         this.scene.anims.create({
-            key: 'jump',
+            key: 'morty_jump',
             frames: [
                 { key: 'morty_jump_1', frame :""},
                 { key: 'morty_jump_2', frame :""},
@@ -203,7 +200,7 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
 
         // Morty slaan
         this.scene.anims.create({
-            key: 'attack',
+            key: 'morty_attack',
             frames: [
                 { key: 'morty_attack_1', frame :""},
                 { key: 'morty_attack_2', frame :""},
@@ -216,9 +213,56 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
 
         // Morty stilstaan
         this.scene.anims.create({
-            key: 'idle',
+            key: 'morty_idle',
             frames: [
-                { key: 'morty_idle', frame :""}
+                { key: 'morty', frame :""}
+            ],
+            frameRate: 8,
+            repeat: -1
+        });
+
+        // Rick lopen
+        this.scene.anims.create({
+            key: 'rick_walk',
+            frames: [
+                { key: 'rick_walk_1', frame :""},
+                { key: 'rick_walk_2', frame :""},
+                { key: 'rick_walk_3', frame :""}
+            ],
+            frameRate: 8,
+            repeat: -1
+        });
+
+        // Rick springen
+        this.scene.anims.create({
+            key: 'rick_jump',
+            frames: [
+                { key: 'rick_jump_1', frame :""},
+                { key: 'rick_jump_2', frame :""},
+                { key: 'rick_jump_3', frame :""}
+            ],
+            frameRate: 8,
+            repeat: -1
+        });
+
+        // Rick slaan
+        this.scene.anims.create({
+            key: 'rick_attack',
+            frames: [
+                { key: 'rick_attack_1', frame :""},
+                { key: 'rick_attack_2', frame :""},
+                { key: 'rick_attack_3', frame :""},
+                { key: 'rick_attack_4', frame :""}
+            ],
+            frameRate: 30,
+            repeat: 0
+        });
+
+        // Rick stilstaan
+        this.scene.anims.create({
+            key: 'rick_idle',
+            frames: [
+                { key: 'rick', frame :""}
             ],
             frameRate: 8,
             repeat: -1

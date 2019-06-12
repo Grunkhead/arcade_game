@@ -15,13 +15,12 @@ export class NormalScene extends Phaser.Scene {
 
     private playerOne: Unicorn;
     private playerTwo: Unicorn;
+
     private flagOne: Flag;
     private flagTwo: Flag;
 
     private castleOne: Castle;
     private castleTwo: CastleTwo;
-
-    
 
     private mace: Mace;
     private axe: Axe;
@@ -31,8 +30,8 @@ export class NormalScene extends Phaser.Scene {
     // points and scorefield
     private collectedFlagsOne = 0;
     private collectedFlagsTwo = 0;
-    private scorefieldOne
-    private scorefieldTwo
+    private scorefieldOne;
+    private scorefieldTwo;
 
 
     constructor() {
