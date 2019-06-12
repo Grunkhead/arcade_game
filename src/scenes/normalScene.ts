@@ -1,6 +1,4 @@
 import "phaser";
-import { Mace } from "../objects/mace";
-import { Axe } from "../objects/axe";
 import { Unicorn } from "../objects/unicorn";
 import { Platform } from "../objects/platform";
 import { Flag } from "../objects/flag";
@@ -21,9 +19,6 @@ export class NormalScene extends Phaser.Scene {
 
     private castleOne: Castle;
     private castleTwo: CastleTwo;
-
-    private mace: Mace;
-    private axe: Axe;
 
     public mySound : Phaser.Sound.BaseSound
 
@@ -62,10 +57,6 @@ export class NormalScene extends Phaser.Scene {
         // Create flags.
         this.flagOne = new Flag(this, 70, 650, 'flag_one');
         this.flagTwo = new Flag(this, 1350, 650, 'flag_two');
-
-        // Create weapons
-        this.mace = new Mace(this, 375, 200);
-        this.axe = new Axe(this, 1075, 200);
 
         // Create top platforms.
         this.platforms.add(new Platform(this, 400, 270, 'platform'),  true);
@@ -142,12 +133,6 @@ export class NormalScene extends Phaser.Scene {
         this.physics.add.collider(this.playerTwo, this.ground);
         this.physics.add.collider(this.playerOne, this.platforms);
         this.physics.add.collider(this.playerTwo, this.platforms);
-
-        // Listen to weapon and player collisions
-        this.physics.add.collider( this.playerOne, this.mace );
-        this.physics.add.collider( this.playerOne, this.axe );
-        this.physics.add.collider( this.playerTwo, this.mace );
-        this.physics.add.collider( this.playerTwo, this.axe );
         
         // Listen to castle and flag collision
         this.physics.add.collider( this.castleOne, this.flagTwo );
@@ -156,31 +141,6 @@ export class NormalScene extends Phaser.Scene {
         // Create event when flag and castle overlap
         this.physics.add.overlap(this.flagOne, this.castleTwo, this.captureFlagOne, null, this)
         this.physics.add.overlap(this.flagTwo, this.castleOne, this.captureFlagTwo, null, this)
-
-            // Make players pick up weapons
-        this.physics.add.collider(
-            this.playerOne, 
-            this.mace, 
-            () => { this.playerOne.grabMace(this.mace) }
-        );
-
-        this.physics.add.collider(
-            this.playerOne, 
-            this.axe, 
-            () => { this.playerOne.grabAxe(this.axe) }
-        );
-
-        this.physics.add.collider(
-            this.playerTwo, 
-            this.mace, 
-            () => { this.playerTwo.grabMace(this.mace) }
-        );
-        
-        this.physics.add.collider(
-            this.playerTwo, 
-            this.axe, 
-            () => { this.playerTwo.grabAxe(this.axe) }
-        );
 
             // Make players pick up flags
         this.physics.add.collider(

@@ -1,7 +1,4 @@
 import { Flag } from "./flag";
-import { Mace } from "./mace";
-import { Axe } from "./axe";
-
 import { NormalScene } from "../scenes/normalScene";
 
 
@@ -27,8 +24,6 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
 
     public width:    number = 100;
     public height:   number = 100;
-
-    protected mace: Mace;
 
     // Keys get assigned by the constructor.
     private keys: any = {};
@@ -67,46 +62,10 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         this.setSize(this.displayWidth, this.displayHeight - 20);
     }
 
-    // Code for weapon animation  ---- Not working properly yet
-    public slashWeapon(weapon: Mace): void {
-        this.scene.tweens.add({        
-            target: this.mace,
-            angle: 360,
-            scene: this.scene,
-            duration: 6000,
-            yoyo: true,
-            repeat: -1
-            // To creat "Charging" time for weapons
-            // timeScale : number
-    })
-    console.log("Je hebt aangevallen!")
-};
-
     // Enabeling grabbing the flag
     public grabFlag(flag: Flag): void {
         flag.x = this.x - 5;
         flag.y = this.y - 40;
-    }
-
-    // Enabeling grabbing the weapons
-    public grabMace(mace: Mace): void {
-        mace.x = this.x - 45;
-        mace.y = this.y - 40;
-        // Rotate the mace
-        // TODO ROTATION WEER AAN ZETTEN
-        // mace.body.rotation = - 45;
-        // Flip the mace when you turn
-        mace.flipX = true;
-    }
-
-    public grabAxe(axe: Axe): void {
-        axe.x = this.x - 45;
-        axe.y = this.y - 40;
-
-        // TODO ROTATION WEER AAN ZETTEN
-        // axe.body.rotation = - 45;
-
-        axe.flipX = true;
     }
 
     // Update the game based on logic or input.
@@ -156,11 +115,10 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         if (e.keyCode == this.keys.right) { this.speedRight = 0, this.play(this.spriteName + '_idle', true); }
         if (e.keyCode == this.keys.up)    { this.speedUp    = 0, this.play(this.spriteName + '_idle', true); }
         if (e.keyCode == this.keys.dash)  { this.speedDown  = this.x -1; }
-        if (e.keyCode == this.keys.slash) { this.slashWeapon }
+        // if (e.keyCode == this.keys.slash) { this.slashWeapon }
     }
 
     private setEventListeners(): void {
-        // Listen to the key up and down events.
         document.addEventListener("keydown", (e: KeyboardEvent) => this.onKeyDown(e));
         document.addEventListener("keyup", (e: KeyboardEvent) => this.onKeyUp(e));
     }
