@@ -77,16 +77,18 @@ export class NormalScene extends Phaser.Scene {
         // Create players one.
         this.playerOne = new Unicorn( this, 200, 800, 'morty',
             {
+                
                 left:  65, // W
                 right: 68, // A
                 up:    87,  // S
                 down:  83, // D
                 dash:  9,  // TAB
 
-                // Create Attack?
+                // Attack?
                 slash: 32  // Space 
             }
         );
+        this.playerOne.setScale(0.7)
 
         // Create player two.
         this.playerTwo = new Unicorn(this, 1240, 800, 'rick',
@@ -101,7 +103,7 @@ export class NormalScene extends Phaser.Scene {
                 slash: 32  // Space 
             }
         );
-
+        this.playerTwo.setScale(0.63)
 
         // Grab the middle platform which moves.
         const platform : Platform = (this.platforms.children.entries[2]) as Platform;

@@ -48,7 +48,6 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         }
 
     private setVisuals(): void {
-        this.setScale(0.7);
     }
 
     protected setPhysics(): void {
@@ -83,18 +82,18 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     private onKeyDown(e: KeyboardEvent): void {
         if (e.keyCode == this.keys.left && this.speedLeft < 1) { 
             this.flipX = false
-            this.play( this.spriteName + "_walk", true)
+            this.play(this.spriteName + "_walk", true)
             this.speedLeft += 5;
         }
 
         if (e.keyCode == this.keys.right && this.speedRight < 1) { 
             this.flipX = true
-            this.play( this.spriteName + "_walk", true)
+            this.play(this.spriteName + "_walk", true)
             this.speedRight += 5;
         }
 
         if (e.keyCode == this.keys.slash){
-            this.play( this.spriteName + "_attack", true)
+            this.play(this.spriteName + "_attack", true)
         }
         
         if (this.body.touching.down) {
@@ -125,7 +124,6 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
 
     private jump(){
         this.speedUp += 15;
-    
         this.play( this.spriteName + "_jump", true)
         let jumpSound = this.scene.sound.add('jump_sound', { loop: false });
         jumpSound.play();
