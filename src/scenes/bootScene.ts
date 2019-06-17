@@ -21,8 +21,14 @@ export class BootScene extends Phaser.Scene {
 
     loadAssets(): void {
         // Platforms
-        this.load.image('platform', 'assets/images/platform.png');
-        this.load.image('platform_snow', 'assets/images/platform_snow.png');
+        this.load.image('p_devider_bottom', 'assets/images/platforms/divider_1.png');
+        this.load.image('p_devider_top', 'assets/images/platforms/divider_2.png');
+        this.load.image('p_bottom_left', 'assets/images/platforms/platform_float_1.png');
+        this.load.image('p_bottom_right', 'assets/images/platforms/platform_float_2.png');
+        this.load.image('p_jump_left', 'assets/images/platforms/platform_jump_1.png');
+        this.load.image('p_jump_right', 'assets/images/platforms/platform_jump_2.png');
+        this.load.image('p_floor_left', 'assets/images/platforms/platform_rock_1.png');
+        this.load.image('p_floor_right', 'assets/images/platforms/platform_rock_2.png');
 
         // introScene
         this.load.image('big_morty', 'assets/animations/morty/big_morty.png')

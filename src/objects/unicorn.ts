@@ -55,7 +55,7 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         let body = this.body as Phaser.Physics.Arcade.Body
         body.setAllowGravity(true);
         body.setCollideWorldBounds(true);
-        body.setGravity(0, 1000);
+        body.setGravity(0, 200);
         
         // Add some extra width and height because of smaller hitbox.
         this.setSize(this.displayWidth, this.displayHeight - 20);
@@ -83,13 +83,13 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         if (e.keyCode == this.keys.left && this.speedLeft < 1) { 
             this.flipX = false
             this.play(this.spriteName + "_walk", true)
-            this.speedLeft += 5;
+            this.setVelocityX(-250);
         }
 
         if (e.keyCode == this.keys.right && this.speedRight < 1) { 
             this.flipX = true
             this.play(this.spriteName + "_walk", true)
-            this.speedRight += 5;
+            this.setVelocityX(250);
         }
 
         if (e.keyCode == this.keys.slash){
@@ -102,7 +102,7 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
             }
         } else if(!this.body.touching.down && this.speedUp < 1){
             if (e.keyCode == this.keys.up) {
-                this.speedUp += 7
+                // this.speedUp += 7
                 this.jump();
             }
         }
@@ -110,11 +110,10 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
 
     // Reset a specific speed when a key is released.
     private onKeyUp(e: KeyboardEvent): void {
-        if (e.keyCode == this.keys.left)  { this.speedLeft  = 0, this.play(this.spriteName + '_idle', true); }
-        if (e.keyCode == this.keys.right) { this.speedRight = 0, this.play(this.spriteName + '_idle', true); }
+        if (e.keyCode == this.keys.left)  { this.setVelocityX(0), this.play(this.spriteName + '_idle', true); }
+        if (e.keyCode == this.keys.right) { this.setVelocityX(0), this.play(this.spriteName + '_idle', true); }
         if (e.keyCode == this.keys.up)    { this.speedUp    = 0, this.play(this.spriteName + '_idle', true); }
         if (e.keyCode == this.keys.dash)  { this.speedDown  = this.x -1; }
-        // if (e.keyCode == this.keys.slash) { this.slashWeapon }
     }
 
     private setEventListeners(): void {
@@ -123,7 +122,7 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     }
 
     private jump(){
-        this.speedUp += 15;
+        this.setVelocityY(-400);
         this.play( this.spriteName + "_jump", true)
         let jumpSound = this.scene.sound.add('jump_sound', { loop: false });
         jumpSound.play();

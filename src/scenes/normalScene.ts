@@ -4,7 +4,6 @@ import { Platform } from "../objects/platform";
 import { Flag } from "../objects/flag";
 import { Ground } from "../objects/ground";
 import { Castle } from "../objects/castle";
-import { CastleTwo } from "../objects/castle_two";
 
 export class NormalScene extends Phaser.Scene {
 
@@ -18,9 +17,14 @@ export class NormalScene extends Phaser.Scene {
     private flagTwo: Flag;
 
     private castleOne: Castle;
-    private castleTwo: CastleTwo;
+    private castleTwo: Castle;
 
-    public mySound : Phaser.Sound.BaseSound
+    // Create the healthbar
+    public lifeBar: Phaser.Geom.Rectangle;
+    public lifeBarTwo: Phaser.Geom.Rectangle;
+    public graphics: Phaser.GameObjects.Graphics;
+
+    public mySound : Phaser.Sound.BaseSound;
 
     // points and scorefield
     private collectedFlagsOne = 0;
@@ -39,10 +43,25 @@ export class NormalScene extends Phaser.Scene {
     create(): void {
         this.setGround();
         this.setBackground();
-
+    
         // Set sounds
         // this.mySound = this.sound.add('normal_sound', { loop: true });
         // this.mySound.play();
+        
+       // Set Graphics
+        this.graphics = this.add.graphics({ lineStyle: { width: 1, color: 0xFFFFFF }, fillStyle: { color: 0x00AA00 } })
+       
+        // LifeBar morty
+        this.lifeBar = new Phaser.Geom.Rectangle(22, 65, 600, 24)
+        this.graphics.fillRectShape(this.lifeBar)
+        this.add.image(340, 50, 'bar_one')
+
+        // LifeBar rick
+        this.lifeBarTwo = new Phaser.Geom.Rectangle(816, 65, 600, 24)
+        this.graphics.fillRectShape(this.lifeBarTwo)
+        this.add.image(1100, 50, 'bar_two')
+        
+
 
         this.platforms = this.add.group({ runChildUpdate: true })
 
@@ -58,21 +77,21 @@ export class NormalScene extends Phaser.Scene {
         this.flagOne = new Flag(this, 70, 650, 'flag_one');
         this.flagTwo = new Flag(this, 1350, 650, 'flag_two');
 
-        // Create top platforms.
-        this.platforms.add(new Platform(this, 400, 270, 'platform'),  true);
-        this.platforms.add(new Platform(this, 1040, 270, 'platform'), true);
+        // Create devider platforms
+        this.platforms.add(new Platform(this, 720, 650, 'p_devider_bottom'), true);
+        this.platforms.add(new Platform(this, 722, 411, 'p_devider_top'));
 
-        // Create middle platform (this one moves).
-        this.platforms.add(new Platform(this, 720, 470, 'platform_snow', true), true);
+        // Create jump platforms.
+        this.platforms.add(new Platform(this, 663, 440, 'p_jump_left'));
+        this.platforms.add(new Platform(this, 791, 300, 'p_jump_right'));
         
         // Create bottom platforms.
-        this.platforms.add(new Platform(this, 400, 670, 'platform'), true);
-        this.platforms.add(new Platform(this, 1040, 670, 'platform'), true);
+        this.platforms.add(new Platform(this, 310, 400, 'p_bottom_left'));
+        this.platforms.add(new Platform(this, 1130, 400, 'p_bottom_right'));
 
-        // Create player health bars.
-        this.add.image(340, 50, 'bar_one')
-        this.add.image(1100, 50, 'bar_two')
-
+        // Create ground platform
+        this.platforms.add(new Platform(this, 400, 845, 'p_floor_left'));
+        this.platforms.add(new Platform(this, 1040, 850, 'p_floor_right'));
 
         // Create players one.
         this.playerOne = new Unicorn( this, 200, 800, 'morty',

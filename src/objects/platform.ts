@@ -23,7 +23,7 @@ export class Platform extends Phaser.Physics.Arcade.Sprite {
 
         this.dynamic = dynamic;
 
-        this.setScale(5);
+        this.setScale(1.15);
         this.setPhysics();
         this.scene.add.existing(this);
     }
