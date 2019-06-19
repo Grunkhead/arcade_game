@@ -70,8 +70,8 @@ export class NormalScene extends Phaser.Scene {
         this.scorefieldTwo = this.add.text(1270, 40,  + this.collectedFlagsTwo+ ' Flags captured', { fontFamily: 'Sofia', fontSize: 25, color: '#9999cc' }).setOrigin(0.5).setStroke('#ffcc99', 2);
         
         // Create castles.
-        this.castleOne = new Castle(this, 80, 770, 'castle');
-        this.castleTwo = new Castle(this, 1360, 770, 'castle');
+        this.castleOne = new Castle(this, 0, 690, 'castle_morty');
+        this.castleTwo = new Castle(this, 1400, 690, 'castle_rick');
 
         // Create flags.
         this.flagOne = new Flag(this, 70, 650, 'flag_one');

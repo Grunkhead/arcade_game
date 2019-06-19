@@ -83,7 +83,8 @@ export class BootScene extends Phaser.Scene {
         this.load.image('bar_two', 'assets/images/rick_bar.png')
 
         // Castles
-        this.load.image('castle', 'assets/images/castle.png');
+        this.load.image('castle_rick', 'assets/images/castle_rick.png');
+        this.load.image('castle_morty', 'assets/images/castle_morty.png');
 
         // Flags
         this.load.image('flag_one', 'assets/images/flag_one.png');

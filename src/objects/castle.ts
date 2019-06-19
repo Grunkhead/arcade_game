@@ -15,7 +15,7 @@ export class Castle extends Phaser.Physics.Arcade.Sprite {
         this.scene = scene;
         this.spriteName = spriteName;
 
-        this.setScale(1.5);
+        this.setScale(1.0);
 
         this.x = x;
         this.y = y;
