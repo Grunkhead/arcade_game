@@ -27,7 +27,7 @@ const config: GameConfig = {
     render: { pixelArt: true, antialias: false }
 };
 
-export class ShitHorsesGame extends Phaser.Game {
+    export class ShitHorsesGame extends Phaser.Game {
 
     private arcade : Arcade
     public get Arcade() : Arcade { return this.arcade }

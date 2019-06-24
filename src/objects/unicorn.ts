@@ -11,11 +11,10 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     public x: number; 
     public y: number;
 
-    public game: ShitHorsesGame;
-
     public spriteName: string;
-    
     public normalScene: NormalScene;
+
+    public g: ShitHorsesGame;
 
     public speedLeft:  number = 0;
     public speedRight: number = 0;
@@ -36,7 +35,8 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
 
             super(scene, x, y, spriteName);
             this.scene = scene;
-            this.scene.game as ShitHorsesGame
+
+            this.g = this.scene.game as ShitHorsesGame;
 
             this.spriteName = spriteName;
             this.keys = keys;
@@ -47,7 +47,7 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
             this.setPhysics();
             this.setVisuals();
             this.createAnimations()
-            this.setEventListeners();
+            this.setButtonEventListeners();
             this.scene.add.existing(this);
         }
 
@@ -85,65 +85,89 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         this.x += this.speedRight;
     }
 
-    private setJoystickButtonListeners(): void {
-
+    private setButtonEventListeners(): void {
+        // Player One
         document.addEventListener("joystick0button0", function() {
-            console.log('derp');
+            console.log('P1 -> Button 0 called');
         })
-        // this.listener = () => this.handleButtonOne()
+
+        document.addEventListener("joystick0button1", function () {
+            console.log('P1 -> Button 1 called');
+        })
+
+        document.addEventListener("joystick0button2", function () {
+            console.log('P1 -> Button 2 called');
+        })
+
+        document.addEventListener("joystick0button3", function () {
+            console.log('P1 -> Button 3 called');
+        })
+
+        document.addEventListener("joystick0button4", function () {
+            console.log('P1 -> Button 4 called');
+        })
+
+        document.addEventListener("joystick0button5", function () {
+            console.log('P1 -> Button 5 called');
+        })
+
+        // Player Two
+        document.addEventListener("joystick1button0", function () {
+            console.log('P2 -> Button 0 called');
+        })
+
+        document.addEventListener("joystick1button1", function () {
+            console.log('P2 -> Button 1 called');
+        })
+
+        document.addEventListener("joystick1button2", function () {
+            console.log('P2 -> Button 2 called');
+        })
+
+        document.addEventListener("joystick1button3", function () {
+            console.log('P2 -> Button 3 called');
+        })
+
+        document.addEventListener("joystick1button4", function () {
+            console.log('P2 -> Button 4 called');
+        })
+
+        document.addEventListener("joystick1button5", function () {
+            console.log('P2 -> Button 5 called');
+        })
     }
 
     // Increase speed when a specific key is pressed.
     private onKeyDown(): void {
-        for (const joystick of this.game.Arcade.Joysticks) {
+        for (const joystick of this.g.Arcade.Joysticks) {
             joystick.update()
 
             if (joystick.Left && this.speedLeft < 1) {
                 this.flipX = false
                 this.play(this.spriteName + "_walk", true)
-                this.speedLeft += 5;
-                console.log('left');
+                this.speedLeft = 5;
+                console.log('Left');
             }
 
             if (joystick.Right && this.speedRight < 1) {
                 this.flipX = true
                 this.play(this.spriteName + "_walk", true)
-                this.speedRight += 5;
-                console.log('right');
+                this.speedRight = 5;
+                console.log('Right');
             }
-
-            // if (joystick.) {
-            //     this.play(this.spriteName + "_attack", true)
-            // }
-
-            // if (this.body.touching.down) {
-            //     if (e.keyCode == this.keys.up && this.speedUp < 1) {
-            //         this.jump();
-            //     }
-            // } else if (!this.body.touching.down && this.speedUp < 1) {
-            //     if (e.keyCode == this.keys.up) {
-            //         this.speedUp += 7
-            //         this.jump();
-            //     }
-            // }
         }
     }
 
     // Reset a specific speed when a key is released.
     private onKeyUp(): void {
-        for (const joystick of this.game.Arcade.Joysticks) {
+        for (const joystick of this.g.Arcade.Joysticks) {
             joystick.update()
-            if (!joystick.Left)  { this.speedLeft  = 0, this.play(this.spriteName + '_idle', true); }
-            if (!joystick.Right) { this.speedRight = 0, this.play(this.spriteName + '_idle', true); }
-            if (!joystick.Up)    { this.speedUp    = 0, this.play(this.spriteName + '_idle', true); }
+            if (joystick.Left)  { this.speedLeft  = 0; }
+            if (joystick.Right) { this.speedRight = 0; }
+            if (joystick.Up)    { this.speedUp    = 0; }
             // if (e.keyCode == this.keys.dash)  { this.speedDown  = this.x -1; }
         // if (e.keyCode == this.keys.slash) { this.slashWeapon }
         }
-    }
-
-    private setEventListeners(): void {
-        // document.addEventListener("keydown", (e: KeyboardEvent) => this.onKeyDown(e));
-        // document.addEventListener("keyup", (e: KeyboardEvent) => this.onKeyUp(e));
     }
 
     private jump(){
