@@ -85,21 +85,6 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         this.x += this.speedRight;
     }
 
-<<<<<<< Updated upstream
-    // Increase speed when a specific key is pressed.
-    private onKeyDown(e: KeyboardEvent): void {
-        if (e.keyCode == this.keys.left && this.speedLeft < 1) { 
-            this.flipX = false
-            this.play(this.spriteName + "_walk", true)
-            this.setVelocityX(-250);
-        }
-
-        if (e.keyCode == this.keys.right && this.speedRight < 1) { 
-            this.flipX = true
-            this.play(this.spriteName + "_walk", true)
-            this.setVelocityX(250);
-        }
-=======
     private setJoystickButtonListeners(): void {
 
         document.addEventListener("joystick0button0", function() {
@@ -107,7 +92,6 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         })
         // this.listener = () => this.handleButtonOne()
     }
->>>>>>> Stashed changes
 
     // Increase speed when a specific key is pressed.
     private onKeyDown(): void {
@@ -120,18 +104,12 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
                 this.speedLeft += 5;
                 console.log('left');
             }
-<<<<<<< Updated upstream
-        } else if(!this.body.touching.down && this.speedUp < 1){
-            if (e.keyCode == this.keys.up) {
-                this.jump();
-=======
 
             if (joystick.Right && this.speedRight < 1) {
                 this.flipX = true
                 this.play(this.spriteName + "_walk", true)
                 this.speedRight += 5;
                 console.log('right');
->>>>>>> Stashed changes
             }
 
             // if (joystick.) {

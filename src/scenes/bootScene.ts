@@ -39,9 +39,9 @@ export class BootScene extends Phaser.Scene {
 
         // Backgrounds
         this.load.image('bg-normal', 'assets/images/bg_normal.png');
-        this.load.image('bg-hell', 'assets/images/bg_hell.jpg');
+        // this.load.image('bg-hell', 'assets/images/bg_hell.jpg');
         this.load.image('intro-bg', 'assets/images/intro_bg.jpg');
-        this.load.image('fantasy-bg', 'assets/images/fantasy_background.jpg');
+        // this.load.image('fantasy-bg', 'assets/images/fantasy_background.jpg');
         this.load.image('normal-bg', 'assets/images/normal_bg.jpg');
 
         // Player one morty
