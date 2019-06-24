@@ -16,7 +16,7 @@ export class Platform extends Phaser.Physics.Arcade.Sprite {
         this.scene = scene;
 
         this.height = 30;
-        this.width = 160;
+        this.width = 220;
 
         this.x = x;
         this.y = y;
@@ -30,7 +30,6 @@ export class Platform extends Phaser.Physics.Arcade.Sprite {
 
     // Update the game based on logic or input.
     public update(): void {
-        if (this.dynamic) { this.move(); }
     }
 
     // Following object requires a speed property!
@@ -46,21 +45,5 @@ export class Platform extends Phaser.Physics.Arcade.Sprite {
         let body = this.body as Phaser.Physics.Arcade.Body
         body.setAllowGravity(false);
         body.setImmovable(true);
-    }
-
-    private move(): void {
-
-        if (this.x < 320) {
-            this.moveRight = true;
-            this.moveLeft  = false;
-        }
-
-        if (this.x > 1120) {
-            this.moveLeft  = true;
-            this.moveRight = false;
-        }
-
-        if (this.moveLeft) { this.x -= this.speed; }
-        if (this.moveRight) { this.x += this.speed; }
     }
 };

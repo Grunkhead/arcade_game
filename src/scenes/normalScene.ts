@@ -1,6 +1,9 @@
 import "phaser";
 import { Unicorn } from "../objects/unicorn";
 import { Platform } from "../objects/platform";
+import { PlatformDev } from "../objects/platformDev";
+import { PlatformDevBot } from "../objects/platformDevBot";
+import { PlatformJump } from "../objects/platformJump";
 import { Flag } from "../objects/flag";
 import { Ground } from "../objects/ground";
 import { Castle } from "../objects/castle";
@@ -9,6 +12,9 @@ export class NormalScene extends Phaser.Scene {
 
     private platforms: Phaser.GameObjects.Group;
     private ground: Ground;
+    private platformDev: PlatformDev;
+    private platformDevBot: PlatformDevBot;
+    private platformJump: PlatformJump;
 
     private playerOne: Unicorn;
     private playerTwo: Unicorn;
@@ -60,8 +66,6 @@ export class NormalScene extends Phaser.Scene {
         this.lifeBarTwo = new Phaser.Geom.Rectangle(816, 65, 600, 24)
         this.graphics.fillRectShape(this.lifeBarTwo)
         this.add.image(1100, 50, 'bar_two')
-        
-
 
         this.platforms = this.add.group({ runChildUpdate: true })
 
@@ -74,16 +78,18 @@ export class NormalScene extends Phaser.Scene {
         this.castleTwo = new Castle(this, 1400, 690, 'castle_rick');
 
         // Create flags.
-        this.flagOne = new Flag(this, 70, 650, 'flag_one');
-        this.flagTwo = new Flag(this, 1350, 650, 'flag_two');
+        this.flagOne = new Flag(this, 120, 650, 'flag_one');
+        this.flagTwo = new Flag(this, 1315, 650, 'flag_two');
+        this.flagTwo.flipX = true;
+        this.flagTwo.rotation = -19.5;
 
         // Create devider platforms
-        this.platforms.add(new Platform(this, 720, 650, 'p_devider_bottom'), true);
-        this.platforms.add(new Platform(this, 722, 411, 'p_devider_top'));
+        this.platformDev = new PlatformDev(this, 722, 411, 'p_devider_top');
+        this.platformDevBot = new PlatformDevBot(this, 720, 650, 'p_devider_bottom');
 
         // Create jump platforms.
-        this.platforms.add(new Platform(this, 663, 440, 'p_jump_left'));
-        this.platforms.add(new Platform(this, 791, 300, 'p_jump_right'));
+        this.platformJump = new PlatformJump(this, 663, 440, 'p_jump_left');
+        this.platformJump = new PlatformJump(this, 791, 300, 'p_jump_right');
         
         // Create bottom platforms.
         this.platforms.add(new Platform(this, 310, 400, 'p_bottom_left'));
@@ -124,29 +130,6 @@ export class NormalScene extends Phaser.Scene {
         );
         this.playerTwo.setScale(0.63)
 
-        // Grab the middle platform which moves.
-        const platform : Platform = (this.platforms.children.entries[2]) as Platform;
-
-        this.physics.add.collider(
-            this.playerOne,
-            platform,
-            platform.addFollower,
-            null,
-            platform
-            // TODO ARGUMENT MEEGEVEN AAN ADDFOLLOWER
-            //() => { platform.addFollower(this.playerOne); }
-        );
-
-        this.physics.add.collider(
-            this.playerTwo,
-            platform,
-            platform.addFollower,
-            null,
-            platform
-            // TODO ARGUMENT MEEGEVEN AAN ADDFOLLOWER
-            //() => { platform.addFollower(this.playerTwo); }
-        );
-
         this.physics.add.collider(this.playerOne, this.playerTwo);
 
         // Listen to platform & player collisions.
@@ -154,6 +137,14 @@ export class NormalScene extends Phaser.Scene {
         this.physics.add.collider(this.playerTwo, this.ground);
         this.physics.add.collider(this.playerOne, this.platforms);
         this.physics.add.collider(this.playerTwo, this.platforms);
+
+        //Colliders for new platform classes
+        this.physics.add.collider(this.playerTwo, this.platformJump);
+        this.physics.add.collider(this.playerTwo, this.platformDev);
+        this.physics.add.collider(this.playerTwo, this.platformDevBot);
+        this.physics.add.collider(this.playerOne, this.platformJump);
+        this.physics.add.collider(this.playerOne, this.platformDev);
+        this.physics.add.collider(this.playerOne, this.platformDevBot);
         
         // Listen to castle and flag collision
         this.physics.add.collider( this.castleOne, this.flagTwo );
@@ -167,7 +158,7 @@ export class NormalScene extends Phaser.Scene {
         this.physics.add.collider(
             this.playerOne, 
             this.flagTwo, 
-            () => { this.playerOne.grabFlag(this.flagTwo) }
+            () => { this.playerOne.grabFlag(this.flagTwo) },
         );
 
         this.physics.add.collider(
@@ -181,6 +172,8 @@ export class NormalScene extends Phaser.Scene {
     update(): void {
         this.playerOne.update();
         this.playerTwo.update();
+        this.flagTwo.update();
+        this.flagOne.update();
     }
 
     setBackground(): void {

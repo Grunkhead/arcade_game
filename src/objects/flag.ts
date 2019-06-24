@@ -21,12 +21,13 @@ export class Flag extends Phaser.GameObjects.Sprite {
 
         this.x = x;
         this.y = y;
+        this.rotation = 45;
 
         this.setPhysics();
 
         this.scene.add.existing(this);
     }
-
+  
     setPhysics(): void {
         this.scene.physics.add.existing(this);
         let body = this.body as Phaser.Physics.Arcade.Body
@@ -42,5 +43,6 @@ export class Flag extends Phaser.GameObjects.Sprite {
     }
 
     // Update the game based on logic or input.
-    update(): void {}
+    update(): void {
+    }
 };

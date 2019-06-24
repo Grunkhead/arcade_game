@@ -65,6 +65,8 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     public grabFlag(flag: Flag): void {
         flag.x = this.x - 5;
         flag.y = this.y - 40;
+        if(this.keys.left) {flag.x -= this.speedLeft; }
+        if(this.keys.right) {flag.x -= this.speedRight; }
     }
 
     // Update the game based on logic or input.
@@ -102,7 +104,6 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
             }
         } else if(!this.body.touching.down && this.speedUp < 1){
             if (e.keyCode == this.keys.up) {
-                // this.speedUp += 7
                 this.jump();
             }
         }
