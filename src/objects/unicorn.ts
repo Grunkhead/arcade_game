@@ -6,7 +6,6 @@ import { ShitHorsesGame } from "../game";
 export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     
     protected scene: Phaser.Scene;
-    private cursors: Phaser.Input.Keyboard.CursorKeys
     
     public x: number; 
     public y: number;
@@ -21,20 +20,13 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     public speedUp:    number = 0;
     public speedDown:  number = 0;
 
-    private joystickOne: any;
-    private joystickTwo: any;
-
     public healthBarOne: number = 0;
     public healthBarTwo: number = 0;
 
     public width:    number = 100;
     public height:   number = 100;
 
-    // Keys get assigned by the constructor.
-    private keys: any = {};
-
-    constructor(scene: Phaser.Scene, x: number, y: number, 
-        spriteName: string, keys: object) {
+    constructor(scene: Phaser.Scene, x: number, y: number, spriteName: string) {
 
             super(scene, x, y, spriteName);
             this.scene = scene;
@@ -42,7 +34,6 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
             this.g = this.scene.game as ShitHorsesGame;
 
             this.spriteName = spriteName;
-            this.keys = keys;
 
             this.x = x;
             this.y = y;
@@ -72,8 +63,6 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     public grabFlag(flag: Flag): void {
         flag.x = this.x - 5;
         flag.y = this.y - 40;
-        if(this.keys.left) {flag.x -= this.speedLeft; }
-        if(this.keys.right) {flag.x -= this.speedRight; }
     }
 
     // Update the game based on logic or input.
@@ -159,7 +148,6 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
                         this.flipX = false
                         this.play(this.spriteName + "_walk", true)
                         this.speedLeft = 5;
-                        console.log('Left');
                     } else {
                         this.speedLeft = 0;
                     }
@@ -172,7 +160,6 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
                         this.flipX = true
                         this.play(this.spriteName + "_walk", true)
                         this.speedRight = 5;
-                        console.log('Right');
                     } else {
                         this.speedRight = 0;
                     }
@@ -185,7 +172,6 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
                         this.flipX = false
                         this.play(this.spriteName + "_walk", true)
                         this.speedLeft = 5;
-                        console.log('Left');
                     } else {
                         this.speedLeft = 0;
                     }
@@ -198,7 +184,6 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
                         this.flipX = true
                         this.play(this.spriteName + "_walk", true)
                         this.speedRight = 5;
-                        console.log('Right');
                     } else {
                         this.speedRight = 0;
                     }
