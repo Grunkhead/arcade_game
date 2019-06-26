@@ -64,6 +64,7 @@ export class NormalScene extends Phaser.Scene {
         this.graphics.fillRectShape(this.lifeBar)
         this.add.image(340, 50, 'bar_one')
 
+
         // LifeBar rick
         this.lifeBarTwo = new Phaser.Geom.Rectangle(816, 65, 600, 24)
         this.graphics.fillRectShape(this.lifeBarTwo)
@@ -102,34 +103,11 @@ export class NormalScene extends Phaser.Scene {
         this.platforms.add(new Platform(this, 1040, 850, 'p_floor_right'));
 
         // Create players one.
-        this.playerOne = new Unicorn( this, 200, 800, 'morty',
-            {
-                
-                left:  65, // W
-                right: 68, // A
-                up:    87,  // S
-                down:  83, // D
-                dash:  9,  // TAB
-
-                // Attack?
-                slash: 32  // Space 
-            }
-        );
+        this.playerOne = new Unicorn( this, 200, 800, 'morty');
         this.playerOne.setScale(0.7)
 
         // Create player two.
-        this.playerTwo = new Unicorn(this, 1240, 800, 'rick',
-            {
-                left:  37, // W
-                right: 39, // A
-                up:    38, // S
-                down:  40, // D
-                dash:  9,  // TAB
-
-                // Attack?
-                slash: 32  // Space 
-            }
-        );
+        this.playerTwo = new Unicorn(this, 1240, 800, 'rick');
         this.playerTwo.setScale(0.63)
 
         this.physics.add.collider(this.playerOne, this.playerTwo);
@@ -202,9 +180,7 @@ export class NormalScene extends Phaser.Scene {
                 () => { this.playerTwo.grabFlag(this.flagOne) }
             );
 
-            this.physics.add.overlap(this.flagOne, this.castleTwo, this.captureFlagOne, null, this)
-
-            console.log("hebbes!")
+            this.physics.add.overlap(this.flagOne, this.castleTwo, this.captureFlagOne, null, this);
     }
 
     // Player two.
@@ -220,8 +196,6 @@ export class NormalScene extends Phaser.Scene {
                 () => { this.playerOne.grabFlag(this.flagTwo) }
             );
 
-            this.physics.add.overlap(this.flagTwo, this.castleOne, this.captureFlagTwo, null, this)
-
-            console.log("hebbes!")
+            this.physics.add.overlap(this.flagTwo, this.castleOne, this.captureFlagTwo, null, this);
     }
 };
