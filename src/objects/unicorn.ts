@@ -135,11 +135,8 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
         for (const joystick of this.g.Arcade.Joysticks) {
             joystick.update()
 
-            // console.log(this.speedLeft);
-            // console.log(this.speedRight);
-
             if (this.spriteName == 'rick') {
-                if (this.g.Arcade.Joysticks[0]) {
+                if (this.g.Arcade.Joysticks[0] && joystick.JoystickNumber == 0) {
                     if (joystick.Left) {
                         this.flipX = false
                         this.play(this.spriteName + "_walk", true)
@@ -163,8 +160,10 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
             }
 
             if (this.spriteName == 'morty') {
-                if (this.g.Arcade.Joysticks[1]) {
+                if (this.g.Arcade.Joysticks[1] && joystick.JoystickNumber == 1) {
                     if (joystick.Left) {
+                        console.log('changed mrty movement');
+                        
                         this.flipX = false
                         this.play(this.spriteName + "_walk", true)
                         this.speedLeft = 5;
