@@ -21,6 +21,9 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     public speedUp:    number = 0;
     public speedDown:  number = 0;
 
+    private joystickOne: any;
+    private joystickTwo: any;
+
     public healthBarOne: number = 0;
     public healthBarTwo: number = 0;
 
@@ -83,6 +86,7 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
 
     // Update the game based on logic or input.
     public update(): void {
+        this.updateJoystick();
         this.move();
         // this.grabFlag(this.flag);
     }
@@ -107,32 +111,67 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
             this.setVelocityX(250);
         }
 
-        if (e.keyCode == this.keys.slash){
-            this.play(this.spriteName + "_attack", true)
-        }
-        
-        if (this.body.touching.down) {
-            if (e.keyCode == this.keys.up && this.speedUp < 1) { 
-                this.jump();
-            }
-        } else if(!this.body.touching.down && this.speedUp < 1){
-            if (e.keyCode == this.keys.up) {
-                this.jump();
-            }
-        }
-    }
+    // Increase speed when a specific key is pressed.
+    private updateJoystick(): void {
 
-    // Reset a specific speed when a key is released.
-    private onKeyUp(e: KeyboardEvent): void {
-        if (e.keyCode == this.keys.left)  { this.setVelocityX(0), this.play(this.spriteName + '_idle', true); }
-        if (e.keyCode == this.keys.right) { this.setVelocityX(0), this.play(this.spriteName + '_idle', true); }
-        if (e.keyCode == this.keys.up)    { this.speedUp    = 0, this.play(this.spriteName + '_idle', true); }
-        if (e.keyCode == this.keys.dash)  { this.speedDown  = this.x -1; }
-    }
+        for (const joystick of this.g.Arcade.Joysticks) {
+            joystick.update()
 
-    private setEventListeners(): void {
-        document.addEventListener("keydown", (e: KeyboardEvent) => this.onKeyDown(e));
-        document.addEventListener("keyup", (e: KeyboardEvent) => this.onKeyUp(e));
+            // console.log(this.speedLeft);
+            // console.log(this.speedRight);
+
+            if (this.spriteName == 'rick') {
+                if (this.g.Arcade.Joysticks[0]) {
+                    if (joystick.Left) {
+                        this.flipX = false
+                        this.play(this.spriteName + "_walk", true)
+                        this.speedLeft = 5;
+                        console.log('Left');
+                    } else {
+                        this.speedLeft = 0;
+                    }
+
+                    if (joystick.Up) {
+                        this.jump();
+                    }
+
+                    if (joystick.Right) {
+                        this.flipX = true
+                        this.play(this.spriteName + "_walk", true)
+                        this.speedRight = 5;
+                        console.log('Right');
+                    } else {
+                        this.speedRight = 0;
+                    }
+                }
+            }
+
+            if (this.spriteName == 'morty') {
+                if (this.g.Arcade.Joysticks[1]) {
+                    if (joystick.Left) {
+                        this.flipX = false
+                        this.play(this.spriteName + "_walk", true)
+                        this.speedLeft = 5;
+                        console.log('Left');
+                    } else {
+                        this.speedLeft = 0;
+                    }
+
+                    if (joystick.Up) {
+                        this.jump();
+                    }
+
+                    if (joystick.Right) {
+                        this.flipX = true
+                        this.play(this.spriteName + "_walk", true)
+                        this.speedRight = 5;
+                        console.log('Right');
+                    } else {
+                        this.speedRight = 0;
+                    }
+                }
+            }
+        }
     }
 
     private jump(){

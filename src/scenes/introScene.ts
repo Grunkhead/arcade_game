@@ -18,7 +18,10 @@ export class IntroScene extends Phaser.Scene {
 
         this.loadSprites()
         this.showText()
-
+        this.scene.start('normalScene');
+        document.addEventListener("joystick0button0", () => {
+            this.scene.start('normalScene');
+        })
     }
     
     private showText(){
