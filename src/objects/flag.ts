@@ -8,6 +8,8 @@ export class Flag extends Phaser.GameObjects.Sprite {
     width: number;
     height: number;
 
+    speed: number;
+
     flag: Flag;
 
     constructor(scene: Phaser.Scene, x: number, y: number, spriteName: string) {
@@ -44,5 +46,6 @@ export class Flag extends Phaser.GameObjects.Sprite {
 
     // Update the game based on logic or input.
     update(): void {
+        this
     }
 };

@@ -3,6 +3,6 @@
     "target": "es5"
   },
   "include": [
-    "src/*", "src/objects/unicorn.ts", "src/objects/flag.ts", "src/objects/base.ts", "src/input/joystick.ts"
+    "src/*", "src/objects/unicorn.ts", "src/objects/flag.ts", "src/objects/base.ts"
   ]
 }
