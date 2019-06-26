@@ -21,6 +21,9 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     public speedUp:    number = 0;
     public speedDown:  number = 0;
 
+    private joystickOne: any;
+    private joystickTwo: any;
+
     public healthBarOne: number = 0;
     public healthBarTwo: number = 0;
 
@@ -75,7 +78,7 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
 
     // Update the game based on logic or input.
     public update(): void {
-        this.onKeyDown();
+        this.updateJoystick();
         this.move();
     }
 
@@ -138,35 +141,65 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     }
 
     // Increase speed when a specific key is pressed.
-    private onKeyDown(): void {
+    private updateJoystick(): void {
+
         for (const joystick of this.g.Arcade.Joysticks) {
             joystick.update()
 
-            if (joystick.Left && this.speedLeft < 1) {
-                this.flipX = false
-                this.play(this.spriteName + "_walk", true)
-                this.speedLeft = 5;
-                console.log('Left');
+            // console.log(this.speedLeft);
+            // console.log(this.speedRight);
+
+            if (this.spriteName == 'rick') {
+                if (this.g.Arcade.Joysticks[0]) {
+                    if (joystick.Left) {
+                        this.flipX = false
+                        this.play(this.spriteName + "_walk", true)
+                        this.speedLeft = 5;
+                        console.log('Left');
+                    } else {
+                        this.speedLeft = 0;
+                    }
+
+                    if (joystick.Up) {
+                        this.jump();
+                    }
+
+                    if (joystick.Right) {
+                        this.flipX = true
+                        this.play(this.spriteName + "_walk", true)
+                        this.speedRight = 5;
+                        console.log('Right');
+                    } else {
+                        this.speedRight = 0;
+                    }
+                }
             }
 
-            if (joystick.Right && this.speedRight < 1) {
-                this.flipX = true
-                this.play(this.spriteName + "_walk", true)
-                this.speedRight = 5;
-                console.log('Right');
-            }
-        }
-    }
+            if (this.spriteName == 'morty') {
+                if (this.g.Arcade.Joysticks[1]) {
+                    if (joystick.Left) {
+                        this.flipX = false
+                        this.play(this.spriteName + "_walk", true)
+                        this.speedLeft = 5;
+                        console.log('Left');
+                    } else {
+                        this.speedLeft = 0;
+                    }
 
-    // Reset a specific speed when a key is released.
-    private onKeyUp(): void {
-        for (const joystick of this.g.Arcade.Joysticks) {
-            joystick.update()
-            if (joystick.Left)  { this.speedLeft  = 0; }
-            if (joystick.Right) { this.speedRight = 0; }
-            if (joystick.Up)    { this.speedUp    = 0; }
-            // if (e.keyCode == this.keys.dash)  { this.speedDown  = this.x -1; }
-        // if (e.keyCode == this.keys.slash) { this.slashWeapon }
+                    if (joystick.Up) {
+                        this.jump();
+                    }
+
+                    if (joystick.Right) {
+                        this.flipX = true
+                        this.play(this.spriteName + "_walk", true)
+                        this.speedRight = 5;
+                        console.log('Right');
+                    } else {
+                        this.speedRight = 0;
+                    }
+                }
+            }
         }
     }
 
