@@ -1,11 +1,16 @@
+import { ShitHorsesGame } from "../game";
+
 export class IntroScene extends Phaser.Scene {
 
     private mySound : Phaser.Sound.BaseSound
+    private listener : EventListener
+    private g : ShitHorsesGame;
 
     constructor() {
         super({
             key: "introScene"
         });
+    
     }
 
     init(): void {
@@ -28,9 +33,6 @@ export class IntroScene extends Phaser.Scene {
         // Add button
         let btn1 = this.add.text(730, 700, 'Start', {fontFamily: 'Open Sans', fontSize: 50, color: '#FFA500'}).setOrigin(0.5).setStroke('#000000', 16)
         btn1.setInteractive()
-        btn1.on('pointerdown', (pointer) => {
-            this.scene.start('normalScene')
-        })
 
         this.tweens.add({
             targets: btn1,
@@ -53,7 +55,7 @@ export class IntroScene extends Phaser.Scene {
         });
 
     }
-    
+
     private loadSprites(){
         // Background
         const background = this.add.image(720, 450, 'intro-bg');
@@ -63,5 +65,13 @@ export class IntroScene extends Phaser.Scene {
         // Sprites
         this.add.image(200, 650, 'big_morty')
         this.add.image(1200, 600, 'big_rick')
+    }
+
+    public update() : void {
+        for (const joystick of this.game.Arcade.Joysticks) {
+            joystick.update()
+            if (joystick.Left) console.log("Left");
+            
+        }
     }
 }

@@ -7,6 +7,8 @@ import { PlatformJump } from "../objects/platformJump";
 import { Flag } from "../objects/flag";
 import { Ground } from "../objects/ground";
 import { Castle } from "../objects/castle";
+import { ShitHorsesGame } from "../game";
+// import { CastleTwo } from "../objects/castle_two";
 
 export class NormalScene extends Phaser.Scene {
 
@@ -185,7 +187,6 @@ export class NormalScene extends Phaser.Scene {
 
     setGround(): void {
         this.ground = new Ground(this, 720, 890, 'ground_snow');
-
     }
     
     // Player one.
@@ -212,8 +213,6 @@ export class NormalScene extends Phaser.Scene {
             this.scorefieldOne.text = this.collectedFlagsOne + " flag captured!"
             this.flagTwo.destroy();
             this.flagTwo = new Flag(this, 1332, 648, 'flag_two');
-            this.flagTwo.flipX = true;
-            this.flagTwo.rotation = -19.5;
 
             this.physics.add.collider(
                 this.playerOne, 

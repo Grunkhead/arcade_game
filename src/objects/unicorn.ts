@@ -1,5 +1,6 @@
 import { Flag } from "./flag";
 import { NormalScene } from "../scenes/normalScene";
+import { ShitHorsesGame } from "../game";
 
 
 export class Unicorn extends Phaser.Physics.Arcade.Sprite {
@@ -10,11 +11,10 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     public x: number; 
     public y: number;
 
-    public flag: Flag
-
     public spriteName: string;
-
     public normalScene: NormalScene;
+
+    public g: ShitHorsesGame;
 
     public speedLeft:  number = 0;
     public speedRight: number = 0;
@@ -30,21 +30,19 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     public width:    number = 100;
     public height:   number = 100;
 
-    public dynamic: boolean;
-
     // Keys get assigned by the constructor.
     private keys: any = {};
 
     constructor(scene: Phaser.Scene, x: number, y: number, 
-        spriteName: string, keys: object, dynamic: boolean = false) {
+        spriteName: string, keys: object) {
 
             super(scene, x, y, spriteName);
             this.scene = scene;
 
+            this.g = this.scene.game as ShitHorsesGame;
+
             this.spriteName = spriteName;
             this.keys = keys;
-
-            this.dynamic = dynamic;
 
             this.x = x;
             this.y = y;
@@ -52,7 +50,7 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
             this.setPhysics();
             this.setVisuals();
             this.createAnimations()
-            this.setEventListeners();
+            this.setButtonEventListeners();
             this.scene.add.existing(this);
         }
 
@@ -74,42 +72,73 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
     public grabFlag(flag: Flag): void {
         flag.x = this.x - 5;
         flag.y = this.y - 40;
-        // if (this.speedLeft <= 0) {
-        //     flag.x -= this.speedLeft
-        // };
-
-        // if (this.dynamic) {
-            // if(this.keys.left) {this.flag.x -= this.speedLeft; }
-            // if(this.keys.right) {this.flag.x += this.speedRight; }
-        // }
+        if(this.keys.left) {flag.x -= this.speedLeft; }
+        if(this.keys.right) {flag.x -= this.speedRight; }
     }
 
     // Update the game based on logic or input.
     public update(): void {
         this.updateJoystick();
         this.move();
-        // this.grabFlag(this.flag);
     }
 
     private move(): void {
         this.x -= this.speedLeft;
-        this.x += this.speedRight;
         this.y -= this.speedUp;
+        this.x += this.speedRight;
     }
 
-    // Increase speed when a specific key is pressed.
-    private onKeyDown(e: KeyboardEvent): void {
-        if (e.keyCode == this.keys.left && this.speedLeft < 1) { 
-            this.flipX = false
-            this.play(this.spriteName + "_walk", true)
-            this.setVelocityX(-250);
-        }
+    private setButtonEventListeners(): void {
+        // Player One
+        document.addEventListener("joystick0button0", function() {
+            console.log('P1 -> Button 0 called');
+        })
 
-        if (e.keyCode == this.keys.right && this.speedRight < 1) { 
-            this.flipX = true
-            this.play(this.spriteName + "_walk", true)
-            this.setVelocityX(250);
-        }
+        document.addEventListener("joystick0button1", function () {
+            console.log('P1 -> Button 1 called');
+        })
+
+        document.addEventListener("joystick0button2", function () {
+            console.log('P1 -> Button 2 called');
+        })
+
+        document.addEventListener("joystick0button3", function () {
+            console.log('P1 -> Button 3 called');
+        })
+
+        document.addEventListener("joystick0button4", function () {
+            console.log('P1 -> Button 4 called');
+        })
+
+        document.addEventListener("joystick0button5", function () {
+            console.log('P1 -> Button 5 called');
+        })
+
+        // Player Two
+        document.addEventListener("joystick1button0", function () {
+            console.log('P2 -> Button 0 called');
+        })
+
+        document.addEventListener("joystick1button1", function () {
+            console.log('P2 -> Button 1 called');
+        })
+
+        document.addEventListener("joystick1button2", function () {
+            console.log('P2 -> Button 2 called');
+        })
+
+        document.addEventListener("joystick1button3", function () {
+            console.log('P2 -> Button 3 called');
+        })
+
+        document.addEventListener("joystick1button4", function () {
+            console.log('P2 -> Button 4 called');
+        })
+
+        document.addEventListener("joystick1button5", function () {
+            console.log('P2 -> Button 5 called');
+        })
+    }
 
     // Increase speed when a specific key is pressed.
     private updateJoystick(): void {
