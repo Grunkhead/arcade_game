@@ -5,7 +5,6 @@ export class PlatformDev extends Phaser.Physics.Arcade.Sprite {
     private moveRight: boolean = true;
     private moveLeft:  boolean;
 
-    // private spriteName: string;
     private dynamic: boolean;
 
     public x: number;
@@ -15,10 +14,8 @@ export class PlatformDev extends Phaser.Physics.Arcade.Sprite {
         super(scene, x, y, spriteName);
         this.scene = scene;
 
-        this.height = 30;
-        this.width = 400;
-
-        this.rotation = -89.55;
+        this.height = 400;
+        this.width = 55;
 
         this.x = x;
         this.y = y;
@@ -34,14 +31,13 @@ export class PlatformDev extends Phaser.Physics.Arcade.Sprite {
     public update(): void {
     }
 
-    // Following object requires a speed property!
     public addFollower(object: any): void {
         if (this.dynamic) {
             if (this.moveLeft) { object.x -= this.speed; }
             if (this.moveRight) { object.x += this.speed; }
         }
     }
-
+    
     private setPhysics(): void {
         this.scene.physics.add.existing(this);
         let body = this.body as Phaser.Physics.Arcade.Body

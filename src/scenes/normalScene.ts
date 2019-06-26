@@ -40,6 +40,9 @@ export class NormalScene extends Phaser.Scene {
     private scorefieldOne;
     private scorefieldTwo;
 
+    private winScreenOne : Boolean;
+    private winScreenTwo : Boolean;
+
 
     constructor() {
         super({
@@ -51,6 +54,7 @@ export class NormalScene extends Phaser.Scene {
     create(): void {
         this.setGround();
         this.setBackground();
+        this.winScreen();
     
         // Set sounds
         // this.mySound = this.sound.add('normal_sound', { loop: true });
@@ -176,6 +180,7 @@ export class NormalScene extends Phaser.Scene {
         this.playerTwo.update();
         this.flagTwo.update();
         this.flagOne.update();
+        this.winScreen();
     }
 
     setBackground(): void {
@@ -208,7 +213,7 @@ export class NormalScene extends Phaser.Scene {
     }
 
     // Player two.
-    private captureFlagTwo(flag:Flag, player:Unicorn): void {
+    private captureFlagTwo(flagTwo:Flag, playerOne:Unicorn): void {
             this.collectedFlagsOne++
             this.scorefieldOne.text = this.collectedFlagsOne + " flag captured!"
             this.flagTwo.destroy();
@@ -223,5 +228,48 @@ export class NormalScene extends Phaser.Scene {
             this.physics.add.overlap(this.flagTwo, this.castleOne, this.captureFlagTwo, null, this)
 
             console.log("hebbes!")
+    }
+
+    private winScreen() {
+        if (this.collectedFlagsTwo == 1){
+            this.winScreenOne = true;
+            
+            let winTwo = this.add.text(720, 450, "Player Two wins!", { fontFamily: 'Open Sans', fontSize: 80, color: '#FFD065' }).setOrigin(0.5).setStroke('#EA890D', 16)
+            let btn4 = this.add.text(720, 500, "Click any button to restart", { fontFamily: 'Open Sans', fontSize: 80, color: '#FFD065' }).setOrigin(0.5).setStroke('#EA890D', 16)
+            this.collectedFlagsTwo--
+            
+            this.tweens.add({
+                targets: winTwo,
+                y: 230,
+                duration: 1600,
+                ease: 'Back',
+                easeParams: [3.5],
+                delay:100
+            });
+            
+            for (let i = 0; i < 5; i++) {
+                document.addEventListener("joystick0button" + i, () => {
+                    document.location.reload();
+                })
+            }
+        } else if (this.collectedFlagsOne == 1 ){
+            let winOne = this.add.text(720, 450, "Player one wins!", { fontFamily: 'Open Sans', fontSize: 80, color: '#FFD065' }).setOrigin(0.5).setStroke('#EA890D', 16)
+            let btn3 = this.add.text(720, 500, "Click any button to restart", { fontFamily: 'Open Sans', fontSize: 80, color: '#FFD065' }).setOrigin(0.5).setStroke('#EA890D', 16)
+            
+            this.tweens.add({
+                targets: winOne,
+                y: 230,
+                duration: 1600,
+                ease: 'Back',
+                easeParams: [3.5],
+                delay:100
+            });
+
+            for (let i = 0; i < 5; i++) {
+                document.addEventListener("joystick1button" + i, () => {
+                    document.location.reload();
+                })
+            }
+        }
     }
 };

@@ -31,14 +31,14 @@ export class PlatformDevBot extends Phaser.Physics.Arcade.Sprite {
     // Update the game based on logic or input.
     public update(): void {
     }
-
-    // Following object requires a speed property!
+    
     public addFollower(object: any): void {
         if (this.dynamic) {
             if (this.moveLeft) { object.x -= this.speed; }
             if (this.moveRight) { object.x += this.speed; }
         }
     }
+    
 
     private setPhysics(): void {
         this.scene.physics.add.existing(this);

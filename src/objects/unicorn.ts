@@ -100,6 +100,8 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
 
         document.addEventListener("joystick0button2", function () {
             console.log('P1 -> Button 2 called');
+            this.height += 300;
+            this.width += 300;
         })
 
         document.addEventListener("joystick0button3", function () {
@@ -125,6 +127,8 @@ export class Unicorn extends Phaser.Physics.Arcade.Sprite {
 
         document.addEventListener("joystick1button2", function () {
             console.log('P2 -> Button 2 called');
+            this.playerTwo.height = 60;
+            this.playerTwo.width = 580;
         })
 
         document.addEventListener("joystick1button3", function () {
